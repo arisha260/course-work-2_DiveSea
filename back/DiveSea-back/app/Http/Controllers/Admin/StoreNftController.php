@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Nft\StoreRequest;
-use App\Models\approveNft;
 use App\Models\Nft;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -17,19 +16,16 @@ class StoreNftController extends Controller
 {
     public function __invoke(StoreRequest $request)
     {
-        Log::info('Before authorization in StoreNftController');
         Gate::authorize('create', Nft::class);
-        Log::info('After authorization in StoreNftController');
 
         // Если проверка прошла, продолжаем обработку запроса
         $data = $request->validated();
 
-
-            // Сохраняем изображение в папку storage/app/public/nfts
+        // Сохраняем изображение в папку storage/app/public/nfts
         $path = $request->file('img')->store('nfts', 'public');
         $data['img'] = $path; // Сохраняем путь к изображению в базе данных
 
-        $nft = ApproveNft::create($data);
+        $nft = Nft::create($data);
 
         return response()->json($nft, 201);
     }

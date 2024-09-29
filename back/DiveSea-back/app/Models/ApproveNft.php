@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Nft extends Model
+class approveNft extends Model
 {
     use HasFactory;
     protected $guarded = false;
@@ -19,17 +19,6 @@ class Nft extends Model
         'in_stock',
         'author_id',
         'img',
+        'price',
     ];
-
-    // Связь с автором (один к одному)
-    public function author()
-    {
-        return $this->belongsTo(Author::class, 'author_id', 'id');
-    }
-
-    // Связь с владельцем (один к одному)
-    public function owner()
-    {
-        return $this->belongsTo(Owner::class, 'owner_id', 'id');
-    }
 }

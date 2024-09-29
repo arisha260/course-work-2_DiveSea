@@ -27,7 +27,9 @@ class NftResource extends JsonResource
 //        ];
         return [
             'id' => $this->id,
-            'img' => $this->img,
+            'img' => $this->img
+                ? (str_contains($this->img, 'http') ? $this->img : asset('storage/' . $this->img))
+                : asset('images/default.png'), // Используем ссылку или загруженный файл
             'title' => $this->title,
             'description' => $this->description,
             'royalty' => $this->royalty,
@@ -35,6 +37,7 @@ class NftResource extends JsonResource
             'direct_sale' => $this->direct_sale,
             'currentBid' => $this->currentBid,
             'in_stock' => $this->in_stock,
+            'price' => $this->price,
             'author' => $this->author ? [
                 'id' => $this->author->id,
                 'img' => $this->author->img,

@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
             'title' => 'required|string|max:255|unique:nfts,title', // Заголовок уникален в таблице nfts
             'description' => 'required|string', // Описание должно быть строкой
-            'royalty' => 'required|integer|in:0,10,20,30,40,50', // Royalty только десятичные числа от 0 до 50
+            'royalty' => 'required|numeric|between:0,99999999.99', // Royalty только десятичные числа от 0 до 50
             'put_on_sale' => 'required|boolean', // Продажа должна быть булевым значением
             'direct_sale' => 'required|boolean', // Прямая продажа должна быть булевым значением
             'price' => 'nullable|numeric|between:0,99999999.99', // Цена должна быть десятичным числом или null

@@ -60,6 +60,10 @@ Route::group(['namespace'=> 'App\Http\Controllers\Home', 'prefix' => 'home'], fu
     Route::get('/author/{id}/works', AuthorWorksController::class);
 });
 
+Route::group(['namespace'=> 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function(){
+    Route::get('/', \App\Http\Controllers\Admin\IndexController::class);
+});
+
 Route::middleware(['auth:sanctum'])->post('/home/test', function (Request $request) {
     Log::info('Route reached', [ 'authenticated' => auth()->check(),
         'user' => auth()->user(),
