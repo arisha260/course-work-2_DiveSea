@@ -1,0 +1,175 @@
+// базовые подключения
+@import "vars";
+@import "fonts";
+@import "settings";
+
+// подключения компонентов страницы
+@import "components/header";
+
+
+.main-button{
+  font-family: var(--second-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 16px;
+  background: #141416;
+  text-align: center;
+  transition: all .5s ease;
+  &:focus{
+    outline: none;
+  }
+  @media(hover:hover){
+    &:hover{
+      color: #4a4a4a;
+      background: #d3d3d3;
+    }
+  }
+  &:active{
+    color: #353535;
+    background: #888888;
+  }
+}
+
+.nav{
+  &__list{
+    display: flex;
+    align-items: center;
+  }
+  &__link{
+    font-family: var(--second-family);
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 150%;
+  }
+}
+
+.main-title{
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 99%;
+  color: #141416;
+}
+
+.main-name{
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 140%;
+  color: #141416;
+}
+
+.main-nickname{
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 150%;
+  color: #64748b;
+}
+
+.main-volume{
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 140%;
+  color: #141416;
+}
+
+.main-percents{
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 130%;
+  letter-spacing: 0.01em;
+  color: #10c352;
+}
+
+.main-price{
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 140%;
+  color: #141416;
+}
+
+.main-owners{
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 130%;
+  letter-spacing: 0.01em;
+  color: #010101;
+}
+
+.main-items{
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 130%;
+  letter-spacing: 0.01em;
+  color: #010101;
+}
+
+.text-with-bg{
+  position: relative;
+  &::before{
+    content: '';
+    position: absolute;
+    background-image: url('../../../public/rate-png.png');
+    top: 0;
+    left: -35px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 31px;
+    height: 31px;
+  }
+}
+
+.explore-all{
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  &__text{
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 226%;
+    letter-spacing: -0.01em;
+    text-align: right;
+    color: #acadb9;
+  }
+  &__svg{
+    margin-left: 17px
+  }
+}
+
+.loader {
+  border: 4px solid #f3f3f3; /* Светлый серый цвет */
+  border-top: 4px solid #000; /* Синий цвет */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+.sec-loader{
+  margin: 200px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
