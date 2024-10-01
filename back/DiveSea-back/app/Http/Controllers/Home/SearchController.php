@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Nft\AuthorResource;
+use App\Http\Resources\Nft\UserResource;
 use App\Http\Resources\Nft\NftResource;
 use App\Models\Author;
 use App\Models\Nft;

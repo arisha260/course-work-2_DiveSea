@@ -41,7 +41,7 @@
           <img class="user-profile__img" src="/owner2.png" alt="Profile image user" width="70" height="70">
           <div>
             <p class="user-profile__name">{{ user.name }}</p>
-            <span class="user-profile__nickname">@{{ user.name }}</span>
+            <span class="user-profile__nickname">@{{ user.name === '' ? user.username : user.name }}</span>
           </div>
         </div>
         <div class="user-profile__header-right">

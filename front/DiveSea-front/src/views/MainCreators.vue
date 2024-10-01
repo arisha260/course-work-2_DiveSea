@@ -16,11 +16,11 @@
   <section class="creators">
     <div class="container creators__container">
       <h1 class="main-title creators__title">Creators</h1>
+      <div class="loader creators__loader" v-if="isLoading"></div>
 
-      <div class="creators__content">
-        <div class="loader product-detail__loader" v-if="!authors === 0 ? isLoading = true : isLoading = false"></div>
+      <div class="creators__content" v-if="!isLoading && authors && authors.length > 0">
         <router-link :to="{ name: 'creators.show', params: {id: card.id} }" class="creators__card" v-for="(card, index) in authors" :key="index">
-          <MainAuthorCard :img="card.img" :alt="card.name" :name="card.name" :nickname="card.nickname" followers="33.3k"/>
+          <MainAuthorCard :img="card.img" :alt="card.name" :name="card.name" :nickname="card.nickname" :followers="card.followers"/>
         </router-link>
       </div>
     </div>
@@ -48,6 +48,9 @@
     }
     &__card{
       grid-column: 3 span;
+    }
+    &__loader{
+      margin-top: 100px;
     }
   }
 </style>

@@ -30,7 +30,7 @@ class ApproveNftPolicy
     public function create(User $user): bool
     {
         // Только администратор может добавлять в таблицу ApproveNft
-        return $user->role === 'admin';
+        return $user->role === 'admin' || $user->role === 'author';
     }
 
     /**

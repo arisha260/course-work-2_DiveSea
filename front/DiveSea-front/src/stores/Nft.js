@@ -112,6 +112,12 @@ export const useNftStore = defineStore('nft', () => {
     }
   };
 
+  const loadAllNftsIfEmpty = async () => {
+    if (nfts.value.length === 0) {
+      await getNft();
+    }
+  };
+
   const loadAuthorWorks = async (id) => {
     isLoading.value = true;
     authorWorks.value = [];
@@ -140,7 +146,6 @@ export const useNftStore = defineStore('nft', () => {
 
   const getAuthors = async () => {
     isLoading.value = true;
-
     try {
       const res = await axios.get('/api/home/authors');
       authors.value = res.data.data;
@@ -234,5 +239,5 @@ export const useNftStore = defineStore('nft', () => {
 
 
   return { nft, nfts, isLoading, currentPage, hasMore, totalNfts, authorWorks, authors, stringSearch, authorSearch, nftsSearch, isLoadingSearch, author, loaderMain, errors,
-    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth };
+    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth, loadAllNftsIfEmpty };
 });

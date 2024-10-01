@@ -17,22 +17,24 @@
 </script>
 
 <template>
-  <section class="discover">
-    <div class="container discover__container">
-      <h1 class="main-title discover__title">Discover NFTs</h1>
-      <MainCategory class="discover__category" />
-      <div class="loader sec-loader discover__loader" v-if="loaderMain"></div>
-      <MainHollow v-else-if="nfts.length === 0" />
-      <div class="discover__content">
+  <keep-alive>
+    <section class="discover">
+      <div class="container discover__container">
+        <h1 class="main-title discover__title">Discover NFTs</h1>
+        <MainCategory class="discover__category" />
+        <div class="loader sec-loader discover__loader" v-if="loaderMain"></div>
+        <MainHollow v-else-if="nfts.length === 0" />
+        <div class="discover__content">
 
-        <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="discover__card" v-for="(card, index) in nfts" :key="index"><NftCard :img="card.img" alt="card1" :title="card.title" :rate="card.currentBid" /> </router-link>
+          <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="discover__card" v-for="(card, index) in nfts" :key="index"><NftCard :img="card.img" alt="card1" :title="card.title" :rate="card.currentBid" /> </router-link>
+        </div>
+        <button v-if="hasMore" @click="loadMore" :disabled="isLoading" class="btn-reset main-button discover__btn">
+          Еще
+        </button>
+        <div class="loader discover__loader" v-if="isLoading"></div>
       </div>
-      <button v-if="hasMore" @click="loadMore" :disabled="isLoading" class="btn-reset main-button discover__btn">
-        Еще
-      </button>
-      <div class="loader discover__loader" v-if="isLoading"></div>
-    </div>
-  </section>
+    </section>
+  </keep-alive>
 </template>
 
 <style scoped lang="scss">

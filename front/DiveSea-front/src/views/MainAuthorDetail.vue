@@ -32,7 +32,8 @@ watch(route, async (newRoute) => {
 
 <template>
   <section class="author-detail">
-    <div class="container author-detail__container" v-if="author">
+    <div class="loader author-detail__loader" v-if="isLoading"></div>
+    <div class="container author-detail__container" v-if="!isLoading && author">
       <div class="author-detail__left">
         <div class="author-detail__img-container">
           <img :src="author.img" alt="Автор" class="author-detail__img" width="165" height="165">
@@ -48,22 +49,22 @@ watch(route, async (newRoute) => {
 
         <div class="author-detail__author-info">
           <div class="author-detail__content">
-            <p class="author-detail__count">86 ETH</p>
+            <p class="author-detail__count">{{ author.total_sales }} ETH</p>
             <span class="author-detail__what">Total Sales</span>
           </div>
           <div class="author-detail__content">
-            <p class="author-detail__count">12K</p>
+            <p class="author-detail__count">{{ author.followers }}</p>
             <span class="author-detail__what">Followers</span>
           </div>
           <div class="author-detail__content">
-            <p class="author-detail__count">587</p>
+            <p class="author-detail__count">{{ author.followings }}</p>
             <span class="author-detail__what">Followings</span>
           </div>
         </div>
 
         <div class="author-detail__author-info">
           <h4 class="author-detail__bio-title">Bio</h4>
-          <p class="author-detail__bio-text">the artist who transforms the intangible into priceless assets with their incredible NFT creations. From stunning visuals to mind-bending concepts,</p>
+          <p class="author-detail__bio-text">{{ author.bio }}</p>
         </div>
 
         <ul class="author-detail__list list-reset">
@@ -139,7 +140,8 @@ watch(route, async (newRoute) => {
 
 <style lang="scss">
   .author-detail{
-    margin: 388px 0 180px 0;
+    //margin: 388px 0 180px 0;
+    margin: 180px 0;
     &__container{
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -277,6 +279,12 @@ watch(route, async (newRoute) => {
       grid-column: 6/6 span;
       display: flex;
       flex-direction: column;
+    }
+    &__loader{
+      margin: 0 auto;
+      :not(:first-child){
+        margin: 100px auto;
+      }
     }
   }
 

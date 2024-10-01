@@ -16,10 +16,11 @@
   const royalty = ref(0);
   const price = ref(0);
   const in_stock = ref(1);
-  const put_on_sale = ref(false);
-  const direct_sale = ref(false);
+  // const put_on_sale = ref(false);
+  // const direct_sale = ref(false);
   const image = ref(null);
   const nftForm = ref(null);
+  const sale_type = ref(null);
 
 
   const titleError = ref('');
@@ -34,15 +35,16 @@
     title.value = null;
     description.value = null;
     royalty.value = null;
-    put_on_sale.value = false;
-    direct_sale.value = false;
+    // put_on_sale.value = false;
+    // direct_sale.value = false;
     price.value = null;
     in_stock.value = null;
     image.value = null;
+    sale_type.value = 'put_on_sale';
   };
 
   const isDisabled = computed(() => {
-    return title.value && description.value && royalty.value && (put_on_sale.value !== null) && (direct_sale.value !== null) && price.value && in_stock.value
+    return title.value && description.value && royalty.value && price.value && in_stock.value
   });
 
   const handleFileUpload = (event) => {
@@ -61,8 +63,9 @@
       formData.append('title', title.value);
       formData.append('description', description.value);
       formData.append('royalty', royalty.value);
-      formData.append('put_on_sale', put_on_sale.value ? '1' : '0'); // Преобразуем в '1' или '0'
-      formData.append('direct_sale', direct_sale.value ? '1' : '0'); // Преобразуем в '1' или '0'
+      // formData.append('put_on_sale', put_on_sale.value ? '1' : '0'); // Преобразуем в '1' или '0'
+      // formData.append('direct_sale', direct_sale.value ? '1' : '0'); // Преобразуем в '1' или '0'
+      formData.append('sale_type', sale_type.value);
       formData.append('price', price.value);
       formData.append('in_stock', in_stock.value);
       formData.append('author_id', user.value.id);
@@ -81,6 +84,7 @@
       clearForm();
     } catch (error) {
       console.error('Ошибка при отправке данных:', error);
+      console.log('Ошибка при отправке данных:', error.response.data);
     }
   };
 
@@ -171,7 +175,9 @@
                <h4 class="form__title">Put On Sale</h4>
                <p class="form__text">People Will Bids On Your NFT Project</p>
              </div>
-             <input type="checkbox" v-model="put_on_sale">
+             <label>
+               <input type="radio" v-model="sale_type" value="put_on_sale">
+             </label>
            </div>
 
            <div class="form__content-checkbox">
@@ -179,8 +185,12 @@
                <h4 class="form__title">Direct Sale</h4>
                <p class="form__text">No Bids - Only Direct Salling</p>
              </div>
-             <input type="checkbox" v-model="direct_sale">
+             <label>
+               <input type="radio" v-model="sale_type" value="direct_sale">
+             </label>
            </div>
+
+
            <button type="submit" class="btn-reset main-button form__btn form__btn-create">Create</button>
          </div>
 

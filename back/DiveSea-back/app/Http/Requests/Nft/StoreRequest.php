@@ -26,11 +26,12 @@ class StoreRequest extends FormRequest
             'title' => 'required|string|max:255|unique:nfts,title', // Заголовок уникален в таблице nfts
             'description' => 'required|string', // Описание должно быть строкой
             'royalty' => 'required|numeric|between:0,99999999.99', // Royalty только десятичные числа от 0 до 50
-            'put_on_sale' => 'required|boolean', // Продажа должна быть булевым значением
-            'direct_sale' => 'required|boolean', // Прямая продажа должна быть булевым значением
+//            'put_on_sale' => 'required|boolean', // Продажа должна быть булевым значением
+//            'direct_sale' => 'required|boolean', // Прямая продажа должна быть булевым значением
             'price' => 'nullable|numeric|between:0,99999999.99', // Цена должна быть десятичным числом или null
-            'in_stock' => 'required|integer|digits_between:1,3', // В наличии должен быть числом от 001 до 999
+            'in_stock' => 'required|integer|digits_between:1,6', // В наличии должен быть числом от 001 до 999
             'author_id' => 'required|integer', // Автор пока временно, так как без него у меня не получится получить данные
+            'sale_type' => 'required|string|in:put_on_sale,direct_sale', // Тип продажи: аукцион или одной ценой
         ];
     }
 }

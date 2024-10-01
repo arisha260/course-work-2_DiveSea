@@ -21,6 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'img',
+        'nickname',
+        'total_sales',
+        'followers',
+        'followings',
+        'bio',
     ];
 
     /**
@@ -45,15 +51,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-//    protected $casts = [
-//        'email_verified_at' => 'datetime',
-//        'password' => 'hashed',
-//    ];
-//    public function role()
-//    {
-//        return $this->belongsTo(Role::class);
-//    }
-
     public function nftsToApprove()
     {
         return $this->hasMany(ApproveNft::class, 'owner_id', 'id');

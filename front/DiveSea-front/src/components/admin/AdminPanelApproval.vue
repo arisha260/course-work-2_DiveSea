@@ -1,6 +1,7 @@
 <script setup>
 import NftCard from '@/components/NftCard.vue'
 import AdminPanelProductInfo from '@/components/admin/AdminPanelProductInfo.vue'
+import MainHollow from '@/components/MainHollow.vue'
 import { useAdminStore } from '@/stores/Admin/adminStore.js'
 import { storeToRefs } from 'pinia'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
@@ -44,8 +45,6 @@ onBeforeUnmount(() => {
 <template>
   <div class="admin-approval">
     <div class="container admin-approval__container">
-      <!-- Лоадер -->
-      <!-- Лоадер -->
       <div class="loader admin-approval__loader" v-if="loader"></div>
 
       <!-- Карточки NFT рендерятся только если лоадер не активен -->
@@ -61,6 +60,8 @@ onBeforeUnmount(() => {
           :rate="card.currentBid"
         />
       </div>
+
+      <MainHollow v-else-if="nfts.length === 0 && !loader" />
 
       <!-- Модальное окно с информацией -->
       <AdminPanelProductInfo

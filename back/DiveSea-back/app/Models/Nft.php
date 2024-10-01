@@ -13,8 +13,9 @@ class Nft extends Model
         'title',
         'description',
         'royalty',
-        'put_on_sale',
-        'direct_sale',
+//        'put_on_sale',
+//        'direct_sale',
+        'sale_type',
         'currentBid',
         'in_stock',
         'author_id',
@@ -24,12 +25,11 @@ class Nft extends Model
     // Связь с автором (один к одному)
     public function author()
     {
-        return $this->belongsTo(Author::class, 'author_id', 'id');
+        return $this->belongsTo(User::class, 'author_id', 'id');
     }
 
-    // Связь с владельцем (один к одному)
     public function owner()
     {
-        return $this->belongsTo(Owner::class, 'owner_id', 'id');
+        return $this->belongsTo(User::class, 'owner_id', 'id');
     }
 }

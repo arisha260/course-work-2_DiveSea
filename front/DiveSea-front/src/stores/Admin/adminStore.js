@@ -7,7 +7,7 @@ axios.defaults.withXSRFToken = true;
 
 export const useAdminStore = defineStore('admin', () => {
   const loader = ref(false)
-  const nfts = ref(null)
+  const nfts = ref([])
   const currentNft = ref(null)
 
   const getCsrfToken = async () => {

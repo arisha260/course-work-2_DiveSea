@@ -5,7 +5,7 @@ namespace App\Http\Resources\Nft;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthorResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,12 @@ class AuthorResource extends JsonResource
             'id' => $this->id,
             'img' => $this->img,
             'name' => $this->name,
-            'surname' => $this->surname,
             'nickname' => $this->nickname,
             'email' => $this->email,
+            'total_sales' => $this->total_sales,
+            'followers' => $this->followers,
+            'followings' => $this->followings,
+            'bio' => $this->bio,
             'nfts' => NftResource::collection($this->whenLoaded('nfts')),
         ];
     }

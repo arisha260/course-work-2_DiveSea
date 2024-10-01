@@ -19,8 +19,9 @@ return new class extends Migration
             $table->integer('royalty');
 //            $table->string('size');
 //            $table->string('tags');
-            $table->boolean('put_on_sale');
-            $table->boolean('direct_sale');
+//            $table->boolean('put_on_sale');
+//            $table->boolean('direct_sale');
+            $table->string('sale_type');
             $table->decimal('currentBid')->nullable();
             $table->decimal('price', 8, 2)->nullable();
             $table->integer('in_stock')->default(1);
@@ -28,11 +29,11 @@ return new class extends Migration
 
             // Связь с таблицей authors
             $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
 
-            // Связь с таблицей owners
+            // Связь с таблицей users для владельцев
             $table->unsignedBigInteger('owner_id')->nullable(); // Владелец может быть null, если NFT еще не продано
-            $table->foreign('owner_id')->references('id')->on('owners')->onDelete('set null');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
 
             $table->softDeletes();
         });

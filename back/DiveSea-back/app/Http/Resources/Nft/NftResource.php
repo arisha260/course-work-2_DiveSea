@@ -20,7 +20,7 @@ class NftResource extends JsonResource
 //            'title' => $this->title,
 //            'currentBid' => $this->currentBid,
 //            'price' => $this->price,
-////            'author_id' => new AuthorResource($this->whenLoaded('author_id')), // Используем Eager Loaded данные
+////            'author_id' => new UserResource($this->whenLoaded('author_id')), // Используем Eager Loaded данные
 ////            'owner_id' => new OwnerResource($this->whenLoaded('owner_id')),   // Используем Eager Loaded данные
 //            'author_id' => $this->author_id,
 //            'owner_id' => $this->owner_id,
@@ -33,8 +33,9 @@ class NftResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'royalty' => $this->royalty,
-            'put_on_sale' => $this->put_on_sale,
-            'direct_sale' => $this->direct_sale,
+//            'put_on_sale' => $this->put_on_sale,
+//            'direct_sale' => $this->direct_sale,
+            'sale_type' => $this->sale_type,
             'currentBid' => $this->currentBid,
             'in_stock' => $this->in_stock,
             'price' => $this->price,
@@ -42,7 +43,6 @@ class NftResource extends JsonResource
                 'id' => $this->author->id,
                 'img' => $this->author->img,
                 'name' => $this->author->name,
-                'surname' => $this->author->surname,
                 'nickname' => $this->author->nickname,
                 'email' => $this->author->email,
             ] : null,

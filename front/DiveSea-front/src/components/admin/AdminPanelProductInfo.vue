@@ -12,8 +12,7 @@ const approveNft = async () => {
     formData.append('title', currentNft.value.title);
     formData.append('description', currentNft.value.description);
     formData.append('royalty', currentNft.value.royalty);
-    formData.append('put_on_sale', currentNft.value.put_on_sale);
-    formData.append('direct_sale', currentNft.value.direct_sale);
+    formData.append('sale_type', currentNft.value.sale_type);
     formData.append('price', currentNft.value.price);
     formData.append('in_stock', currentNft.value.in_stock);
     formData.append('author_id', currentNft.value.author.id);
@@ -47,8 +46,8 @@ const handleClose = () => {
     <p class="admin-info__text admin-info__product-descr">Product Description: {{ currentNft.description }}</p>
     <p class="admin-info__text admin-info__product-royalty">Product Royalty: {{ currentNft.royalty }}</p>
     <p class="admin-info__text admin-info__product-quantity">Product Quantity: {{ currentNft.in_stock }}</p>
-    <p class="admin-info__text admin-info__product-price">Product Price:{{ currentNft.price }}</p>
-    <p class="admin-info__text admin-info__product-saleType">Product Sale Type:{{ currentNft.saleType }}</p>
+    <p class="admin-info__text admin-info__product-price">Product Price: {{ currentNft.price }}</p>
+    <p class="admin-info__text admin-info__product-saleType">Product Sale Type: {{ currentNft.sale_type }}</p>
     <div class="admin-info__btns">
       <button @click.prevent="approveNft(); handleClose()" class="btn-reset main-button admin-info__btn admin-info__accept">Accept</button>
       <button @click.prevent="store.rejectNft(currentNft.id)" @click="handleClose" class="btn-reset main-button admin-info__btn admin-info__denial">Denial</button>

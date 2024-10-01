@@ -13,15 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-        $this->call([
-//            AuthorSeeder::class,
-//            OwnerSeeder::class,
-            NftSeeder::class,
-        ]);
-//        User::factory()->create([
-//            'name' => 'Test User',
-//            'email' => 'test@example.com',
-//        ]);
+        // Сначала создаем пользователей
+        $this->call(UserSeeder::class);
+
+        // Затем создаем NFT
+        $this->call(NftSeeder::class);
     }
 }

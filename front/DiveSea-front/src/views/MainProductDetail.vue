@@ -30,7 +30,8 @@ watch(route, async (newRoute) => {
 
 <template>
   <section class="product-detail">
-    <div class="container product-detail__container">
+    <div class="loader product-detail__loader" v-if="nft ? isLoading = false : isLoading = true"></div>
+    <div class="container product-detail__container" v-if="!isLoading">
       <div class="product-detail__header">
         <router-link :to="{name: 'discover'}"><svg class="product-detail__back-icon" width="38" height="37" viewBox="0 0 38 37" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="0.602051" width="36.8151" height="36.8151" rx="18.4076" fill="currentColor" />
@@ -38,9 +39,6 @@ watch(route, async (newRoute) => {
         </svg></router-link>
         <h3 class="product-detail__title">Product Detail</h3>
       </div>
-
-      <!-- Загрузочный индикатор -->
-      <div class="loader product-detail__loader" v-if="nft ? isLoading = false : isLoading = true"></div>
 
       <div class="product-detail__content project-info" v-if="nft">
         <div class="project-info__left">
