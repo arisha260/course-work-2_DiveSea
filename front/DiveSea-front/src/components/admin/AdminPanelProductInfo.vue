@@ -1,12 +1,27 @@
 <script setup>
-defineProps({
-  title: String,
-  description: String,
-  royalty: String,
-  inStock: String,
-  price: String,
-  saleType: Boolean,
-})
+import { useAdminStore } from '@/stores/Admin/adminStore.js'
+import { storeToRefs } from 'pinia'
+
+const store = useAdminStore()
+const { currentNft } = storeToRefs(store)
+
+const approveNft = async () => {
+  const formData = new FormData();
+
+  if (currentNft.value) {
+    formData.append('title', currentNft.value.title);
+    formData.append('description', currentNft.value.description);
+    formData.append('royalty', currentNft.value.royalty);
+    formData.append('put_on_sale', currentNft.value.put_on_sale);
+    formData.append('direct_sale', currentNft.value.direct_sale);
+    formData.append('price', currentNft.value.price);
+    formData.append('in_stock', currentNft.value.in_stock);
+    formData.append('author_id', currentNft.value.author.id);
+    formData.append('img', currentNft.value.img);
+  }
+  await store.sendApprovedNft(currentNft.value.id, formData);
+  handleClose();
+}
 
 const emit = defineEmits(['close'])
 
@@ -27,15 +42,16 @@ const handleClose = () => {
       </g>
     </svg>
     <h3 class="admin-info__title">Information about product</h3>
-    <p class="admin-info__text admin-info__product-title">Product Title: {{ title }}</p>
-    <p class="admin-info__text admin-info__product-descr">Product Description: {{ description }}</p>
-    <p class="admin-info__text admin-info__product-royalty">Product Royalty: {{ royalty }}</p>
-    <p class="admin-info__text admin-info__product-quantity">Product Quantity: {{ inStock }}</p>
-    <p class="admin-info__text admin-info__product-price">Product Price:{{ price }}</p>
-    <p class="admin-info__text admin-info__product-saleType">Product Sale Type:{{ saleType }}</p>
+    <p class="admin-info__text admin-info__product-author">Product Author: {{ currentNft.author.name }}</p>
+    <p class="admin-info__text admin-info__product-title">Product Title: {{ currentNft.title }}</p>
+    <p class="admin-info__text admin-info__product-descr">Product Description: {{ currentNft.description }}</p>
+    <p class="admin-info__text admin-info__product-royalty">Product Royalty: {{ currentNft.royalty }}</p>
+    <p class="admin-info__text admin-info__product-quantity">Product Quantity: {{ currentNft.in_stock }}</p>
+    <p class="admin-info__text admin-info__product-price">Product Price:{{ currentNft.price }}</p>
+    <p class="admin-info__text admin-info__product-saleType">Product Sale Type:{{ currentNft.saleType }}</p>
     <div class="admin-info__btns">
-      <button class="btn-reset main-button admin-info__btn admin-info__accept">Accept</button>
-      <button class="btn-reset main-button admin-info__btn admin-info__denial">Denial</button>
+      <button @click.prevent="approveNft(); handleClose()" class="btn-reset main-button admin-info__btn admin-info__accept">Accept</button>
+      <button @click.prevent="store.rejectNft(currentNft.id)" @click="handleClose" class="btn-reset main-button admin-info__btn admin-info__denial">Denial</button>
     </div>
   </div>
 </template>
@@ -63,7 +79,6 @@ const handleClose = () => {
     font-weight: 400;
     font-size: 18px;
     line-height: 156%;
-    text-align: justify;
     color: #676767;
   }
 

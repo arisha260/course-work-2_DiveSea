@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
 export const useAdminStore = defineStore('admin', () => {
-  const loader = ref(null)
+  const loader = ref(false)
   const nfts = ref(null)
   const currentNft = ref(null)
 
@@ -22,6 +22,7 @@ export const useAdminStore = defineStore('admin', () => {
   };
 
  const getNftApprove = async () => {
+   loader.value = true;
    try {
      await getCsrfToken();
      const res = await axios.get('/api/admin');
@@ -29,6 +30,8 @@ export const useAdminStore = defineStore('admin', () => {
      console.log(res.data);
    } catch (error){
      console.log('При получении nft на подтверждение произошла ошибка: ', error)
+   } finally {
+     loader.value = false;
    }
  }
 
@@ -36,7 +39,30 @@ export const useAdminStore = defineStore('admin', () => {
     currentNft.value = nft;  // Устанавливаем выбранный NFT
   }
 
+  const sendApprovedNft = async (id, formData) => {
+    try {
+      await getCsrfToken();
+      const res = await axios.post(`/api/admin/create/${id}`, formData);
+      console.log('NFT успешно одобрено', res.data);
+      console.log("Отправляемые данные: ", formData);
+      await getNftApprove();
+    } catch (error) {
+      console.log('Ошибка при одобрении NFT: ', error);
+    }
+  }
 
-  return { nfts, currentNft,
-   getNftApprove, setSelectedNft }
+  const rejectNft = async (nftId) => {
+    try {
+      await getCsrfToken();
+      await axios.delete(`/api/admin/delete/${nftId}`);
+      console.log('NFT успешно отклонено');
+      await getNftApprove();
+    } catch (error) {
+      console.log('Ошибка при отклонении NFT: ', error);
+    }
+  }
+
+
+  return { nfts, currentNft, loader,
+   getNftApprove, setSelectedNft, sendApprovedNft, rejectNft }
 })

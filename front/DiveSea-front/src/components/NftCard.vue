@@ -80,6 +80,7 @@ defineProps({
     }
     &__title{
       margin: 0;
+      margin-top: auto;
       font-family: var(--font-family);
       font-weight: 600;
       font-size: 21px;

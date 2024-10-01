@@ -53,4 +53,14 @@ class User extends Authenticatable
 //    {
 //        return $this->belongsTo(Role::class);
 //    }
+
+    public function nftsToApprove()
+    {
+        return $this->hasMany(ApproveNft::class, 'owner_id', 'id');
+    }
+
+    public function nfts()
+    {
+        return $this->hasMany(NFT::class, 'owner_id', 'id');
+    }
 }

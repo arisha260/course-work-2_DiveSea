@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const store = useAdminStore();
-const { nfts, currentNft } = storeToRefs(store);
+const { nfts, currentNft, loader } = storeToRefs(store);
 
 const isModalOpen = ref(false); // Для состояния модального окна
 
@@ -44,15 +44,23 @@ onBeforeUnmount(() => {
 <template>
   <div class="admin-approval">
     <div class="container admin-approval__container">
-      <!-- Карточки NFT -->
-      <NftCard @click="openProductInfo(card)"
-               v-for="(card, index) in nfts"
-               :key="index"
-               class="admin-approval__card"
-               :img="card.img"
-               alt="card1"
-               :title="card.title"
-               :rate="card.currentBid" />
+      <!-- Лоадер -->
+      <!-- Лоадер -->
+      <div class="loader admin-approval__loader" v-if="loader"></div>
+
+      <!-- Карточки NFT рендерятся только если лоадер не активен -->
+      <div class="admin-approval__content" v-if="!loader && nfts && nfts.length > 0">
+        <NftCard
+          v-for="(card, index) in nfts"
+          :key="index"
+          @click="openProductInfo(card)"
+          class="admin-approval__card"
+          :img="card.img"
+          alt="card.title"
+          :title="card.title"
+          :rate="card.currentBid"
+        />
+      </div>
 
       <!-- Модальное окно с информацией -->
       <AdminPanelProductInfo
@@ -60,25 +68,29 @@ onBeforeUnmount(() => {
         v-if="isModalOpen"
         ref="InfoRef"
         :nft="currentNft"
-        :title="currentNft.title"
-        :description="currentNft.description"
-        :royalty="currentNft.royalty"
-        :inStock="currentNft.in_stock"
-        :price="currentNft.price"
         @close="closeProductInfo"
       />
     </div>
   </div>
 </template>
 
+
 <style scoped lang="scss">
 .admin-approval {
   position: relative;
 
   &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__content{
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     align-items: center;
+    justify-content: center;
+    gap: 30px;
   }
 
   &__card {
@@ -94,6 +106,9 @@ onBeforeUnmount(() => {
     padding: 20px;
     border-radius: 23px;
     box-shadow: 39px 12px 59px 0 rgba(199, 199, 199, 0.6);
+  }
+  &__loader{
+    margin: 300px auto;
   }
 }
 </style>

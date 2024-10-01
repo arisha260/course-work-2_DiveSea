@@ -2,28 +2,26 @@
 
 namespace App\Policies;
 
-use App\Models\Nft;
+use App\Models\ApproveNft;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Log;
 
-class NftPolicy
+class ApproveNftPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        Log::info($user->role);
-        return $user->role === 'admin' || $user->role === 'author';
+        return $user->role === 'admin';
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Nft $nft): bool
+    public function view(User $user, ApproveNft $approveNft): bool
     {
-        return true;
+        //
     }
 
     /**
@@ -31,22 +29,22 @@ class NftPolicy
      */
     public function create(User $user): bool
     {
-        Log::info('User Role: ' . $user->role); // Log the user's role
-        return $user->role === 'admin' || $user->role === 'author';
+        // Только администратор может добавлять в таблицу ApproveNft
+        return $user->role === 'admin';
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Nft $nft): bool
+    public function update(User $user, ApproveNft $approveNft): bool
     {
-        return true;
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Nft $nft): bool
+    public function delete(User $user, ApproveNft $approveNft): bool
     {
         return $user->role === 'admin';
     }
@@ -54,16 +52,16 @@ class NftPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Nft $nft): bool
+    public function restore(User $user, ApproveNft $approveNft): bool
     {
-        return true;
+        //
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Nft $nft): bool
+    public function forceDelete(User $user, ApproveNft $approveNft): bool
     {
-        return true;
+        //
     }
 }

@@ -62,6 +62,8 @@ Route::group(['namespace'=> 'App\Http\Controllers\Home', 'prefix' => 'home'], fu
 
 Route::group(['namespace'=> 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function(){
     Route::get('/', \App\Http\Controllers\Admin\IndexController::class);
+    Route::post('/create/{id}', \App\Http\Controllers\Admin\StoreNftController::class);
+    Route::delete('/delete/{id}', \App\Http\Controllers\Admin\DeleteNftController::class);
 });
 
 Route::middleware(['auth:sanctum'])->post('/home/test', function (Request $request) {

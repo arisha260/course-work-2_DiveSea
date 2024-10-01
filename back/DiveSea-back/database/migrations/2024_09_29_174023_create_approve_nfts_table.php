@@ -28,11 +28,11 @@ return new class extends Migration
 
             // Связь с таблицей authors
             $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
 
             // Связь с таблицей owners
             $table->unsignedBigInteger('owner_id')->nullable(); // Владелец может быть null, если NFT еще не продано
-            $table->foreign('owner_id')->references('id')->on('owners')->onDelete('set null');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
 
             $table->softDeletes();
         });
