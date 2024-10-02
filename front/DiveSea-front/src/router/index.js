@@ -28,21 +28,27 @@ const router = createRouter({
       meta: { requiresHeaderFooter: false},
     },
     {
+      path: '/request-for-authorship',
+      name: 'authorship',
+      component: () => import('../views/RequestForAuthorship.vue'),
+      meta: { requiresHeaderFooter: false},
+    },
+    {
       path: '/admin-panel',
       name: 'admin-panel',
       component: () => import('../views/Admin/AdminPanel.vue'),
       meta: { requiresHeaderFooter: false},
       children: [
         {
-          path: '/admin-panel/approval',
-          name: 'admin-panel-approval',
+          path: '/admin-panel/approval_NFTs',
+          name: 'admin-panel-approval-nfts',
           component: () => import('../components/admin/AdminPanelApproval.vue'),
           meta: { requiresHeaderFooter: false},
         },
         {
-          path: '/admin-panel/statistics',
-          name: 'admin-panel-statistics',
-          component: () => import('../components/admin/AdminPanelStatistic.vue'),
+          path: '/admin-panel/approval_authorship',
+          name: 'admin-panel-approval-authorship',
+          component: () => import('../components/admin/AdminPanelApproveAuthorship.vue'),
           meta: { requiresHeaderFooter: false},
         }
       ]

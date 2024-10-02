@@ -8,14 +8,14 @@ const route = useRoute();
   <nav class="nav admin-panel__nav">
     <ul class="list-reset nav__list admin-panel__list">
       <!-- Используем route.name для проверки активного маршрута и добавления класса на li -->
-      <li class="nav__item" :class="{ active: route.name === 'admin-panel-approval' }">
-        <router-link :to="{ name: 'admin-panel-approval' }" class="nav__link">Approval</router-link>
+      <li class="nav__item" :class="{ active: route.name === 'admin-panel-approval-nfts' }">
+        <router-link :to="{ name: 'admin-panel-approval-nfts' }" class="nav__link">Approve NFTs</router-link>
       </li>
-      <li class="nav__item" :class="{ active: route.name === 'admin-panel-statistics' }">
-        <router-link :to="{ name: 'admin-panel-statistics' }" class="nav__link">Privacy Policy</router-link>
+      <li class="nav__item" :class="{ active: route.name === 'admin-panel-approval-authorship' }">
+        <router-link :to="{ name: 'admin-panel-approval-authorship' }" class="nav__link">Approve Authorship</router-link>
       </li>
       <li class="nav__item" :class="{ active: route.name === 'admin-panel-terms' }">
-        <router-link :to="{ name: 'admin-panel-approval' }" class="nav__link">Terms</router-link>
+        <router-link :to="{ name: 'admin-panel-approval-nfts' }" class="nav__link">Terms</router-link>
       </li>
     </ul>
   </nav>

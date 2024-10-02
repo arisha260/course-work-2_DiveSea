@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(NFT::class, 'owner_id', 'id');
     }
+
+    public function authorshipRequests()
+    {
+        return $this->hasMany(ApproveAuthorship::class, 'user_id', 'id');
+    }
 }

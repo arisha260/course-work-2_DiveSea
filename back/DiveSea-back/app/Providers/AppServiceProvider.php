@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\ApproveAuthorship;
 use App\Models\approveNft;
 use App\Models\Nft;
+use App\Models\User;
+use App\Policies\ApproveAuthorshipPolicy;
 use App\Policies\ApproveNftPolicy;
 use App\Policies\NftPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -29,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Log::info('AppServiceProvider booted, registering policies');
         Gate::policy(Nft::class, NftPolicy::class);
         Gate::policy(approveNft::class, ApproveNftPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(ApproveAuthorship::class, ApproveAuthorshipPolicy::class);
 
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";

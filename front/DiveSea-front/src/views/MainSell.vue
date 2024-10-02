@@ -97,6 +97,11 @@
 
       <div v-if="loading" class="loader"></div>
 
+      <div class="sell__auth" v-if="!user">
+        <p class="sell__text">Для доступа к этой странице необходимо войти в систему</p>
+        <router-link :to="{ name: 'login'}" class="main-button sell__btn">Зарегистрироваться!</router-link>
+      </div>
+
       <div class="sell__content" v-else-if="isAuthor || isAdmin">
         <form @submit.prevent="createNft" action="" ref="nftForm" class="sell__form form" enctype="multipart/form-data">
 
@@ -211,11 +216,15 @@
         </form>
       </div>
 
-      <div class="sell__auth" v-else>
-        <p class="sell__text">Чтобы стать автором нужно авторизироваться как автор!</p>
-        <router-link :to="{ name: 'login'}" class="main-button sell__btn">Зарегистрироваться!</router-link>
 
+
+      <div class="sell__auth" v-else>
+        <p class="sell__text">Чтобы иметь право публиковать NFT необходимо стать автором!</p>
+        <router-link :to="{ name: 'authorship'}" class="main-button sell__btn">Я ХОЧУ СТАТЬ АВТОРОМ!</router-link>
       </div>
+
+
+
     </div>
   </section>
 </template>
