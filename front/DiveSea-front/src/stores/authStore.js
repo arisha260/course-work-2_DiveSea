@@ -1,6 +1,8 @@
 import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 import axios from 'axios';
+import { useAuthorshipStore } from '@/stores/Authorship/authorshipStore.js'
+
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -8,6 +10,9 @@ axios.defaults.withXSRFToken = true;
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null);
+  const loading = ref(false);
+  const authorshipStore = useAuthorshipStore();
+  const { isChecked } = storeToRefs(authorshipStore);
 
   const getUserFromCache = () => {
     const cachedUser = localStorage.getItem('user');
@@ -54,6 +59,7 @@ export const useAuthStore = defineStore('auth', () => {
       await axios.post('/api/logout');
       user.value = null;
       localStorage.removeItem('user'); // Очищаем локальное хранилище при выходе
+      isChecked.value = false;
     } catch (error) {
       console.error('Ошибка выхода', error);
       throw error;
@@ -63,11 +69,11 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Получение информации о текущем пользователе
   const getUser = async () => {
+    // loading.value = true;
     // Если пользователь уже загружен в память (или из кэша), не делаем запрос
     if (user.value) {
       return;
     }
-
     try {
       // Делаем запрос только если пользователь аутентифицирован
       const response = await axios.get('/api/user');
@@ -75,6 +81,8 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('user', JSON.stringify(user.value)); // Кэшируем данные
     } catch (error) {
       console.log('Пользователь не авторизован или сессия недействительна');
+    } finally {
+      // loading.value = false;
     }
   };
 
@@ -83,7 +91,7 @@ export const useAuthStore = defineStore('auth', () => {
   const isAdmin = computed(() => user.value?.role === "admin");
 
   return {
-    user, isAuthor, isAdmin, isAuthenticated,
+    user, isAuthor, isAdmin, isAuthenticated, loading,
     login, register, logout, getUser, getUserFromCache,
   };
 })

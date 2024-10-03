@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import { useAuthStore } from '@/stores/authStore';
-//import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from '@/stores/authStore';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,7 +30,7 @@ const router = createRouter({
       path: '/request-for-authorship',
       name: 'authorship',
       component: () => import('../views/RequestForAuthorship.vue'),
-      meta: { requiresHeaderFooter: false},
+      meta: { requiresHeaderFooter: false, requiresRole: ['admin', 'user']},
     },
     {
       path: '/admin-panel',
@@ -95,6 +94,12 @@ const router = createRouter({
       component: () => import('../views/MainUserProfile.vue'),
       meta: { requiresHeaderFooter: true, requiresAuth: true },
     },
+    {
+      path: '/cookie',
+      name: 'cookie',
+      component: () => import('../views/MainCookie.vue'),
+      meta: { requiresHeaderFooter: true, requiresAuth: true },
+    },
 
 
 
@@ -107,28 +112,25 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach(async (to, from, next) => {
-//   const authStore = useAuthStore(); // Теперь импортируем хранилище
-//
-//   // Проверяем, требуется ли авторизация для маршрута
-//   if (to.meta.requiresAuth) {
-//     // Если пользователь не авторизован, перенаправляем на страницу логина
-//     if (!authStore.token) {
-//       return next({ name: 'login' });
-//     }
-//
-//     // Проверяем действительность токена
-//     try {
-//       await authStore.getUser();
-//       next();
-//     } catch (error) {
-//       authStore.clearToken();
-//       next({ name: 'login' });
-//     }
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore();
+  // Загружаем данные пользователя, если не загружены
+  await authStore.getUserFromCache();
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    // Если страница требует авторизацию, но пользователь не авторизован, перенаправляем на логин
+    return next({ name: 'login' });
+  }
+  if (to.meta.requiresRole) {
+    const userRole = authStore.user?.role;  // Получаем роль пользователя
+    const allowedRoles = Array.isArray(to.meta.requiresRole) ? to.meta.requiresRole : [to.meta.requiresRole];
+    if (!allowedRoles.includes(userRole)) {
+      // Если роль пользователя не соответствует ни одной из разрешенных, перенаправляем на 404
+      return next({ name: 'not_found' });
+    }
+  }
+  next(); // Разрешаем переход, если все проверки пройдены
+});
+
 
 
 export default router

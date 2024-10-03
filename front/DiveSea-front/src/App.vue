@@ -1,12 +1,19 @@
 <script setup>
-  import { RouterView, useRoute } from 'vue-router'
   import MainHeader from './components/MainHeader.vue'
   import MainFooter from './components/MainFooter.vue'
-  import { onMounted } from 'vue';
+  import { onMounted, watchEffect } from 'vue'
   import { useAuthStore } from '@/stores/authStore';
+  import { useAuthorshipStore } from '@/stores/Authorship/authorshipStore.js'
+  import { storeToRefs } from 'pinia'
+  import { useRoute, useRouter, RouterView } from 'vue-router';
+
 
   const route = useRoute();
+  const router = useRouter();
   const authStore = useAuthStore();
+  const authorshipStore = useAuthorshipStore();
+  const { user } = storeToRefs(authStore);
+
 
   onMounted(async () => {
     // Восстанавливаем данные пользователя из кэша, если он был авторизован

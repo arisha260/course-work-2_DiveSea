@@ -32,7 +32,7 @@
       <div class="admin-authorship__content" v-if="!loader && authorships && authorships.length > 0">
 <!--        <AdminPanelApproveAuthorshipCard class="admin-authorship__card" v-for="(card, index) in authorships" :key="index" :name="card.user.name" :reason="card.reason" />-->
         <div class="admin-authorship__card approve-authorship-card" v-for="(card, index) in authorships" :key="index">
-          <p class="approve-authorship-card__text title">Authorship for confirmation from the user: <span class="approve-authorship-card__name">{{ card.name }}</span></p>
+          <p class="approve-authorship-card__text title">Authorship for confirmation from the user: <span class="approve-authorship-card__name">{{ card.user.name }}</span></p>
           <p class="approve-authorship-card__text">Reason: {{ card.reason }}</p>
           <div class="approve-authorship-card__btns">
             <button @click.prevent="store.approveAuthorship(card.id)" class="btn-reset main-button approve-authorship-card__btn approve-authorship-card__accept">Accept</button>

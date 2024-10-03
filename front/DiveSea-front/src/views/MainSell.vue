@@ -1,15 +1,19 @@
 <script setup>
-  import {ref, computed, nextTick } from "vue";
+  import {ref, computed, nextTick, onMounted } from "vue";
   import { useRoute } from 'vue-router';
   import { useNftStore } from '@/stores/Nft';
   import { storeToRefs } from 'pinia';
   import { useAuthStore } from '@/stores/authStore';
   import { useValidStore } from '@/stores/validationStore/validStore.js'
+  import { useAuthorshipStore } from '@/stores/Authorship/authorshipStore.js'
+
 
   const store = useNftStore();
   const authorStore = useAuthStore();
   const validStore = useValidStore();
-  const { user, isAuthor, isAdmin, loading  } = storeToRefs(authorStore);
+  const authorshipStore = useAuthorshipStore();
+  const { user, isAuthor, isAdmin, loading, isAuthenticated } = storeToRefs(authorStore);
+  const { hasSubmittedAuthorship, loader } = storeToRefs(authorshipStore);
 
   const title = ref('');
   const description = ref('');
@@ -28,7 +32,6 @@
   const royaltyError = ref('');
   const priceError = ref('');
   const inStockError = ref('');
-
 
 
   const clearForm = () => {
@@ -88,6 +91,11 @@
     }
   };
 
+  onMounted(() => {
+    if (isAuthenticated){
+      authorshipStore.checkAuthorship(user.value.id);
+    }
+  })
 </script>
 
 <template>
@@ -95,9 +103,9 @@
     <div class="container sell__container">
       <h1 class="main-title sell__title">Create Your NFT</h1>
 
-      <div v-if="loading" class="loader"></div>
+      <div v-if="loader" class="loader"></div>
 
-      <div class="sell__auth" v-if="!user">
+      <div class="sell__auth" v-else-if="!user">
         <p class="sell__text">Для доступа к этой странице необходимо войти в систему</p>
         <router-link :to="{ name: 'login'}" class="main-button sell__btn">Зарегистрироваться!</router-link>
       </div>
@@ -220,7 +228,8 @@
 
       <div class="sell__auth" v-else>
         <p class="sell__text">Чтобы иметь право публиковать NFT необходимо стать автором!</p>
-        <router-link :to="{ name: 'authorship'}" class="main-button sell__btn">Я ХОЧУ СТАТЬ АВТОРОМ!</router-link>
+        <p v-if="hasSubmittedAuthorship" class="sell__text">Вы уже подали заявку на авторство. Ожидайте решения администрации.</p>
+        <router-link v-else :to="{ name: 'authorship'}" class="main-button sell__btn">Я ХОЧУ СТАТЬ АВТОРОМ!</router-link>
       </div>
 
 
@@ -250,6 +259,8 @@
      align-items: flex-start;
    }
    &__text{
+     margin: 0;
+     margin-bottom: 10px;
      font-family: var(--font-family);
      font-weight: 400;
      font-size: 20px;

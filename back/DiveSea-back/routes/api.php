@@ -68,6 +68,7 @@ Route::group(['namespace'=> 'App\Http\Controllers\Admin', 'prefix' => 'admin'], 
 
 Route::group(['namespace'=> 'App\Http\Controllers\Authorship', 'prefix' => 'authorship'], function(){
     Route::get('/', \App\Http\Controllers\Authorship\IndexController::class);
+    Route::get('/check/{id}', \App\Http\Controllers\Authorship\CheckAuthorshipController::class);
     Route::post('/create', \App\Http\Controllers\Authorship\StoreAuthorshipController::class);
     Route::post('/approve/{id}', \App\Http\Controllers\Authorship\AuthorshipApprovalController::class);
     Route::delete('/delete/{id}', \App\Http\Controllers\Authorship\DeleteApproveAuthorshipController::class);
