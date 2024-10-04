@@ -69,9 +69,11 @@
       // formData.append('put_on_sale', put_on_sale.value ? '1' : '0'); // Преобразуем в '1' или '0'
       // formData.append('direct_sale', direct_sale.value ? '1' : '0'); // Преобразуем в '1' или '0'
       formData.append('sale_type', sale_type.value);
+      formData.append('currentBid', price.value);
       formData.append('price', price.value);
       formData.append('in_stock', in_stock.value);
       formData.append('author_id', user.value.id);
+      // formData.append('end_time', sale_type.value === 'put_on_sale' ? );
 
       const file = image.value.files[0]; // Используем ref для получения файла
       if (file) {
@@ -92,8 +94,12 @@
   };
 
   onMounted(() => {
-    if (isAuthenticated){
-      authorshipStore.checkAuthorship(user.value.id);
+    if (!user.value){
+      return
+    } else {
+      if (isAuthenticated.value){
+        authorshipStore.checkAuthorship(user.value.id);
+      }
     }
   })
 </script>

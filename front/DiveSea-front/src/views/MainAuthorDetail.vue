@@ -121,7 +121,31 @@ watch(route, async (newRoute) => {
 
         <div class="tab__collection tab__container" v-if="activeTab === 1"  >
           <div v-if="authorWorks.length > 0" class="tab__content">
-            <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="tab__card" v-for="(card, index) in authorWorks" :key="index"><NftCard :img="card.img" alt="card1" :title="card.title" :rate="card.currentBid" /> </router-link>
+            <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="tab__card" v-for="(card, index) in authorWorks" :key="index">
+              <NftCard :img="card.img" alt="card1" :title="card.title">
+                <template v-slot:nft-card__time v-if="card.end_time">
+                  <!-- Отображаем оставшееся время для каждого NFT -->
+                  <span class="nft-card__time">{{ card.end_time }}</span>
+                </template>
+                <template v-slot:nft-card__content-bottom>
+                  <!-- Проверка данных -->
+                  <div v-if="card.sale_type === 'put_on_sale' && card.currentBid" class="nft-card__content-bottom">
+                    <div class="nft-card__current-bid">
+                      <span>Current bid</span>
+                      <p class="nft-card__price nft-card__rate">{{ card.currentBid }}</p>
+                    </div>
+                    <a href="#" class="main-button nft-card__btn">PLACE BID</a>
+                  </div>
+                  <div v-else-if="card.price" class="nft-card__content-bottom">
+                    <div class="nft-card__current-bid">
+                      <span>Price</span>
+                      <p class="nft-card__price">{{ card.price }}</p>
+                    </div>
+                    <a href="#" class="main-button nft-card__btn">Buy Now</a>
+                  </div>
+                </template>
+              </NftCard>
+            </router-link>
           </div>
           <div class="loader author-detail__loader" v-else-if="isLoading"></div>
           <MainHollow v-else />
@@ -363,7 +387,7 @@ watch(route, async (newRoute) => {
         font-size: 10px;
       }
     }
-    &__rate{
+    &__price{
       margin: 0;
       padding-left: 10px;
       font-size: 11px;

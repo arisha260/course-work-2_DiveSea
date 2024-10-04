@@ -1,26 +1,19 @@
 <script setup>
-
-defineProps({
-  img: String,
-  alt: String,
-  title: String,
-  rate: String,
-})
+  defineProps({
+    img: String,
+    alt: String,
+    title: String,
+  })
 </script>
 
 <template>
   <div class="nft-card">
-    <span class="nft-card__time">07h 09m 12s</span>
+    <slot name="nft-card__time"></slot>
+<!--    <span class="nft-card__time">07h 09m 12s</span>-->
     <img :src="img" class="nft-card__img" :alt="alt" width="252" height="252">
     <div class="nft-card__content">
       <p class="nft-card__title">{{ title }}</p>
-      <div class="nft-card__content-bottom" v-if="rate">
-        <div class="nft-card__current-bid">
-          <span>Current bid</span>
-          <p class="nft-card__rate">{{ rate }}</p>
-        </div>
-        <a href="#" class="main-button nft-card__btn">PLACE BID</a>
-      </div>
+      <slot name="nft-card__content-bottom"></slot>
     </div>
   </div>
 </template>
@@ -86,6 +79,7 @@ defineProps({
       font-size: 21px;
       line-height: 140%;
       color: #141416;
+      overflow-wrap: break-word !important;
     }
     &__content-bottom{
       margin-top: auto;
@@ -103,14 +97,14 @@ defineProps({
         color: #94a3b8;
       }
     }
-    &__rate{
+    &__price{
       margin: 0;
-      padding-left: 18px;
       font-family: var(--font-family);
       font-weight: 500;
       font-size: 16px;
       line-height: 150%;
       color: #141416;
+      padding-left: 18px;
       position: relative;
       &::before{
         content: '';
@@ -122,6 +116,9 @@ defineProps({
         background-size: cover;
         width: 22px;
         height: 22px;
+    }
+    &__rate{
+
       }
     }
     &__btn{

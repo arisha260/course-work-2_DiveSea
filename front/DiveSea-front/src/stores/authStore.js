@@ -82,7 +82,7 @@ export const useAuthStore = defineStore('auth', () => {
     } catch (error) {
       console.log('Пользователь не авторизован или сессия недействительна');
     } finally {
-      // loading.value = false;
+      // loading.value = false;ф
     }
   };
 

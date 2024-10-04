@@ -120,19 +120,6 @@ export const useNftStore = defineStore('nft', () => {
 
   const loadAuthorWorks = async (id) => {
     isLoading.value = true;
-    authorWorks.value = [];
-
-    // if (authorWorks.value.length > 0) {
-    //   const authorWorksCache = authorWorks.value.find(nftItem => nftItem.id == id);
-    //   if (authorWorksCache) {
-    //     // Если данные найдены в кеше, используем их
-    //     console.log("Найден кешированный элемент (автора):", authorWorksCache);
-    //     authorWorks.value = authorWorksCache;
-    //     return; // Возвращаемся, чтобы избежать загрузки с сервера
-    //   }
-    // }
-    // console.log("Элемент не найден в кеше, загружаем с сервера...");
-
     try {
       const res = await axios.get(`/api/home/author/${id}/works`);
       authorWorks.value = res.data.data;

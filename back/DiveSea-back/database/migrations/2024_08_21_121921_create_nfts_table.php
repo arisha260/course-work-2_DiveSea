@@ -35,6 +35,8 @@ return new class extends Migration
             $table->unsignedBigInteger('owner_id')->nullable(); // Владелец может быть null, если NFT еще не продано
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
 
+            $table->dateTime('end_time')->nullable();
+
             $table->softDeletes();
         });
     }

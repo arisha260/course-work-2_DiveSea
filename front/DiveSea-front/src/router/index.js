@@ -17,7 +17,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('../views/MainHome.vue'),
-      meta: { requiresHeaderFooter: true, requiresAuth: true },
+      meta: { requiresHeaderFooter: true, requiresAuth: false },
 
     },
     {
@@ -30,25 +30,25 @@ const router = createRouter({
       path: '/request-for-authorship',
       name: 'authorship',
       component: () => import('../views/RequestForAuthorship.vue'),
-      meta: { requiresHeaderFooter: false, requiresRole: ['admin', 'user']},
+      meta: { requiresHeaderFooter: false, requiresAuth: true, requiresRole: ['admin', 'user']},
     },
     {
       path: '/admin-panel',
       name: 'admin-panel',
       component: () => import('../views/Admin/AdminPanel.vue'),
-      meta: { requiresHeaderFooter: false},
+      meta: { requiresHeaderFooter: false, requiresAuth: true, requiresRole: 'admin'},
       children: [
         {
           path: '/admin-panel/approval_NFTs',
           name: 'admin-panel-approval-nfts',
           component: () => import('../components/admin/AdminPanelApproval.vue'),
-          meta: { requiresHeaderFooter: false},
+          meta: { requiresHeaderFooter: false, requiresAuth: true, requiresRole: 'admin'},
         },
         {
           path: '/admin-panel/approval_authorship',
           name: 'admin-panel-approval-authorship',
           component: () => import('../components/admin/AdminPanelApproveAuthorship.vue'),
-          meta: { requiresHeaderFooter: false},
+          meta: { requiresHeaderFooter: false, requiresAuth: true, requiresRole: 'admin'},
         }
       ]
     },
@@ -56,37 +56,37 @@ const router = createRouter({
       path: '/discover',
       name: 'discover',
       component: () => import('../views/MainDiscover.vue'),
-      meta: { requiresHeaderFooter: true, requiresAuth: true },
+      meta: { requiresHeaderFooter: true, requiresAuth: false },
     },
     {
       path: '/creators',
       name: 'creators',
       component: () => import('../views/MainCreators.vue'),
-      meta: { requiresHeaderFooter: true, requiresAuth: true },
+      meta: { requiresHeaderFooter: true, requiresAuth: false },
     },
     {
       path: '/creators/:id',
       name: 'creators.show',
       component: () => import('../views/MainAuthorDetail.vue'),
-      meta: { requiresHeaderFooter: true, requiresAuth: true },
+      meta: { requiresHeaderFooter: true, requiresAuth: false },
     },
     {
       path: '/sell',
       name: 'sell',
       component: () => import('../views/MainSell.vue'),
-      meta: { requiresHeaderFooter: true, requiresAuth: true },
+      meta: { requiresHeaderFooter: true, requiresAuth: false },
     },
     {
       path: '/stats',
       name: 'stats',
       component: () => import('../views/Stats.vue'),
-      meta: { requiresHeaderFooter: true, requiresAuth: true },
+      meta: { requiresHeaderFooter: true, requiresAuth: false },
     },
     {
       path: '/discover/:id',
       name: 'discover.show',
       component: () => import('../views/MainProductDetail.vue'),
-      meta: { requiresHeaderFooter: true, requiresAuth: true },
+      meta: { requiresHeaderFooter: true, requiresAuth: false },
     },
     {
       path: '/user-profile/:user_name',
@@ -98,7 +98,7 @@ const router = createRouter({
       path: '/cookie',
       name: 'cookie',
       component: () => import('../views/MainCookie.vue'),
-      meta: { requiresHeaderFooter: true, requiresAuth: true },
+      meta: { requiresHeaderFooter: true, requiresAuth: false },
     },
 
 

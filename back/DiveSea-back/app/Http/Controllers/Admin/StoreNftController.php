@@ -28,6 +28,10 @@ class StoreNftController extends Controller
             $data['img'] = str_replace('http://localhost:8000/storage/', '', $data['img']); // Убираем базовый URL
         }
 
+        if ($request->sale_type === 'put_on_sale') {
+            $data['end_time'] = now()->addDays(2); // добавляем 48 часов
+        }
+
         // Создаем запись в основной таблице Nft
         $nft = Nft::create($data);
 

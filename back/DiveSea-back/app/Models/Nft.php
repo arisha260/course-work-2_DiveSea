@@ -17,9 +17,11 @@ class Nft extends Model
 //        'direct_sale',
         'sale_type',
         'currentBid',
+        'price',
         'in_stock',
         'author_id',
         'img',
+        'end_time',
     ];
 
     // Связь с автором (один к одному)

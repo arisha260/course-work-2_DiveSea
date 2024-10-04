@@ -54,6 +54,7 @@ class NftResource extends JsonResource
                 'nickname' => $this->owner->nickname,
                 'email' => $this->owner->email,
             ] : null,
+            'end_time' => $this->end_time,
         ];
 
     }

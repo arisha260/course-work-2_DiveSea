@@ -4,7 +4,6 @@ import { onMounted, watch } from 'vue';
 import { useNftStore } from '@/stores/Nft';
 import { storeToRefs } from 'pinia';
 import NftCardFromCreator from '@/components/NftCardFromCreator.vue'
-import MainHollow from '@/components/MainHollow.vue'
 
 const route = useRoute();
 const store = useNftStore();
@@ -67,11 +66,11 @@ watch(route, async (newRoute) => {
           <div class="project-info__current-end">
             <div class="project-info__current-bid">
               <span class="main-span">Current Bid</span>
-              <p class="project-info__rate">{{ nft.currentBid }}</p>
+              <p class="project-info__rate">{{ nft.price }}</p>
             </div>
             <div class="project-info__end-in">
               <span class="main-span">End in</span>
-              <p class="project-info__date">Jun 17, 2023 at 05:08</p>
+              <p class="project-info__date">{{ nft.end_time }}</p>
             </div>
           </div>
           <a href="#" class="btn-reset product-detail__btn">

@@ -21,7 +21,25 @@
       <MainCategory :count="totalNfts" class="explore-marketplace__categories" />
       <div class="explore-marketplace__nft" >
         <MainHollow v-if="nfts.length === 0" />
-        <NftCard v-for="(card, index) in nfts" :key="index" class="explore-marketplace__card" :img="card.img" alt="card1" :title="card.title" :rate="card.currentBid"/>
+        <NftCard v-for="(card, index) in nfts" :key="index" class="explore-marketplace__card" :img="card.img" alt="card1" :title="card.title" :rate="card.currentBid">
+          <template v-slot:nft-card__content-bottom>
+            <!-- Проверка данных -->
+            <div v-if="card.sale_type === 'put_on_sale' && card.currentBid" class="nft-card__content-bottom">
+              <div class="nft-card__current-bid">
+                <span>Current bid</span>
+                <p class="nft-card__price nft-card__rate">{{ card.currentBid }}</p>
+              </div>
+              <a href="#" class="main-button nft-card__btn">PLACE BID</a>
+            </div>
+            <div v-else-if="card.price" class="nft-card__content-bottom">
+              <div class="nft-card__current-bid">
+                <span>Price</span>
+                <p class="nft-card__price">{{ card.price }}</p>
+              </div>
+              <a href="#" class="main-button nft-card__btn">Buy Now</a>
+            </div>
+          </template>
+        </NftCard>
       </div>
       <div class="explore-marketplace__explore-all explore-all">
         <router-link :to="{ name: 'discover' }" class="explore-all__text">Explore All</router-link>

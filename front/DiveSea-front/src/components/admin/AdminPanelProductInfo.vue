@@ -13,6 +13,7 @@ const approveNft = async () => {
     formData.append('description', currentNft.value.description);
     formData.append('royalty', currentNft.value.royalty);
     formData.append('sale_type', currentNft.value.sale_type);
+    formData.append('currentBid', currentNft.value.currentBid);
     formData.append('price', currentNft.value.price);
     formData.append('in_stock', currentNft.value.in_stock);
     formData.append('author_id', currentNft.value.author.id);
