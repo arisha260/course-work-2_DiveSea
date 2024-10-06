@@ -22,6 +22,7 @@ class Nft extends Model
         'author_id',
         'img',
         'end_time',
+        'balance',
     ];
 
     // Связь с автором (один к одному)

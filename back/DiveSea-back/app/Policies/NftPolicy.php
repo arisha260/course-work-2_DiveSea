@@ -66,4 +66,10 @@ class NftPolicy
     {
         return true;
     }
+
+    public function buy(User $user, Nft $nft): bool
+    {
+        // Например, можно запретить покупку, если NFT уже куплено
+        return $nft->owner_id === null;
+    }
 }

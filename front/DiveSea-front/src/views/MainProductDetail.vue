@@ -1,13 +1,28 @@
 <script setup>
 import { useRoute } from 'vue-router';
-import { onMounted, watch } from 'vue';
+import { onMounted, watch, ref } from 'vue';
 import { useNftStore } from '@/stores/Nft';
 import { storeToRefs } from 'pinia';
 import NftCardFromCreator from '@/components/NftCardFromCreator.vue'
 
 const route = useRoute();
 const store = useNftStore();
-const { nft, isLoading, authorWorks } = storeToRefs(store);
+const { nft, isLoading, error, success, authorWorks } = storeToRefs(store); // Берем состояние из Pinia store
+
+const openModal = ref(false); // модалка успешной покупки
+const openModalErr = ref(false); // модалка ошибки
+
+const buyNft = async (id) => {
+  await store.buyNft(id); // Покупка через Pinia Store
+  if (success.value) {
+    openModal.value = true; // Успешная покупка
+  } else {
+    openModalErr.value = true; // Ошибка при покупке
+  }
+};
+
+
+
 
 onMounted(async () => {
   const nftId = route.params.id;
@@ -73,11 +88,22 @@ watch(route, async (newRoute) => {
               <p class="project-info__date">{{ nft.end_time }}</p>
             </div>
           </div>
-          <a href="#" class="btn-reset product-detail__btn">
+
+          <a href="#" class="btn-reset product-detail__btn" v-if="nft.sale_type === 'put_on_sale' && !nft.owner">
             <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0.739747 3.10639C0.739747 2.3746 1.02399 1.67278 1.52995 1.15533C2.0359 0.637871 2.72213 0.347168 3.43766 0.347168H16.6819C17.3975 0.347168 18.0837 0.637871 18.5897 1.15533C19.0956 1.67278 19.3799 2.3746 19.3799 3.10639V4.36861C20.3111 4.43225 21.1839 4.85549 21.8214 5.55262C22.459 6.24974 22.8136 7.16863 22.8136 8.12317V18.6584C22.8136 19.6563 22.426 20.6133 21.736 21.3189C21.0461 22.0246 20.1103 22.421 19.1346 22.421H4.42264C3.44692 22.421 2.51116 22.0246 1.82122 21.3189C1.13128 20.6133 0.743672 19.6563 0.743672 18.6584V8.12317H0.739747V3.35723H0.750539C0.743269 3.27383 0.739668 3.19013 0.739747 3.10639ZM17.9083 3.10639C17.9083 2.41408 17.3589 1.8522 16.6819 1.8522H3.43766C3.11242 1.8522 2.8005 1.98434 2.57052 2.21955C2.34054 2.45475 2.21133 2.77376 2.21133 3.10639C2.21133 3.43903 2.34054 3.75804 2.57052 3.99324C2.8005 4.22845 3.11242 4.36059 3.43766 4.36059H17.9083V3.10639ZM16.1914 13.3908C15.9963 13.3908 15.8091 13.4701 15.6711 13.6112C15.5331 13.7523 15.4556 13.9437 15.4556 14.1433C15.4556 14.3429 15.5331 14.5343 15.6711 14.6754C15.8091 14.8165 15.9963 14.8958 16.1914 14.8958H18.6441C18.8392 14.8958 19.0264 14.8165 19.1643 14.6754C19.3023 14.5343 19.3799 14.3429 19.3799 14.1433C19.3799 13.9437 19.3023 13.7523 19.1643 13.6112C19.0264 13.4701 18.8392 13.3908 18.6441 13.3908H16.1914Z" fill="currentColor" />
             </svg>
             Place Bid</a>
+          <a href="#" @click="buyNft(nft.id)" class="btn-reset product-detail__btn" v-else-if="nft.sale_type === 'direct_sale' && !nft.owner">
+            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.739747 3.10639C0.739747 2.3746 1.02399 1.67278 1.52995 1.15533C2.0359 0.637871 2.72213 0.347168 3.43766 0.347168H16.6819C17.3975 0.347168 18.0837 0.637871 18.5897 1.15533C19.0956 1.67278 19.3799 2.3746 19.3799 3.10639V4.36861C20.3111 4.43225 21.1839 4.85549 21.8214 5.55262C22.459 6.24974 22.8136 7.16863 22.8136 8.12317V18.6584C22.8136 19.6563 22.426 20.6133 21.736 21.3189C21.0461 22.0246 20.1103 22.421 19.1346 22.421H4.42264C3.44692 22.421 2.51116 22.0246 1.82122 21.3189C1.13128 20.6133 0.743672 19.6563 0.743672 18.6584V8.12317H0.739747V3.35723H0.750539C0.743269 3.27383 0.739668 3.19013 0.739747 3.10639ZM17.9083 3.10639C17.9083 2.41408 17.3589 1.8522 16.6819 1.8522H3.43766C3.11242 1.8522 2.8005 1.98434 2.57052 2.21955C2.34054 2.45475 2.21133 2.77376 2.21133 3.10639C2.21133 3.43903 2.34054 3.75804 2.57052 3.99324C2.8005 4.22845 3.11242 4.36059 3.43766 4.36059H17.9083V3.10639ZM16.1914 13.3908C15.9963 13.3908 15.8091 13.4701 15.6711 13.6112C15.5331 13.7523 15.4556 13.9437 15.4556 14.1433C15.4556 14.3429 15.5331 14.5343 15.6711 14.6754C15.8091 14.8165 15.9963 14.8958 16.1914 14.8958H18.6441C18.8392 14.8958 19.0264 14.8165 19.1643 14.6754C19.3023 14.5343 19.3799 14.3429 19.3799 14.1433C19.3799 13.9437 19.3023 13.7523 19.1643 13.6112C19.0264 13.4701 18.8392 13.3908 18.6441 13.3908H16.1914Z" fill="currentColor" />
+            </svg>
+            Buy</a>
+          <a href="#" class="btn-reset product-detail__btn" v-else>
+            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.739747 3.10639C0.739747 2.3746 1.02399 1.67278 1.52995 1.15533C2.0359 0.637871 2.72213 0.347168 3.43766 0.347168H16.6819C17.3975 0.347168 18.0837 0.637871 18.5897 1.15533C19.0956 1.67278 19.3799 2.3746 19.3799 3.10639V4.36861C20.3111 4.43225 21.1839 4.85549 21.8214 5.55262C22.459 6.24974 22.8136 7.16863 22.8136 8.12317V18.6584C22.8136 19.6563 22.426 20.6133 21.736 21.3189C21.0461 22.0246 20.1103 22.421 19.1346 22.421H4.42264C3.44692 22.421 2.51116 22.0246 1.82122 21.3189C1.13128 20.6133 0.743672 19.6563 0.743672 18.6584V8.12317H0.739747V3.35723H0.750539C0.743269 3.27383 0.739668 3.19013 0.739747 3.10639ZM17.9083 3.10639C17.9083 2.41408 17.3589 1.8522 16.6819 1.8522H3.43766C3.11242 1.8522 2.8005 1.98434 2.57052 2.21955C2.34054 2.45475 2.21133 2.77376 2.21133 3.10639C2.21133 3.43903 2.34054 3.75804 2.57052 3.99324C2.8005 4.22845 3.11242 4.36059 3.43766 4.36059H17.9083V3.10639ZM16.1914 13.3908C15.9963 13.3908 15.8091 13.4701 15.6711 13.6112C15.5331 13.7523 15.4556 13.9437 15.4556 14.1433C15.4556 14.3429 15.5331 14.5343 15.6711 14.6754C15.8091 14.8165 15.9963 14.8958 16.1914 14.8958H18.6441C18.8392 14.8958 19.0264 14.8165 19.1643 14.6754C19.3023 14.5343 19.3799 14.3429 19.3799 14.1433C19.3799 13.9437 19.3023 13.7523 19.1643 13.6112C19.0264 13.4701 18.8392 13.3908 18.6441 13.3908H16.1914Z" fill="currentColor" />
+            </svg>
+            request buy back</a>
         </div>
       </div>
 
@@ -93,6 +119,27 @@ watch(route, async (newRoute) => {
             <NftCardFromCreator :img="card.img" alt="card1" :title="card.title" :rate="card.currentBid" :author="card.author.name" likes="200"/>
           </a>
         </div>
+      </div>
+
+
+      <div class="overlay" v-if="openModalErr"></div>
+
+      <div class="sending-status" v-if="openModalErr">
+        <p class="sending-status__text">
+          Purchase error: {{ error }}
+        </p>
+        <button @click="openModalErr = false" class="btn-reset main-button sending-status__btn">Close</button>
+      </div>
+
+      <!-- Modal on success -->
+      <div class="overlay" v-if="openModal"></div>
+      <div class="sending-status" v-if="openModal">
+        <p class="sending-status__text">
+          NFT has been successfully acquired! The purchased NFT will appear in your profile.
+        </p>
+        <router-link :to="{ name: 'home' }">
+          <button class="btn-reset main-button sending-status__btn">Accept and close</button>
+        </router-link>
       </div>
 
     </div>
@@ -306,6 +353,40 @@ watch(route, async (newRoute) => {
     }
     &__card{
       grid-column: 2 span;
+    }
+  }
+
+  .sending-status {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 300px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    border-radius: 31px;
+    box-shadow: 0 82px 82px -61px rgba(15, 15, 15, 0.1), 0 -82px 80px 0 rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    z-index: 1000000;
+    &__text {
+      margin: 0;
+      font-family: var(--font-family);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 125%;
+      color: #000;
+    }
+    &__btn {
+      max-width: 100%;
+      padding: 20px;
+    }
+    &__link {
+      color: #000;
+      text-decoration: underline;
     }
   }
 </style>

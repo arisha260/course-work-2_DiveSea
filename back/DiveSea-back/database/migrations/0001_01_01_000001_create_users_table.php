@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->integer('total_sales')->default(0);
             $table->integer('followers')->default(0);
             $table->integer('followings')->default(0);
+            $table->decimal('balance',8, 2)->default(0)->nullable();
             $table->text('bio')->nullable();
             $table->rememberToken();
             $table->timestamps();

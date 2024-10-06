@@ -3,6 +3,7 @@
     img: String,
     alt: String,
     title: String,
+    sold: Boolean,
   })
 </script>
 
@@ -13,6 +14,7 @@
     <img :src="img" class="nft-card__img" :alt="alt" width="252" height="252">
     <div class="nft-card__content">
       <p class="nft-card__title">{{ title }}</p>
+      <span class="nft-card__title" v-if="sold">ALREADY SOLD</span>
       <slot name="nft-card__content-bottom"></slot>
     </div>
   </div>

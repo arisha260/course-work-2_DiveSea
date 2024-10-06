@@ -6,7 +6,7 @@
   import { storeToRefs } from 'pinia'
   import { onMounted, ref } from 'vue'
   const store = useNftStore()
-  const { nfts, hasMore, isLoading, loaderMain } = storeToRefs(store)
+  const { nfts, hasMore, isLoading, loaderMain, hasAuthor } = storeToRefs(store)
 
   const timeLeft = ref({});
 
@@ -54,27 +54,31 @@
         <div class="discover__content">
           <keep-alive>
             <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="discover__card" v-for="(card, index) in nfts" :key="index">
-              <NftCard :img="card.img" alt="card1" :title="card.title">
+              <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
                 <template v-slot:nft-card__time v-if="card.end_time">
                   <!-- Отображаем оставшееся время для каждого NFT -->
                   <span class="nft-card__time">{{ timeLeft[card.id] || card.end_time }}</span>
                 </template>
                 <template v-slot:nft-card__content-bottom>
                   <!-- Проверка данных -->
-                  <div v-if="card.sale_type === 'put_on_sale' && card.currentBid" class="nft-card__content-bottom">
+                  <div v-if="card.sale_type === 'put_on_sale' && card.currentBid && !card.owner" class="nft-card__content-bottom">
                     <div class="nft-card__current-bid">
                       <span>Current bid</span>
                       <p class="nft-card__price nft-card__rate">{{ card.currentBid }}</p>
                     </div>
-                    <a href="#"  class="main-button nft-card__btn">PLACE BID</a>
+                    <a class="main-button nft-card__btn">PLACE BID</a>
                   </div>
-                  <div v-else-if="card.price" class="nft-card__content-bottom">
+
+
+                  <div v-else-if="card.sale_type === 'direct_sale' && card.price && !card.owner" class="nft-card__content-bottom">
                     <div class="nft-card__current-bid">
                       <span>Price</span>
                       <p class="nft-card__price">{{ card.price }}</p>
                     </div>
-                    <a href="#" class="main-button nft-card__btn">Buy Now</a>
+                    <a :disabled="card.owner_id == null" class="main-button nft-card__btn">Buy Now</a>
                   </div>
+
+
                 </template>
               </NftCard>
             </router-link>

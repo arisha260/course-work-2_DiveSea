@@ -173,16 +173,6 @@
   }
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный цвет */
-  z-index: 1000; /* Уровень отображения затемнения */
-}
-
 .form{
   display: grid;
   grid-template-columns: repeat(12, 1fr);

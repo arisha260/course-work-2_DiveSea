@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'total_sales' => $this->faker->numberBetween(0, 1000), // Генерируем число от 0 до 1000
             'followers' => $this->faker->numberBetween(0, 10000), // Генерируем число от 0 до 10000
             'followings' => $this->faker->numberBetween(0, 5000),
+            'balance' => $this->faker->numberBetween(0, 100000),
             'bio' => $this->faker->paragraph,
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

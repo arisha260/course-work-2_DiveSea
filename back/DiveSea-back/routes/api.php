@@ -74,6 +74,11 @@ Route::group(['namespace'=> 'App\Http\Controllers\Authorship', 'prefix' => 'auth
     Route::delete('/delete/{id}', \App\Http\Controllers\Authorship\DeleteApproveAuthorshipController::class);
 });
 
+Route::group(['namespace'=> 'App\Http\Controllers\Buy', 'prefix' => 'buy'], function(){
+    Route::get('/profile', \App\Http\Controllers\Buy\IndexController::class);
+    Route::post('/nft/{id}', \App\Http\Controllers\Buy\BuyNftController::class);
+});
+
 
 Route::middleware(['auth:sanctum'])->post('/home/test', function (Request $request) {
     Log::info('Route reached', [ 'authenticated' => auth()->check(),

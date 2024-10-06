@@ -23,6 +23,7 @@ class UserResource extends JsonResource
             'total_sales' => $this->total_sales,
             'followers' => $this->followers,
             'followings' => $this->followings,
+            'balance' => $this->balance,
             'bio' => $this->bio,
             'nfts' => NftResource::collection($this->whenLoaded('nfts')),
         ];

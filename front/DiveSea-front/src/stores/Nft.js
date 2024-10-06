@@ -1,5 +1,6 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useAuthStore } from '@/stores/authStore.js'
 import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -22,6 +23,10 @@ export const useNftStore = defineStore('nft', () => {
   const isLoadingSearch = ref(false); // Флаг загрузки для поиска
   const loaderMain = ref(false); // Флаг загрузки для общего контента
   const errors = ref(null);
+  const authStore = useAuthStore();
+  const error = ref(null);
+  const success = ref(false);
+
 
   const getCsrfToken = async () => {
     if (!document.cookie.includes('XSRF-TOKEN')) {
@@ -209,7 +214,7 @@ export const useNftStore = defineStore('nft', () => {
             errors.value = 'This is title already used. Use another title!';
           }
         } else {
-        console.log('Ошибка:', error.message);
+        console.log('Ошибка:', error.response.data.message);
       }
     }
   };
@@ -224,7 +229,41 @@ export const useNftStore = defineStore('nft', () => {
       }
   };
 
+  const getOwnerWorks = async () => {
+    isLoading.value = true;
+    try{
+      const res = await axios.get(`/api/buy/profile`);
+      console.log('Работы, приобретенные данным пользователем: ', res.data);
+      nfts.value = res.data.data;
+    } catch (error) {
+      console.log('При получении работ владельца произошла ошибка: ', error.response.data.message);
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
-  return { nft, nfts, isLoading, currentPage, hasMore, totalNfts, authorWorks, authors, stringSearch, authorSearch, nftsSearch, isLoadingSearch, author, loaderMain, errors,
-    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth, loadAllNftsIfEmpty };
+  const buyNft = async (id) => {
+    isLoading.value = true;
+    error.value = null;
+    success.value = false;
+    try {
+      await getCsrfToken();
+      const res = await axios.post(`/api/buy/nft/${id}`);
+      console.log('Данные покупки', res.data);
+      await authStore.getUser(); // обновляем данные пользователя после покупки
+      success.value = true; // Успешная покупка
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Top up your balance'; // Логируем ошибку
+      success.value = false;
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+
+  const hasAuthor = computed(() => !!nft.value.owner_id);
+
+
+  return { nft, nfts, isLoading, currentPage, hasMore, totalNfts, authorWorks, authors, stringSearch, authorSearch, nftsSearch, isLoadingSearch, author, loaderMain, errors, hasAuthor, error, success,
+    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth, loadAllNftsIfEmpty, buyNft, getOwnerWorks };
 });

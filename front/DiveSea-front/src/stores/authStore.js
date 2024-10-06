@@ -69,11 +69,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Получение информации о текущем пользователе
   const getUser = async () => {
-    // loading.value = true;
-    // Если пользователь уже загружен в память (или из кэша), не делаем запрос
-    if (user.value) {
-      return;
-    }
     try {
       // Делаем запрос только если пользователь аутентифицирован
       const response = await axios.get('/api/user');
