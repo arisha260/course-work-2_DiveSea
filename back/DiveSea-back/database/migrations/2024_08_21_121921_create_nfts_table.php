@@ -37,6 +37,9 @@ return new class extends Migration
 
             $table->dateTime('end_time')->nullable();
 
+            $table->unsignedBigInteger('current_bid_user_id')->nullable();
+            $table->foreign('current_bid_user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->softDeletes();
         });
     }

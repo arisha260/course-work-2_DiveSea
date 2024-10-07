@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ApproveAuthorship::class, 'user_id', 'id');
     }
+
+    public function bids()
+    {
+        return $this->hasMany(AuctionBid::class, 'user_id', 'id');
+    }
 }

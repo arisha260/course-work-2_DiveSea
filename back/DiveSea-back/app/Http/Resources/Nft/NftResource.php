@@ -14,17 +14,6 @@ class NftResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//        return[
-//            'id' => $this->id,
-//            'img' => $this->img,
-//            'title' => $this->title,
-//            'currentBid' => $this->currentBid,
-//            'price' => $this->price,
-////            'author_id' => new UserResource($this->whenLoaded('author_id')), // Используем Eager Loaded данные
-////            'owner_id' => new OwnerResource($this->whenLoaded('owner_id')),   // Используем Eager Loaded данные
-//            'author_id' => $this->author_id,
-//            'owner_id' => $this->owner_id,
-//        ];
         return [
             'id' => $this->id,
             'img' => $this->img
@@ -55,6 +44,15 @@ class NftResource extends JsonResource
                 'email' => $this->owner->email,
             ] : null,
             'end_time' => $this->end_time,
+            'current_bid_user' => $this->currentBidUser ? [
+                'id' => $this->currentBidUser->id,
+                'img' => $this->currentBidUser->img,
+                'name' => $this->currentBidUser->name,
+                'surname' => $this->currentBidUser->surname,
+                'nickname' => $this->currentBidUser->nickname,
+                'email' => $this->currentBidUser->email,
+            ] : null,
+
         ];
 
     }

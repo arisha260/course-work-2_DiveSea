@@ -24,7 +24,7 @@ class BuyNftController
 
         // Проверяем, достаточно ли у пользователя баланса
         if ($user->balance < $nft->price) {
-            return response()->json(['error' => 'Пополните баланс!'], 400);
+            return response()->json(['error' => 'Top up your balance!'], 400);
         }
         // Выполняем покупку
         $user->balance -= $nft->price;

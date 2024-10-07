@@ -10,7 +10,7 @@
   const AuthStore = useAuthStore();
   const store = useNftStore();
   const { user } = storeToRefs(AuthStore);
-  const { nfts } = storeToRefs(store);
+  const { userNfts, nftsBid, isLoading } = storeToRefs(store);
   const route = useRoute();
   const router = useRouter();
 
@@ -29,14 +29,13 @@
 
   onMounted(() => {
     store.getOwnerWorks();
+    store.getAuctionBit();
   })
 </script>
 
 <template>
   <section class="user-profile">
-    <div v-if="isChecking">
-      <div class="loader"></div>
-    </div>
+    <div class="loader" v-if="isLoading"></div>
     <div class="container user-profile__container" v-else-if="user && user.name === userNameFromUrl">
       <div class="user-profile__top">
         <div v-if="isChecking">
@@ -64,14 +63,34 @@
       </div>
       <div class="user-profile__bottom">
         <p class="user-profile__text user-profile__border">Balance: {{ user.balance ? user.balance:0 }}</p>
-        <div class="user-profile__owner user-profile__border" v-if="nfts !== 0">
+
+
+        <div class="user-profile__owner user-profile__border" v-if="!isLoading && userNfts.length === 0">
           <p class="user-profile__text">NFTs that you own:</p>
-          <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in nfts" :key="index">
+          <MainHollow />
+        </div>
+        <div class="user-profile__owner user-profile__border" v-else-if="!isLoading && userNfts.length !== 0">
+          <p class="user-profile__text">NFTs that you own:</p>
+          <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in userNfts" :key="index">
             <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
             </NftCard>
           </router-link>
         </div>
-        <MainHollow v-else/>
+
+
+        <div class="user-profile__owner user-profile__border" v-if="!isLoading && nftsBid.length === 0">
+          <p class="user-profile__text">NFT with your bid:</p>
+          <MainHollow />
+        </div>
+        <div class="user-profile__owner user-profile__border" v-else-if="!isLoading && nftsBid !== 0">
+          <p class="user-profile__text">NFT with your bid:</p>
+          <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in nftsBid" :key="index">
+            <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
+            </NftCard>
+          </router-link>
+        </div>
+
+
       </div>
     </div>
     <div class="user-profile__auth" v-else>

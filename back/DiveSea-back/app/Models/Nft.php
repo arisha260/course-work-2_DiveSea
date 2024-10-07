@@ -35,4 +35,9 @@ class Nft extends Model
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }
+
+    public function bids()
+    {
+        return $this->hasMany(AuctionBid::class, 'nft_id', 'id');
+    }
 }

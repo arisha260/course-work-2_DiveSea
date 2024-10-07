@@ -40,8 +40,8 @@ onMounted(() => {
     <CreateAndSellNFts />
     <div class="cookie-agreement" v-if="modal" ref="modal">
       <p class="cookie-agreement__text">
-        Используя данный сайт, вы даете согласие на использование файлов cookie, данных об IP-адресе и местоположении, помогающих нам сделать его удобнее для вас.
-        <router-link class="cookie-agreement__link" :to="{ name: 'cookie' }">Подробнее</router-link>
+        By using this website, you consent to the use of cookies, IP address and location data to help us make it more convenient for you.
+        <router-link class="cookie-agreement__link" :to="{ name: 'cookie' }">More detailed</router-link>
       </p>
       <button @click="openModal" class="btn-reset main-button cookie-agreement__btn">Accept and close</button>
     </div>

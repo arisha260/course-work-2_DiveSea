@@ -10,6 +10,10 @@ axios.defaults.withXSRFToken = true;
 export const useNftStore = defineStore('nft', () => {
   const nft = ref(null);
   const nfts = ref([]);
+
+  const userNfts = ref([]);
+  const nftsBid = ref([]);
+
   const isLoading = ref(false);
   const currentPage = ref(1);
   const hasMore = ref(true);
@@ -60,16 +64,13 @@ export const useNftStore = defineStore('nft', () => {
       loaderMain.value = true;
       const response = await axios.get(`/api/home/load-more?page=${currentPage.value}`);
       const { data, nextPage } = response.data;
-
       // Добавляем новые данные к уже загруженным
       nfts.value = [...nfts.value, ...data];
-
       // Если больше страниц нет, отключаем кнопку
       if (!nextPage) {
         hasMore.value = false;
         loaderMain.value = false;
       }
-
       currentPage.value++; // Увеличиваем номер страницы для следующего запроса
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
@@ -83,7 +84,6 @@ export const useNftStore = defineStore('nft', () => {
     // Проверяем, есть ли данные в nfts и содержат ли они нужный объект
     if (nfts.value.length > 0) {
       const cachedNft = nfts.value.find(nftItem => nftItem.id == id);
-
       if (cachedNft) {
         // Если данные найдены в кеше, используем их
         console.log("Найден кешированный элемент:", cachedNft);
@@ -93,23 +93,19 @@ export const useNftStore = defineStore('nft', () => {
     }
     console.log("Элемент не найден в кеше, загружаем с сервера...");
     //ВСЕ ЧТО ВЫШЕ В МЕТОДЕ showNft - ПРОВЕРКА НА ТО, ЕСТЬ ЛИ КАРТА В КЕШЕ
-
-
     // Если данных нет в кеше, или кеш пуст, загружаем их с сервера
     isLoading.value = true;
     try {
       const res = await axios.get(`/api/home/${id}`);
       console.log('Ответ от API:', res.data.data);
       nft.value = res.data.data;
-
       // Опционально добавляем данные в массив nfts, если они уникальны
-      if (!nfts.value.some(n => n.id === nft.value.id)) {
-        //ЕСЛИ ВООБЩЕ НЕТ НИКАКИХ СОВПАДЕНИЙ (КАК Я ПОНЯЛ)
-        //ЕСЛИ some ВЕРНЕТ TRUE, ТО ТЕЛО ЦИКЛА НЕ ВЫОЛНИТСЯ И НАОБОРОТ
-        //ТО ЕСТЬ ЕСЛИ some ВЕРНЕТ false, ТО false СТАНЕТ true, И НОВАЯ КАРТОЧКА ДОБАВИТСЯ В МАССИВ nfts
-        nfts.value.push(nft.value);
-      }
-
+      // if (!nfts.value.some(n => n.id === nft.value.id)) {
+      //   //ЕСЛИ ВООБЩЕ НЕТ НИКАКИХ СОВПАДЕНИЙ (КАК Я ПОНЯЛ)
+      //   //ЕСЛИ some ВЕРНЕТ TRUE, ТО ТЕЛО ЦИКЛА НЕ ВЫОЛНИТСЯ И НАОБОРОТ
+      //   //ТО ЕСТЬ ЕСЛИ some ВЕРНЕТ false, ТО false СТАНЕТ true, И НОВАЯ КАРТОЧКА ДОБАВИТСЯ В МАССИВ nfts
+      //   nfts.value.push(nft.value);
+      // }
     } catch (error) {
       console.error('Ошибка при получении данных:', error);
     } finally {
@@ -234,7 +230,7 @@ export const useNftStore = defineStore('nft', () => {
     try{
       const res = await axios.get(`/api/buy/profile`);
       console.log('Работы, приобретенные данным пользователем: ', res.data);
-      nfts.value = res.data.data;
+      userNfts.value = res.data.data;
     } catch (error) {
       console.log('При получении работ владельца произошла ошибка: ', error.response.data.message);
     } finally {
@@ -260,10 +256,44 @@ export const useNftStore = defineStore('nft', () => {
     }
   };
 
+  const getAuctionBit = async () => {
+    isLoading.value = true;
+    try{
+      const res = await axios.get(`/api/auction/profile`);
+      console.log('Работы, на которые пользователь делал ставки: ', res.data);
+      nftsBid.value = res.data.data;
+    } catch (error) {
+      console.log('При получении работ, на которые пользователь делал ставки произошла ошибка: ', error.response.data.message);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  const makeAuctionBit = async (id, bidAmount) => {
+    isLoading.value = true;
+    error.value = null;
+    success.value = false;
+    try {
+      await getCsrfToken();
+      const res = await axios.post(`/api/auction/nft/${id}`, {
+        bid: bidAmount  // Передача суммы ставки в запросе
+      });
+      console.log('Данные ставки', res.data);
+      success.value = true; // Успешная покупка
+    } catch (err) {
+      error.value = err.response?.data?.message || err.response?.data?.error; // Логируем ошибку
+      success.value = false;
+      console.log(err.response.data.error)
+      console.log(err.response)
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
 
   const hasAuthor = computed(() => !!nft.value.owner_id);
 
 
-  return { nft, nfts, isLoading, currentPage, hasMore, totalNfts, authorWorks, authors, stringSearch, authorSearch, nftsSearch, isLoadingSearch, author, loaderMain, errors, hasAuthor, error, success,
-    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth, loadAllNftsIfEmpty, buyNft, getOwnerWorks };
+  return { nft, nfts, isLoading, currentPage, hasMore, totalNfts, authorWorks, authors, stringSearch, authorSearch, nftsSearch, isLoadingSearch, author, loaderMain, errors, hasAuthor, error, success, nftsBid, userNfts,
+    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth, loadAllNftsIfEmpty, buyNft, getOwnerWorks, makeAuctionBit, getAuctionBit };
 });

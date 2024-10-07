@@ -79,6 +79,10 @@ Route::group(['namespace'=> 'App\Http\Controllers\Buy', 'prefix' => 'buy'], func
     Route::post('/nft/{id}', \App\Http\Controllers\Buy\BuyNftController::class);
 });
 
+Route::group(['namespace'=> 'App\Http\Controllers\BuyAuction', 'prefix' => 'auction'], function(){
+    Route::get('/profile', \App\Http\Controllers\BuyAuction\IndexController::class);
+    Route::post('/nft/{id}', \App\Http\Controllers\BuyAuction\MakeAuctionBidController::class);
+});
 
 Route::middleware(['auth:sanctum'])->post('/home/test', function (Request $request) {
     Log::info('Route reached', [ 'authenticated' => auth()->check(),

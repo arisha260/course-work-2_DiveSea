@@ -122,7 +122,7 @@
           <div class="loader search-results__loader" v-if="isLoadingSearch"></div>
         </div>
       </div>
-      <a class="header__connect main-button">Connect Wallet</a>
+<!--      <a class="header__connect main-button">Connect Wallet</a>-->
 
       <div class="header__profile-container" v-if="user">
 <!--        <RouterLink :to="{ name: 'profile', params: {user: user }">-->
