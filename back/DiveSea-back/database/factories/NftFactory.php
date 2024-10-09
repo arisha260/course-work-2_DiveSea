@@ -35,6 +35,8 @@ class NftFactory extends Factory
 
             // Иногда назначаем владельца, а иногда оставляем NULL
             'owner_id' => $this->faker->boolean(70) ? User::inRandomOrder()->first()->id : null,
+
+            'end_time' => now()->addDays(2)
         ];
     }
 }

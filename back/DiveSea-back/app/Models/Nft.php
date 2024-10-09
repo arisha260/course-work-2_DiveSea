@@ -23,6 +23,8 @@ class Nft extends Model
         'img',
         'end_time',
         'balance',
+        'status',
+        'current_bid_user',
     ];
 
     // Связь с автором (один к одному)
@@ -34,6 +36,11 @@ class Nft extends Model
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+
+    public function currentBidUser()
+    {
+        return $this->belongsTo(User::class, 'current_bid_user_id', 'id');
     }
 
     public function bids()

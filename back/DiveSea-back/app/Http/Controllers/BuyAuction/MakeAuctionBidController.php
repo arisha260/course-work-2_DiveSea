@@ -6,6 +6,7 @@ use App\Http\Requests\BuyAuction\BuyAuctionRequest;
 use App\Models\Nft;
 use App\Models\AuctionBid;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class MakeAuctionBidController
@@ -43,17 +44,20 @@ class MakeAuctionBidController
         }
 
         // Обновляем NFT: новый пользователь, новая ставка
-        $nft->current_bid_user_id = $user->id;
-        $nft->currentBid = $request->input('bid');
-        $nft->price = $nft->currentBid; // Можно обновить текущую цену (необязательно)
-        $nft->save();
+        DB::transaction(function () use ($user, $nft, $request) {
+            // Обновляем NFT
+            $nft->current_bid_user_id = $user->id;
+            $nft->currentBid = $request->input('bid');
+            $nft->price = $nft->currentBid;
+            $nft->save();
 
-        // Создаем запись в таблице auction_bids
-        AuctionBid::create([
-            'user_id' => $user->id,
-            'nft_id' => $nft->id,
-            'bid_amount' => $nft->currentBid,
-        ]);
+            // Создаём запись в таблице auction_bids
+            AuctionBid::create([
+                'user_id' => $user->id,
+                'nft_id' => $nft->id,
+                'bid_amount' => $nft->currentBid,
+            ]);
+        });
 
         return response()->json(['message' => 'Ставка принята', 'nft' => $nft], 201);
     }

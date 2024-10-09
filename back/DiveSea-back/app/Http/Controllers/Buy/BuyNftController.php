@@ -6,6 +6,7 @@ use App\Http\Requests\Buy\BuyRequest;
 use App\Http\Requests\Nft\StoreRequest;
 use App\Models\Nft;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class BuyNftController
@@ -19,7 +20,6 @@ class BuyNftController
         $nft = Nft::findOrFail($id);
 
         // Авторизация пользователя на совершение действия
-        Gate::authorize('update', $user);
         Gate::authorize('buy', $nft);
 
         // Проверяем, достаточно ли у пользователя баланса
@@ -27,11 +27,16 @@ class BuyNftController
             return response()->json(['error' => 'Top up your balance!'], 400);
         }
         // Выполняем покупку
-        $user->balance -= $nft->price;
-        $user->save();
-        // Обновляем владельца NFT
-        $nft->owner_id = $user->id;
-        $nft->save();
+        DB::transaction(function () use ($user, $nft) {
+            // Снимаем средства с баланса
+            $user->balance -= $nft->price;
+            $user->save();
+
+            $nft->status = 'sold';
+            // Обновляем владельца NFT и статус
+            $nft->owner_id = $user->id;
+            $nft->save();
+        });
 
         return response()->json(['message' => 'Purchase successful', 'balance' => $user->balance]);
     }

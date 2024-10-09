@@ -55,6 +55,12 @@ class UserPolicy
         //
     }
 
+    public function deductTheBalance(User $user): bool
+    {
+        // Разрешаем действие, если пользователь имеет одну из допустимых ролей
+        return in_array($user->role, ['admin', 'author', 'user']);
+    }
+
     /**
      * Determine whether the user can permanently delete the model.
      */

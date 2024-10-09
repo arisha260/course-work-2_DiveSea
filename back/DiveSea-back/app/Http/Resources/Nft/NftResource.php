@@ -44,7 +44,8 @@ class NftResource extends JsonResource
                 'email' => $this->owner->email,
             ] : null,
             'end_time' => $this->end_time,
-            'current_bid_user' => $this->currentBidUser ? [
+            'status'=> $this->status,
+            'current_bid_user_id' => $this->currentBidUser ? [
                 'id' => $this->currentBidUser->id,
                 'img' => $this->currentBidUser->img,
                 'name' => $this->currentBidUser->name,

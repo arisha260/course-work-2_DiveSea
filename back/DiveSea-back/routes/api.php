@@ -81,6 +81,7 @@ Route::group(['namespace'=> 'App\Http\Controllers\Buy', 'prefix' => 'buy'], func
 
 Route::group(['namespace'=> 'App\Http\Controllers\BuyAuction', 'prefix' => 'auction'], function(){
     Route::get('/profile', \App\Http\Controllers\BuyAuction\IndexController::class);
+    Route::get('/profile/auction-win', \App\Http\Controllers\BuyAuction\CompletedAuctionsController::class);
     Route::post('/nft/{id}', \App\Http\Controllers\BuyAuction\MakeAuctionBidController::class);
 });
 

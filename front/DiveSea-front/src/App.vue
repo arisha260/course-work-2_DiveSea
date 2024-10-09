@@ -3,6 +3,7 @@
   import MainFooter from './components/MainFooter.vue'
   import { onMounted, watchEffect } from 'vue'
   import { useAuthStore } from '@/stores/authStore';
+  import { useNftStore } from '@/stores/Nft';
   import { useAuthorshipStore } from '@/stores/Authorship/authorshipStore.js'
   import { storeToRefs } from 'pinia'
   import { useRoute, useRouter, RouterView } from 'vue-router';
@@ -11,6 +12,7 @@
   const route = useRoute();
   const router = useRouter();
   const authStore = useAuthStore();
+  const store = useNftStore();
   const authorshipStore = useAuthorshipStore();
   const { user } = storeToRefs(authStore);
 
@@ -25,6 +27,7 @@
     } else {
       // Если пользователь авторизован, делаем запрос, чтобы убедиться, что сессия действительна
       await authStore.getUser();
+      await store.getAuctionBitWin();
       console.log('Пользователь авторизован', authStore.user);
     }
   });

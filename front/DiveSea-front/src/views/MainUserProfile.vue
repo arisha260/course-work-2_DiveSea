@@ -10,7 +10,7 @@
   const AuthStore = useAuthStore();
   const store = useNftStore();
   const { user } = storeToRefs(AuthStore);
-  const { userNfts, nftsBid, isLoading } = storeToRefs(store);
+  const { userNfts, nftsBid, nftsBidWin, isLoading } = storeToRefs(store);
   const route = useRoute();
   const router = useRouter();
 
@@ -30,6 +30,7 @@
   onMounted(() => {
     store.getOwnerWorks();
     store.getAuctionBit();
+    store.getAuctionBitWin();
   })
 </script>
 
@@ -66,11 +67,10 @@
 
 
         <div class="user-profile__owner user-profile__border" v-if="!isLoading && userNfts.length === 0">
-          <p class="user-profile__text">NFTs that you own:</p>
-          <MainHollow />
+          <p class="user-profile__text">NFTs that you own ({{ userNfts.length }}):</p>
         </div>
         <div class="user-profile__owner user-profile__border" v-else-if="!isLoading && userNfts.length !== 0">
-          <p class="user-profile__text">NFTs that you own:</p>
+          <p class="user-profile__text">NFTs that you own ({{ userNfts.length }}):</p>
           <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in userNfts" :key="index">
             <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
             </NftCard>
@@ -79,12 +79,22 @@
 
 
         <div class="user-profile__owner user-profile__border" v-if="!isLoading && nftsBid.length === 0">
-          <p class="user-profile__text">NFT with your bid:</p>
-          <MainHollow />
+          <p class="user-profile__text">NFT with your bid ({{ nftsBid.length }}):</p>
         </div>
         <div class="user-profile__owner user-profile__border" v-else-if="!isLoading && nftsBid !== 0">
-          <p class="user-profile__text">NFT with your bid:</p>
+          <p class="user-profile__text">NFT with your bid ({{ nftsBid.length }}):</p>
           <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in nftsBid" :key="index">
+            <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
+            </NftCard>
+          </router-link>
+        </div>
+
+        <div class="user-profile__owner user-profile__border" v-if="!isLoading && nftsBidWin.length === 0">
+          <p class="user-profile__text">Auctions won (require payment) ({{ nftsBidWin.length }}):</p>
+        </div>
+        <div class="user-profile__owner user-profile__border" v-else-if="!isLoading && nftsBidWin !== 0">
+          <p class="user-profile__text">Auctions won (require payment) ({{ nftsBidWin.length }}):</p>
+          <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in nftsBidWin" :key="index">
             <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
             </NftCard>
           </router-link>

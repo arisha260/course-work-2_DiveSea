@@ -69,9 +69,16 @@ class NftPolicy
 
     public function buy(User $user, Nft $nft): bool
     {
-        // Например, можно запретить покупку, если NFT уже куплено
-        return $nft->owner_id === null;
+        // Если у NFT уже есть владелец, покупка невозможна
+        if ($nft->owner_id !== null) {
+            return false; // Запрещаем покупку, если у NFT уже есть владелец
+        }
+
+        // Добавьте дополнительные условия, если хотите ограничить покупку для определенных ролей
+        // Например, если только "admin" или "user" могут покупать
+        return in_array($user->role, ['admin', 'author', 'user']);
     }
+
 
     public function buyAuction(User $user, Nft $nft): bool
     {

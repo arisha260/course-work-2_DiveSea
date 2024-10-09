@@ -13,6 +13,7 @@ export const useNftStore = defineStore('nft', () => {
 
   const userNfts = ref([]);
   const nftsBid = ref([]);
+  const nftsBidWin = ref([]);
 
   const isLoading = ref(false);
   const currentPage = ref(1);
@@ -249,8 +250,9 @@ export const useNftStore = defineStore('nft', () => {
       await authStore.getUser(); // обновляем данные пользователя после покупки
       success.value = true; // Успешная покупка
     } catch (err) {
-      error.value = err.response?.data?.message || 'Top up your balance'; // Логируем ошибку
+      error.value = err.response?.data?.message || err.response?.data?.error; // Логируем ошибку
       success.value = false;
+      console.log('Ошибка при покупке: ', err.response);
     } finally {
       isLoading.value = false;
     }
@@ -290,10 +292,23 @@ export const useNftStore = defineStore('nft', () => {
     }
   };
 
+  const getAuctionBitWin = async () => {
+    isLoading.value = true;
+    try{
+      const res = await axios.get(`/api/auction/profile/auction-win`);
+      console.log('Работы, которые на аукционе выиграл пользователь: ', res.data);
+      nftsBidWin.value = res.data.data;
+    } catch (error) {
+      console.log('При получении работ, которые на аукционе выиграл пользователь произошла ошибка: ', error.response.data.message);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
 
   const hasAuthor = computed(() => !!nft.value.owner_id);
 
 
-  return { nft, nfts, isLoading, currentPage, hasMore, totalNfts, authorWorks, authors, stringSearch, authorSearch, nftsSearch, isLoadingSearch, author, loaderMain, errors, hasAuthor, error, success, nftsBid, userNfts,
-    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth, loadAllNftsIfEmpty, buyNft, getOwnerWorks, makeAuctionBit, getAuctionBit };
+  return { nft, nfts, isLoading, currentPage, hasMore, totalNfts, authorWorks, authors, stringSearch, authorSearch, nftsSearch, isLoadingSearch, author, loaderMain, errors, hasAuthor, error, success, nftsBid, userNfts, nftsBidWin,
+    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth, loadAllNftsIfEmpty, buyNft, getOwnerWorks, makeAuctionBit, getAuctionBit, getAuctionBitWin };
 });

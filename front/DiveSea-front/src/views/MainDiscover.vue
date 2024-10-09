@@ -27,6 +27,7 @@
   onMounted(() => {
     if (nfts.value.length === 0) {
       store.loadMore();
+      // store.getAuctionBitWin();
     }
 
   // Обновляем таймер каждую секунду
@@ -49,27 +50,33 @@
       <MainHollow v-else-if="nfts.length === 0" />
       <div class="discover__content">
         <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="discover__card" v-for="(card, index) in nfts" :key="index">
-          <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
-            <template v-slot:nft-card__time v-if="card.end_time">
+          <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner || card.status === 'sold' || card.status === 'inactive' || card.status === 'pending_payment'">
+            <template v-slot:nft-card__time v-if="card.end_time && card.sale_type === 'put_on_sale' && !card.owner">
               <!-- Отображаем оставшееся время для каждого NFT -->
               <span class="nft-card__time">{{ timeLeft[card.id] || card.end_time }}</span>
             </template>
             <template v-slot:nft-card__content-bottom>
+
+
               <!-- Проверка данных -->
-              <div v-if="card.sale_type === 'put_on_sale' && card.currentBid && !card.owner" class="nft-card__content-bottom">
+              <div v-if="card.sale_type === 'put_on_sale' && !card.owner && card.status !== 'sold' && card.status !== 'inactive' && card.status !== 'pending_payment'" class="nft-card__content-bottom">
                 <div class="nft-card__current-bid">
                   <span>Current bid</span>
                   <p class="nft-card__price nft-card__rate">{{ card.price }}</p>
                 </div>
                 <a class="main-button nft-card__btn">PLACE BID</a>
               </div>
-              <div v-else-if="card.sale_type === 'direct_sale' && card.price && !card.owner" class="nft-card__content-bottom">
+
+
+              <div v-else-if="card.sale_type === 'direct_sale' && card.price && !card.owner && card.status !== 'sold' && card.status !== 'inactive' && card.status !== 'pending_payment'" class="nft-card__content-bottom">
                 <div class="nft-card__current-bid">
                   <span>Price</span>
                   <p class="nft-card__price">{{ card.price }}</p>
                 </div>
                 <a :disabled="card.owner_id == null" class="main-button nft-card__btn">Buy Now</a>
               </div>
+
+
             </template>
           </NftCard>
         </router-link>

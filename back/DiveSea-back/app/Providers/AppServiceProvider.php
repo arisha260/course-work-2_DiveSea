@@ -32,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Log::info('AppServiceProvider booted, registering policies');
         Gate::policy(Nft::class, NftPolicy::class);
         Gate::policy(approveNft::class, ApproveNftPolicy::class);
         Gate::policy(User::class, UserPolicy::class);
