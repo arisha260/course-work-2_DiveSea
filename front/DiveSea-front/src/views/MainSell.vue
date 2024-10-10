@@ -222,7 +222,7 @@
                 <path d="M25.183 19.8517C24.9312 19.9559 24.6953 20.1103 24.4906 20.315L18.0855 26.7201C17.2518 27.5539 17.2518 28.9057 18.0855 29.7395C18.9193 30.5732 20.2711 30.5732 21.1049 29.7395L23.8653 26.9791V36.7699C23.8653 37.949 24.8212 38.9049 26.0003 38.9049C27.1794 38.9049 28.1353 37.949 28.1353 36.7699V26.9791L30.8957 29.7395C31.7294 30.5732 33.0813 30.5732 33.915 29.7395C34.7488 28.9057 34.7488 27.5539 33.915 26.7201L27.51 20.315C26.8809 19.686 25.9569 19.5315 25.183 19.8517Z" fill="currentColor" />
               </svg>
               <span class="form__type">PNG, GIF, WEBP, MP4 or MP3. Max 1Gb.</span>
-              <input type="file" ref="image" class="input-reset form__field-upload" required @change="handleFileUpload">
+              <input type="file" ref="image" class="input-reset form__field-upload" accept="image/*" required @change="handleFileUpload">
             </div>
             <a @click="store.cheackAuth()" class="btn-reset main-button form__btn">Upload</a>
           </div>

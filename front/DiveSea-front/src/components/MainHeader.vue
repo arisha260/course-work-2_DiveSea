@@ -4,6 +4,7 @@
   import { storeToRefs } from 'pinia';
   import { debounce } from 'lodash';
   import { useAuthStore } from '@/stores/authStore.js'
+  import router from '@/router/index.js'
 
   const store = useNftStore()
   const AuthStore = useAuthStore()
@@ -60,6 +61,7 @@
   const handleLogout = async () => {
     try{
       await AuthStore.logout();
+      router.push({ name: 'home' });
     } catch (error) {
       console.log("При выходе с аккаунта возникла какая то ошибка", error)
     }

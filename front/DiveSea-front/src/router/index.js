@@ -95,6 +95,12 @@ const router = createRouter({
       meta: { requiresHeaderFooter: true, requiresAuth: true },
     },
     {
+      path: '/user-profile/edit/:user_name',
+      name: 'profile_edit',
+      component: () => import('../views/MainUserProfileChange.vue'),
+      meta: { requiresHeaderFooter: true, requiresAuth: true },
+    },
+    {
       path: '/cookie',
       name: 'cookie',
       component: () => import('../views/MainCookie.vue'),

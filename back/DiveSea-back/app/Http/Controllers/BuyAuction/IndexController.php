@@ -14,7 +14,7 @@ class IndexController
     public function __invoke()
     {
         $user = Auth::user();
-        $nft = Nft::where('current_bid_user_id', $user->id)->get();
+        $nft = Nft::where('current_bid_user_id', $user->id)->where('owner_id', null)->get();
         return NftResource::collection($nft);
     }
 }

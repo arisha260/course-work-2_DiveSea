@@ -1,5 +1,6 @@
 import './assets/scss/vendor.scss';
 import './assets/scss/main.scss';
+import 'cropperjs/dist/cropper.css';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
