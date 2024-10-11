@@ -61,6 +61,24 @@ class UserPolicy
         return in_array($user->role, ['admin', 'author', 'user']);
     }
 
+    // Политика доступа для обновления аватара
+    public function updateUserAvatar(User $user, User $model): bool
+    {
+        return $model->id === $user->id || $user->role === 'admin';
+    }
+
+// Политика доступа для обновления фоновой картинки
+    public function updateUserBackground(User $user, User $model): bool
+    {
+        return $model->id === $user->id || $user->role === 'admin';
+    }
+
+    public function updateUserNicknameBio(User $user, User $model): bool
+    {
+        return $model->id === $user->id || $user->role === 'admin';
+    }
+
+
     /**
      * Determine whether the user can permanently delete the model.
      */

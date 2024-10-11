@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Policies\ActionBidPolicy;
 use App\Policies\ApproveAuthorshipPolicy;
 use App\Policies\ApproveNftPolicy;
+use App\Policies\EditUserProfilePolicy;
 use App\Policies\NftPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(ApproveAuthorship::class, ApproveAuthorshipPolicy::class);
         Gate::policy(AuctionBid::class, ActionBidPolicy::class);
+        Gate::policy(Nft::class, EditUserProfilePolicy::class);
 
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";

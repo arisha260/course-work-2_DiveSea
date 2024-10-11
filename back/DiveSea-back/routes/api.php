@@ -43,8 +43,20 @@ Route::middleware(['web'])->group(function () {
 
 // Получение данных пользователя (требует авторизации)
     Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
+        $user = $request->user();
+
+        $user->img = $user->img
+            ? (str_contains($user->img, 'http') ? $user->img : asset('storage/' . $user->img))
+            : asset('storage/users/avatars/default_user.png');
+
+        $user->background = $user->background
+            ? (str_contains($user->background, 'http') ? $user->background : asset('storage/' . $user->background))
+            : asset('storage/users/background/basic.jpg');
+
+        return response()->json($user);
     });
+//    Route::middleware('auth:sanctum')->get('/user',\App\Http\Controllers\Auth\GetUserController::class);
+
 
 });
 
@@ -84,6 +96,13 @@ Route::group(['namespace'=> 'App\Http\Controllers\BuyAuction', 'prefix' => 'auct
     Route::get('/profile/auction-win', \App\Http\Controllers\BuyAuction\CompletedAuctionsController::class);
     Route::post('/nft/{id}', \App\Http\Controllers\BuyAuction\MakeAuctionBidController::class);
 });
+
+Route::group(['namespace'=> 'App\Http\Controllers\ProfileEdit', 'prefix' => 'edit'], function(){
+    Route::post('/user_avatar', \App\Http\Controllers\ProfileEdit\EditAvatarController::class);
+    Route::post('/user_background', \App\Http\Controllers\ProfileEdit\EditBgController::class);
+    Route::post('/user_nickname_bio', \App\Http\Controllers\ProfileEdit\EditNicknameBioController::class);
+});
+
 
 Route::middleware(['auth:sanctum'])->post('/home/test', function (Request $request) {
     Log::info('Route reached', [ 'authenticated' => auth()->check(),

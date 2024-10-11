@@ -16,7 +16,13 @@ class UserResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'img' => $this->img,
+            'img' => $this->img
+                ? (str_contains($this->img, 'http') ? $this->img : asset('storage/' . $this->img))
+                : asset('storage/users/avatars/default_user.png'),
+
+            'background' => $this->background
+                ? (str_contains($this->background, 'http') ? $this->background : asset('storage/' . $this->background))
+                : asset('storage/users/background/basic.jpg'), // Используем ссылку или загруженный файл
             'name' => $this->name,
             'nickname' => $this->nickname,
             'email' => $this->email,

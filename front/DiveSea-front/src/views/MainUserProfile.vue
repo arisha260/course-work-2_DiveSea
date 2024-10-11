@@ -43,12 +43,10 @@
           <div class="loader"></div>
         </div>
         <h1 class="main-title user-profile__title">Страница пользователя {{ user.name }}</h1>
-        <div class="user-profile__bg">
-          <img class="user-profile__bg-img" src="/card5.png" alt="User background image">
-        </div>
+        <div class="user-profile__bg profile-background" :style="{ backgroundImage: user.background ? `url(${user.background})` : 'url(/basic.jpg)' }"></div>
         <div class="user-profile__header">
           <div class="user-profile__header-left">
-            <img class="user-profile__img" src="/owner2.png" alt="Profile image user" width="70" height="70">
+            <img class="user-profile__img" :src="user.img ? user.img : '/default_user.png'" alt="Profile image user" width="70" height="70">
             <div>
               <p class="user-profile__name">{{ user.name }}</p>
               <span class="user-profile__nickname">@{{ user.nickname ? user.nickname : '-' }}</span>

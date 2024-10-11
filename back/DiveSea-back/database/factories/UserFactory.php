@@ -25,6 +25,7 @@ class UserFactory extends Factory
     {
         return [
             'img' => $this->faker->imageUrl(67, 67,),
+//            'background' => $this->faker->imageUrl('users/background/basic.web'),
             'name' => fake()->name(),
             'nickname' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
