@@ -38,7 +38,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(ApproveAuthorship::class, ApproveAuthorshipPolicy::class);
         Gate::policy(AuctionBid::class, ActionBidPolicy::class);
-        Gate::policy(Nft::class, EditUserProfilePolicy::class);
 
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";

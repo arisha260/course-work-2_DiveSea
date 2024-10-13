@@ -33,12 +33,14 @@
     position: relative;
     transition: all .3s ease;
     @media (hover: hover) {
-
-
       &:hover{
         transform: scale(1.05);
         //translate: 0 10px;
       }
+    }
+    @media (max-width: 1200px) {
+      max-width: 200px;
+      padding: 10px 10px 14px 10px;
     }
     &__time{
       position: absolute;
@@ -57,6 +59,12 @@
       box-shadow: 0 5px 14px 0 rgba(28, 29, 32, 0.08);
       background: rgba(28, 29, 32, 0.35);
       user-select: none;
+      @media (max-width: 1200px) {
+        top: 20px;
+        right: 16px;
+        font-size: 10px;
+        padding: 6px 10px;
+      }
     }
     &__img{
       max-height: 240px;
@@ -65,6 +73,9 @@
       pointer-events: none;
       -webkit-user-drag: none;
       user-drag: none;
+      @media (max-width: 1200px) {
+        max-height: 179px;
+      }
     }
     &__content{
       margin-top: 19px;
@@ -72,6 +83,9 @@
       flex-direction: column;
       flex-grow: 1;
       gap: 14px;
+      @media (max-width: 1200px) {
+        margin-top: 13px;
+      }
     }
     &__title{
       margin: 0;
@@ -82,6 +96,9 @@
       line-height: 140%;
       color: #141416;
       overflow-wrap: break-word !important;
+      @media (max-width: 1200px) {
+        font-size: 10px;
+      }
     }
     &__content-bottom{
       margin-top: auto;
@@ -97,6 +114,9 @@
         line-height: 150%;
         letter-spacing: 0.01em;
         color: #94a3b8;
+        @media (max-width: 1200px) {
+          font-size: 10px;
+        }
       }
     }
     &__price{
@@ -108,6 +128,10 @@
       color: #141416;
       padding-left: 18px;
       position: relative;
+      @media (max-width: 1200px) {
+        padding-left: 13px;
+        font-size: 11px;
+      }
       &::before{
         content: '';
         position: absolute;
@@ -118,6 +142,10 @@
         background-size: cover;
         width: 22px;
         height: 22px;
+        @media (max-width: 1200px) {
+          width: 16px;
+          height: 16px;
+        }
     }
     &__rate{
 
@@ -126,6 +154,11 @@
     &__btn{
       padding: 9px 18px;
       border-radius: 12px;
+      @media (max-width: 1200px) {
+        padding: 10px 17px;
+        font-size: 10px;
+        border-radius: 8px;
+      }
       &::after{
         content: "";
         position: absolute;

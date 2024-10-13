@@ -42,7 +42,7 @@
         <div v-if="isChecking">
           <div class="loader"></div>
         </div>
-        <h1 class="main-title user-profile__title">Страница пользователя {{ user.name }}</h1>
+        <h1 class="main-title user-profile__title">Page user {{ user.name }}</h1>
         <div class="user-profile__bg profile-background" :style="{ backgroundImage: user.background ? `url(${user.background})` : 'url(/basic.jpg)' }"></div>
         <div class="user-profile__header">
           <div class="user-profile__header-left">
@@ -126,6 +126,9 @@
       margin-bottom: 44px;
       grid-column: 12 span;
     }
+    &__img{
+      border-radius: 50%;
+    }
     &__bg{
       grid-column: 12 span;
     }
@@ -153,6 +156,9 @@
       line-height: 130%;
       letter-spacing: 0.01em;
       color: #010101;
+      @media (max-width: 1200px) {
+        font-size: 25px;
+      }
     }
     &__nickname{
       font-family: var(--font3);
@@ -161,6 +167,9 @@
       line-height: 130%;
       letter-spacing: 0.01em;
       color: #93989a;
+      @media (max-width: 1200px) {
+        font-size: 16px;
+      }
     }
     &__btn{
       padding: 20px;
@@ -182,6 +191,9 @@
       font-size: 20px;
       line-height: 125%;
       color: #000000;
+      @media (max-width: 1200px) {
+        font-size: 16px;
+      }
     }
     &__bottom{
       grid-column: 12 span;

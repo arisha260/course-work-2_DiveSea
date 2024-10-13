@@ -23,6 +23,10 @@ import MainTable from '@/components/table/MainTable.vue'
   .top-collection {
     margin-top: 232px;
     margin-bottom: 90px;
+    @media (max-width: 1200px) {
+      margin-top: 168px;
+      margin-bottom: 70px;
+    }
     &__container {
       display: flex;
       flex-direction: column;
@@ -31,9 +35,15 @@ import MainTable from '@/components/table/MainTable.vue'
     }
     &__title{
       margin-bottom: 90px;
+      @media (max-width: 1200px) {
+        margin-bottom: 64px;
+      }
     }
     &__explore-all{
       margin-top: 85px;
+      @media (max-width: 1200px) {
+        margin-top: 60px;
+      }
     }
   }
 </style>

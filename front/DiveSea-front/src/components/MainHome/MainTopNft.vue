@@ -15,6 +15,20 @@
         :modules="[Navigation, Pagination]"
         slides-per-view="4.5"
         space-between="40"
+        :breakpoints="{
+          '640': {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          '1200': {
+            slidesPerView: 4,
+            spaceBetween: 28,
+          },
+          '1440': {
+            slidesPerView: 4.5,
+            spaceBetween: 40,
+          },
+         }"
         :loop="false"
         :navigation="{
         nextEl: '.cards__pagination-btn_next',
@@ -35,12 +49,12 @@
       </Swiper>
       <div class="cards__pagination">
         <button class="btn-reset cards__pagination-btn cards__pagination-btn_prev">
-          <svg width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="17" height="10" class="pagination__svg" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M6.23973 0.389755C5.80229 -0.0140416 5.12034 0.0132326 4.71654 0.450673L1.23402 4.22336C0.852869 4.63627 0.852865 5.27271 1.23401 5.68562L4.71653 9.45839C5.12032 9.89584 5.80228 9.92312 6.23973 9.51933C6.67717 9.11554 6.70445 8.43358 6.30066 7.99614L4.48802 6.03242L14.9611 6.03242C15.5565 6.03242 16.0391 5.54982 16.0391 4.9545C16.0391 4.35918 15.5565 3.87657 14.9611 3.87657L4.48805 3.87657L6.30065 1.91295C6.70445 1.47551 6.67717 0.793551 6.23973 0.389755Z" fill="currentColor" />
         </svg>
         </button>
         <button class="btn-reset cards__pagination-btn cards__pagination-btn_next">
-          <svg width="17" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="17" class="pagination__svg" height="10" viewBox="0 0 17 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7603 0.389755C11.1977 -0.0140416 11.8797 0.0132326 12.2835 0.450673L15.766 4.22336C16.1471 4.63627 16.1471 5.27271 15.766 5.68562L12.2835 9.45839C11.8797 9.89584 11.1977 9.92312 10.7603 9.51933C10.3228 9.11554 10.2955 8.43358 10.6993 7.99614L12.512 6.03242L2.03886 6.03242C1.44354 6.03242 0.960937 5.54982 0.960937 4.9545C0.960937 4.35918 1.44354 3.87657 2.03886 3.87657L12.5119 3.87657L10.6993 1.91295C10.2956 1.47551 10.3228 0.793551 10.7603 0.389755Z" fill="currentColor" />
           </svg>
         </button>
@@ -76,11 +90,17 @@
     justify-content: center;
     flex-direction: column;
     overflow-x: hidden;
+    @media (max-width: 1200px) {
+      max-width: 1200px;
+    }
   }
   &__title{
     margin-top: 70px;
     line-height: 60%;
     color: #c5c5c5;
+    @media (max-width: 1200px) {
+      margin-top: 50px;
+    }
   }
   &__pagination{
     display: flex;
@@ -89,6 +109,9 @@
     box-shadow: 0 43px 34px -26px rgba(15, 15, 15, 0.12);
     background: #fcfcfd;
     position: relative;
+    @media (max-width: 1200px) {
+      border-radius: 12px;
+    }
     &::before{
       content: "";
       position: absolute;
@@ -98,6 +121,12 @@
       width: 2px;
       height: 25px;
       background: #e6e8ec;
+    }
+    .pagination__svg{
+      @media (max-width: 1200px) {
+        width: 11px;
+        height: 8px;
+      }
     }
   }
   &__pagination-btn{
@@ -114,10 +143,15 @@
     }
     &:nth-child(1){
       padding: 29px 40px 29px 27px;
-
+      @media (max-width: 1200px) {
+        padding: 20px 28px 21px 19px;
+      }
     }
     &:nth-child(2){
       padding: 29px 27px 29px 40px;
+      @media (max-width: 1200px) {
+        padding: 20px 19px 21px 28px;
+      }
     }
   }
 
@@ -125,8 +159,14 @@
 
 .swiper{
   padding: 100px 50px 114px 50px;
+  @media (max-width: 1200px) {
+    padding: 70px 0 81px 0;
+  }
   &-slide{
     max-width: 281px;
+    @media (max-width: 1200px) {
+      max-width: 199px;
+    }
   }
 }
 
@@ -140,11 +180,18 @@
   position: absolute;
   bottom: -10%;
   right: 100px;
+  @media (max-width: 1200px) {
+    padding: 18px 17px 15px 19px;
+    bottom: -15%;
+  }
   &__top{
     margin-bottom: 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 1200px) {
+      margin-bottom: 19px;
+    }
   }
   &__title {
     margin: 0;
@@ -155,6 +202,9 @@
     letter-spacing: 0.01em;
     color: #1a202c;
     position: relative;
+    @media (max-width: 1200px) {
+      font-size: 14px;
+    }
   }
   &__bottom{
     display: flex;

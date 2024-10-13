@@ -42,7 +42,9 @@ const makeAuctionBit = async (id, bidAmount) => {
   }
 };
 
-
+const closeAuctionBit = async () => {
+  AuctionModalModal.value = false;
+}
 
 onMounted(async () => {
   const nftId = route.params.id;
@@ -82,14 +84,14 @@ watch(route, async (newRoute) => {
           <p class="project-info__descr">{{ nft.description }}</p>
           <div class="project-info__from-whom">
             <div class="project-info__author">
-              <img :src="nft.author.img" alt="author" width="67" height="67">
+              <img :src="nft.author.img" class="project-info__user-avatar" alt="author" width="67" height="67">
               <div class="project-info__text-container">
                 <span class="main-span">Created by</span>
                 <p class="project-info__text">{{ nft.author.name }}</p>
               </div>
             </div>
             <div class="project-info__owner" v-if="nft.owner">
-              <img :src="nft.owner.img" alt="owner" width="67" height="67">
+              <img :src="nft.owner.img" class="project-info__user-avatar" alt="owner" width="67" height="67">
               <div class="project-info__text-container">
                 <span class="main-span">Owned by</span>
                 <p class="project-info__text" >{{ nft.owner.name }}</p>
@@ -173,6 +175,7 @@ watch(route, async (newRoute) => {
 
 
       <div class="auction-form popup" v-if="AuctionModalModal">
+        <div class="popup__close" @click="closeAuctionBit"><svg fill="currentColor" width="24px" height="24px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.8,16l5.5-5.5c0.8-0.8,0.8-2,0-2.8l0,0C24,7.3,23.5,7,23,7c-0.5,0-1,0.2-1.4,0.6L16,13.2l-5.5-5.5 c-0.8-0.8-2.1-0.8-2.8,0C7.3,8,7,8.5,7,9.1s0.2,1,0.6,1.4l5.5,5.5l-5.5,5.5C7.3,21.9,7,22.4,7,23c0,0.5,0.2,1,0.6,1.4 C8,24.8,8.5,25,9,25c0.5,0,1-0.2,1.4-0.6l5.5-5.5l5.5,5.5c0.8,0.8,2.1,0.8,2.8,0c0.8-0.8,0.8-2.1,0-2.8L18.8,16z"></path> </g></svg></div>
         <p class="auction-form__text popup__text">
           Make bid on this NFT
         </p>
@@ -225,6 +228,9 @@ watch(route, async (newRoute) => {
 <style scoped lang="scss">
   .product-detail{
     margin: 150px 0 160px 0;
+    @media (max-width: 1200px) {
+      margin: 103px 0 119px 0;
+    }
     &__container{
       display: flex;
       flex-direction: column;
@@ -236,8 +242,16 @@ watch(route, async (newRoute) => {
       flex-direction: row;
       align-items: center;
       gap: 35px;
+      @media (max-width: 1200px) {
+        margin-bottom: 42px;
+        gap: 24px;
+      }
     }
     &__back-icon{
+      @media (max-width: 1200px) {
+        width: 26px;
+        height: 26px;
+      }
       rect{
         color: #E6E8EC;
         transition: all .2s ease;
@@ -262,15 +276,25 @@ watch(route, async (newRoute) => {
       font-size: 31px;
       line-height: 89%;
       color: #23262f;
+      @media (max-width: 1200px) {
+        font-size: 22px;
+      }
     }
     &__loader{
       margin: 100px auto;
+      @media (max-width: 1200px) {
+        margin: 70px auto;
+      }
     }
     &__content{
       padding: 38px;
       border-radius: 24px;
       box-shadow: 18px 18px 61px 0 rgba(0, 0, 0, 0.12);
       background: #fafafa;
+      @media (max-width: 1200px) {
+        padding: 27px;
+        border-radius: 17px;
+      }
     }
     &__btn{
       max-width: 100%;
@@ -286,6 +310,12 @@ watch(route, async (newRoute) => {
       color: #fff;
       border-radius: 20px;
       background: #141416;
+      @media (max-width: 1200px) {
+        gap: 11px;
+        padding: 17px 0;
+        font-size: 13px;
+        border-radius: 14px;
+      }
       &:focus{
         outline: none;
       }
@@ -302,10 +332,14 @@ watch(route, async (newRoute) => {
     }
     &__from-creator{
       margin-top: 130px;
+      @media (max-width: 1200px) {
+        margin-top: 70px;
+      }
     }
   }
 
   .project-info{
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     align-items: center;
@@ -314,9 +348,17 @@ watch(route, async (newRoute) => {
     }
     &__img{
       border-radius: 24px;
+      @media (max-width: 1200px) {
+        width: 401px;
+        height: 398px;
+        border-radius: 17px;
+      }
     }
     &__right{
       grid-column: 8/5 span;
+      @media (max-width: 1200px) {
+        grid-column: 7/6 span;
+      }
     }
     &__title{
       margin: 0;
@@ -326,6 +368,9 @@ watch(route, async (newRoute) => {
       font-size: 51px;
       line-height: 90%;
       color: #292b39;
+      @media (max-width: 1200px) {
+        font-size: 36px;
+      }
     }
     &__descr{
       margin: 0;
@@ -335,31 +380,47 @@ watch(route, async (newRoute) => {
       font-size: 19px;
       line-height: 153%;
       color: rgba(136, 136, 136, 0.7);
+      @media (max-width: 1200px) {
+        font-size: 13px;
+        margin-bottom: 50px;
+      }
     }
     &__from-whom{
       margin-bottom: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media (max-width: 1200px) {
+        margin-bottom: 45px;
+      }
     }
     &__author, &__owner{
       display: flex;
       align-items: center;
       gap: 17px;
+      @media (max-width: 1200px) {
+        gap: 10px;
+      }
     }
     &__text{
       margin: 0;
       font-family: var(--font-family);
       font-weight: 500;
-      font-size: 25px;
+      font-size: 20px;
       line-height: 153%;
       color: #000;
+      @media (max-width: 1200px) {
+        font-size: 18px;
+      }
     }
     &__current-end{
       margin-bottom: 55px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media (max-width: 1200px) {
+        margin-bottom: 38px;
+      }
     }
     &__current-bid{
       display: flex;
@@ -375,16 +436,25 @@ watch(route, async (newRoute) => {
       font-size: 32px;
       color: #292b39;
       position: relative;
+      @media (max-width: 1200px) {
+        padding-left: 23px;
+        font-size: 23px;
+      }
       &::before{
         content: "";
         position: absolute;
         top: 3px;
         left: -5px;
-        background-image: url("/rate-png.png");
+        background-image: url("/rate-png-1200.png");
         background-repeat: no-repeat;
         background-size: cover;
         width: 24px;
         height: 27px;
+        @media (max-width: 1200px) {
+          top: 0;
+          width: 18px;
+          height: 25px;
+        }
       }
     }
     &__end-in{
@@ -401,6 +471,12 @@ watch(route, async (newRoute) => {
       line-height: 157%;
       text-align: right;
       color: #000;
+      @media (max-width: 1200px) {
+        font-size: 13px;
+      }
+    }
+    &__user-avatar{
+      border-radius: 50%;
     }
   }
 
@@ -409,10 +485,12 @@ watch(route, async (newRoute) => {
     font-weight: 400;
     font-size: 17px;
     color: #8d8d8d;
+    @media (max-width: 1200px) {
+      font-size: 12px;
+    }
   }
 
   .from-creator{
-
     &__title{
       margin: 0;
       margin-bottom: 44px;
@@ -421,6 +499,10 @@ watch(route, async (newRoute) => {
       font-size: 31px;
       line-height: 89%;
       color: #c3c3c3;
+      @media (max-width: 1200px) {
+        margin-bottom: 31px;
+        font-size: 22px;
+      }
     }
     &__cards{
       display: grid;
@@ -466,6 +548,13 @@ watch(route, async (newRoute) => {
     }
     &__warning{
       color: red;
+    }
+    &__close{
+
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      padding: 5px;
     }
   }
 

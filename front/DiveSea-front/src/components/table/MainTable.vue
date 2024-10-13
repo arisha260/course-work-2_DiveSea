@@ -15,13 +15,13 @@
     </tr>
     </thead>
     <tbody>
-      <TableBody img="/cards__recent-1.png" alt="recent img" name="Alex Ca."  nickname="By Alex" volume="8,456" percents="+ 27.78%"
+      <TableBody img="/cards__recent-1.png" alt="recent img" name="Alex Ca." nickname="By Alex" volume="8,456" percents="+ 27.78%"
       price="3,5" owners="2.2K" items="500"/>
-      <TableBody img="/cards__recent-2.png" alt="recent img" name="Alex Ca."  nickname="By Alex" volume="4,780" percents="+ 27.78%"
+      <TableBody img="/cards__recent-2.png" alt="recent img" name="Alex Ca." nickname="By Alex" volume="4,780" percents="+ 27.78%"
                  price="7,9" owners="3.4K" items="900"/>
-      <TableBody img="/cards__recent-1.png" alt="recent img" name="Alex Ca."  nickname="By Alex" volume="8,456" percents="+ 27.78%"
+      <TableBody img="/cards__recent-1.png" alt="recent img" name="Alex Ca." nickname="By Alex" volume="8,456" percents="+ 27.78%"
                  price="3,5" owners="2.2K" items="500"/>
-      <TableBody img="/cards__recent-2.png" alt="recent img" name="Alex Ca."  nickname="By Alex" volume="4,780" percents="+ 27.78%"
+      <TableBody img="/cards__recent-2.png" alt="recent img" name="Alex Ca." nickname="By Alex" volume="4,780" percents="+ 27.78%"
                  price="7,9" owners="3.4K" items="900"/>
     </tbody>
   </table>
@@ -32,7 +32,6 @@
   width: 100%;
   max-width: 1247px;
   border-collapse: collapse; /* Убираем промежутки между ячейками, чтобы границы были сплошными */
-
   &__col {
     text-align: left;
     font-family: var(--font-family);
@@ -41,11 +40,17 @@
     line-height: 130%;
     letter-spacing: 0.01em;
     color: #93989a;
+    @media (max-width: 1200px) {
+      font-size: 15px;
+    }
   }
 
   &__item {
     padding: 48px 0 39px 0 !important;
     text-align: left;
+    @media (max-width: 1200px) {
+      padding: 34px 0 27px 0 !important;
+    }
   }
 
   &__row {
@@ -55,10 +60,17 @@
     display: flex;
     flex-direction: row;
     gap: 24px;
+    @media (max-width: 1200px) {
+      gap: 16px;
+    }
   }
   &__img{
     border: 3.50px solid #fff;
     border-radius: 1751px;
+    @media (max-width: 1200px) {
+      width: 59px;
+      height: 59px;
+    }
   }
   &__price{
     margin-left: 30px;

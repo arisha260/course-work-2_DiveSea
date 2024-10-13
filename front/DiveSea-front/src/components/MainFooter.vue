@@ -6,7 +6,7 @@
   <footer class="footer">
     <div class="container footer__container">
       <div class="footer__top">
-        <img src="/footer-logo.png" alt="Footer logo" width="198" height="65">
+        <img src="/footer-logo.png" class="footer__logo" alt="Footer logo" width="198" height="65">
         <nav class="nav">
           <ul class="list-reset nav__list">
             <li class="nav__item"><a href="#" class="nav__link">Privacy Policy</a></li>
@@ -59,20 +59,33 @@
   .footer{
     padding: 92px 0 81px 0;
     background: #141416;
+    @media (max-width: 1200px) {
+      padding: 65px 0 57px 0;
+    }
     &__container {
       display: flex;
       flex-direction: column;
+    }
+    &__logo{
+      width: 141px;
+      height: 46px;
     }
     &__top{
       padding-bottom: 25px;
       display: flex;
       align-items: center;
       border-bottom: 1px solid #818181;
+      @media (max-width: 1200px) {
+        padding-bottom: 17px;
+      }
     }
     &__bottom{
       margin-top: 57px;
       display: flex;
       align-items: center;
+      @media (max-width: 1200px) {
+        margin-top: 40px;
+      }
     }
     &__copy{
       font-family: var(--second-family);
@@ -80,16 +93,26 @@
       font-size: 17px;
       line-height: 147%;
       color: #999;
+      @media (max-width: 1200px) {
+        font-size: 12px;
+      }
     }
     &__social{
       margin-left: auto;
       display: flex;
       align-items: center;
       gap: 53px;
+      @media (max-width: 1200px) {
+        gap: 38px;
+      }
     }
     &__svg{
       color: #535353;
       transition: color .3s ease;
+      @media (max-width: 1200px) {
+        width: 15px;
+        height: 15px;
+      }
       &:focus{
         outline: none;
       }
@@ -106,6 +129,9 @@
     margin-left: auto;
     &__list{
       gap: 70px;
+      @media (max-width: 1200px) {
+        gap: 49px;
+      }
     }
     &__link{
       font-family: var(--second-family);
@@ -115,6 +141,9 @@
       text-transform: capitalize;
       color: #b9b9b9;
       transition: color .2s ease;
+      @media (max-width: 1200px) {
+        font-size: 12px;
+      }
       &:focus{
         outline: none;
       }

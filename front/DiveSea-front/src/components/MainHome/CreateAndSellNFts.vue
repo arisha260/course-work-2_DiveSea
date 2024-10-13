@@ -24,6 +24,10 @@
   .create-and-sell-nfts{
     margin-top: 180px;
     margin-bottom: 160px;
+    @media (max-width: 1200px) {
+      margin-top: 128px;
+      margin-bottom: 113px;
+    }
     &__container{
       padding: 31px 22px 16px 61px;
       border-radius: 30px;
@@ -33,6 +37,11 @@
       justify-content: space-between;
       position: relative;
       z-index: 1;
+      @media (max-width: 1200px) {
+        max-width: 900px;
+        padding: 22px 15px 11px 46px;
+        border-radius: 21px;
+      }
       &::before {
         content: "";
         position: absolute;
@@ -46,6 +55,10 @@
         filter: blur(52.874610900878906px); /* Применяем размытие */
         z-index: -1; /* Псевдоэлемент должен быть позади изображения */
         border-radius: 8px; /* Тот же радиус, что и у изображения */
+        @media (max-width: 1200px) {
+          width: 277px;
+          height: 187px;
+        }
       }
     }
     &__title{
@@ -53,6 +66,9 @@
       line-height: 130%;
       letter-spacing: 0.01em;
       color: #fff;
+      @media (max-width: 1200px) {
+        margin-bottom: 8px;
+      }
     }
     &__left{
       display: flex;
@@ -66,12 +82,19 @@
       line-height: 130%;
       letter-spacing: 0.01em;
       color: #d4d4d4;
+      @media (max-width: 1200px) {
+        font-size: 14px;
+      }
     }
     &__btns{
       margin-top: 50px;
       display: flex;
       align-items: center;
       gap: 30px;
+      @media (max-width: 1200px) {
+        margin-top: 35px;
+        gap: 21px;
+      }
     }
     &__btn{
       padding: 19px 25px;
@@ -83,6 +106,11 @@
       color: #141416;
       border-radius: 12px;
       background: #fff;
+      @media (max-width: 1200px) {
+        padding: 14px 18px;
+        font-size: 15px;
+        border-radius: 9px;
+      }
     }
     &__btn-black{
       border: 2.29px solid #fff;
@@ -95,6 +123,10 @@
       pointer-events: none;
       -webkit-user-drag: none;
       user-drag: none;
+      @media (max-width: 1200px) {
+        width: 277px;
+        height: 187px;
+      }
     }
   }
 </style>

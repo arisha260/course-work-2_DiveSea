@@ -38,6 +38,9 @@
 <style lang="scss">
   .explore-marketplace {
     margin-top: 100px;
+    @media (max-width: 1200px) {
+      margin-top: 70px;
+    }
     &__container {
       display: flex;
       flex-direction: column;
@@ -45,6 +48,9 @@
     }
     &__title{
       margin-bottom: 65px;
+      @media (max-width: 1200px) {
+        margin-bottom: 45px;
+      }
     }
     &__categories{
 
@@ -56,12 +62,20 @@
       align-items: center;
       column-gap: 40px;
       row-gap: 67px;
+      @media (max-width: 1200px) {
+        margin-top: 70px;
+        column-gap: 28px;
+        row-gap: 48px;
+      }
     }
     &__card{
       grid-column: 3 span;
     }
     &__explore-all{
       margin-top: 103px;
+      @media (max-width: 1200px) {
+        margin-top: 70px;
+      }
     }
   }
 </style>

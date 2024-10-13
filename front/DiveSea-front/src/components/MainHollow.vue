@@ -26,6 +26,9 @@
       text-transform: capitalize;
       text-align: justify;
       color: #141416;
+      @media (max-width: 1200px) {
+        font-size: 16px;
+      }
     }
   }
 </style>

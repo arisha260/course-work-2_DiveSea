@@ -224,7 +224,6 @@
               <span class="form__type">PNG, GIF, WEBP, MP4 or MP3. Max 1Gb.</span>
               <input type="file" ref="image" class="input-reset form__field-upload" accept="image/*" required @change="handleFileUpload">
             </div>
-            <a @click="store.cheackAuth()" class="btn-reset main-button form__btn">Upload</a>
           </div>
 
         </form>
@@ -248,6 +247,10 @@
  .sell{
    margin-top: 155px;
    margin-bottom: 210px;
+   @media (max-width: 1200px) {
+     margin-top: 110px;
+     margin-bottom: 149px;
+   }
    &__container{
      display: flex;
      flex-direction: column;
@@ -255,6 +258,9 @@
    }
    &__title{
      margin-bottom: 153px;
+     @media (max-width: 1200px) {
+       margin-bottom: 108px;
+     }
    }
    &__content{
      width: 100%;
@@ -272,6 +278,7 @@
      font-size: 20px;
      line-height: 125%;
      color: #000000;
+
    }
    &__btn{
       padding: 20px;
@@ -288,12 +295,18 @@
      flex-direction: column;
      grid-column: 7 span;
      row-gap: 35px;
+     @media (max-width: 1200px) {
+       gap: 24px
+     }
    }
    &__row{
      display: flex;
      flex-direction: row;
      align-items: center;
      gap: 35px;
+     @media (max-width: 1200px) {
+       gap: 14px
+     }
    }
    &__row-sec{
      display: flex;
@@ -314,6 +327,9 @@
        line-height: 125%;
        color: #ff0000;
        z-index: 111111111;
+       @media (max-width: 1200px) {
+         font-size: 9px;
+       }
      }
    }
    &__content-row{
@@ -325,6 +341,9 @@
      justify-content: space-between;
      &:not(:last-child){
        margin-top: 70px;
+       @media (max-width: 1200px) {
+         margin-top: 50px;
+       }
      }
    }
    &__title{
@@ -334,6 +353,9 @@
      font-size: 20px;
      line-height: 125%;
      color: #000;
+     @media (max-width: 1200px) {
+       font-size: 14px;
+     }
    }
    &__field{
      padding: 23px 26px;
@@ -348,12 +370,20 @@
      color: #000;
      outline: none;
      border: 1px solid #efefef;
+     @media (max-width: 1200px) {
+       padding: 16px 19px;
+       font-size: 9px;
+       border-radius: 8px;
+     }
      &::-webkit-input-placeholder{
        font-family: var(--font-family);
        font-weight: 400;
        font-size: 13px;
        line-height: 125%;
        color: #9596a6;
+       @media (max-width: 1200px) {
+         font-size: 9px;
+       }
      }
      &::-moz-placeholder{
        font-family: var(--font-family);
@@ -361,6 +391,9 @@
        font-size: 13px;
        line-height: 125%;
        color: #9596a6;
+       @media (max-width: 1200px) {
+         font-size: 9px;
+       }
      }
      &:-moz-placeholder{
        font-family: var(--font-family);
@@ -368,6 +401,9 @@
        font-size: 13px;
        line-height: 125%;
        color: #9596a6;
+       @media (max-width: 1200px) {
+         font-size: 9px;
+       }
      }
      &:-ms-input-placeholder{
        font-family: var(--font-family);
@@ -375,6 +411,9 @@
        font-size: 13px;
        line-height: 125%;
        color: #9596a6;
+       @media (max-width: 1200px) {
+         font-size: 9px;
+       }
      }
    }
    &__field-split{
@@ -425,6 +464,9 @@
      font-size: 13px;
      line-height: 125%;
      color: #9596a6;
+     @media (max-width: 1200px) {
+       font-size: 9px;
+     }
    }
 
    &__right{
@@ -432,7 +474,9 @@
      grid-column: 5 span;
      display: flex;
      flex-direction: column;
-     gap: 57px;
+     @media (max-width: 1200px) {
+       margin-top: 38px;
+     }
    }
    &__upload{
      padding: 148px 144px;
@@ -446,6 +490,10 @@
      position: relative;
      cursor: pointer;
      z-index: 10;
+     @media (max-width: 1200px) {
+       padding: 105px 103px;
+       gap: 9px;
+     }
    }
    &__field-upload{
      position: absolute;
@@ -462,6 +510,14 @@
      line-height: 167%;
      text-align: center;
      color: #777e90;
+     @media (max-width: 1200px) {
+       max-width: 126px;
+       font-size: 10px;
+     }
+   }
+   &__img{
+     width: 36px;
+     height: 36px;
    }
    &__btn{
      margin: 0 auto;
@@ -472,7 +528,7 @@
    &__btn-create{
      max-width: 100%;
      margin: 0;
-     margin-top: 110px;
+     margin-top: 78px;
    }
  }
 </style>

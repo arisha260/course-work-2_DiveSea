@@ -40,11 +40,13 @@ watch(route, async (newRoute) => {
           <img src="/check-mark.png" alt="Галочка" class="author-detail__img-mark" width="29px" height="29">
         </div>
         <div class="author-detail__author-info">
-          <div class="author-detail__content">
-            <p class="author-detail__name" >{{ author.name }}</p>
-            <span class="author-detail__nickname">@{{ author.nickname }}</span>
+          <div class="author-detail__row">
+            <div class="author-detail__content">
+              <p class="author-detail__name" >{{ author.name }}</p>
+              <span class="author-detail__nickname">@{{ author.nickname }}</span>
+            </div>
+            <button class="btn-reset main-button author-detail__btn">Follow</button>
           </div>
-          <button class="btn-reset main-button author-detail__btn">Follow +</button>
         </div>
 
         <div class="author-detail__author-info">
@@ -105,14 +107,14 @@ watch(route, async (newRoute) => {
         <div class="author-detail__tabs tab">
 
           <button class="btn-reset tab__btn tab__btn-collection" @click="activeTab = 1" :class="{ activeBtn: activeTab === 1 }">
-            <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="22" height="19" class="tab__svg" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3127 9.45684C19.3127 10.2645 20.0061 10.9217 20.8583 10.9217C21.2881 10.9217 21.6368 11.2523 21.6368 11.6596V14.3168C21.6368 16.5638 19.7082 18.3917 17.3374 18.3917H5.17724C2.80645 18.3917 0.876801 16.5638 0.876801 14.3168V11.6596C0.876801 11.2523 1.22557 10.9217 1.6553 10.9217C2.50854 10.9217 3.20192 10.2645 3.20192 9.45684C3.20192 8.66981 2.53657 8.07756 1.6553 8.07756C1.44874 8.07756 1.25152 7.99984 1.10516 7.86112C0.958803 7.72241 0.876801 7.5345 0.876801 7.33971L0.878877 4.5959C0.878877 2.3489 2.80748 0.52002 5.17828 0.52002H17.3354C19.7062 0.52002 21.6358 2.3489 21.6358 4.5959L21.6368 7.25412C21.6368 7.44891 21.5548 7.6378 21.4095 7.77553C21.2632 7.91425 21.0659 7.99197 20.8583 7.99197C20.0061 7.99197 19.3127 8.64915 19.3127 9.45684ZM13.5944 10.0995L14.8182 8.97007C15.031 8.77528 15.1047 8.48801 15.0123 8.22239C14.921 7.95676 14.6822 7.76787 14.3937 7.7295L12.7028 7.49536L11.9461 6.04327C11.8163 5.79339 11.5527 5.63795 11.2589 5.63696H11.2568C10.9641 5.63696 10.7005 5.79241 10.5686 6.04229L9.81193 7.49536L8.12414 7.72852C7.83246 7.76787 7.59372 7.95676 7.50134 8.22239C7.40999 8.48801 7.48369 8.77528 7.69544 8.97007L8.91925 10.0995L8.63068 11.6962C8.58086 11.9716 8.69815 12.2451 8.93689 12.4094C9.07183 12.5009 9.22857 12.5481 9.38739 12.5481C9.50883 12.5481 9.63132 12.5196 9.74342 12.4635L11.2568 11.71L12.7671 12.4616C13.0287 12.5944 13.3391 12.5737 13.5768 12.4084C13.8165 12.2451 13.9338 11.9716 13.884 11.6962L13.5944 10.0995Z" fill="currentColor" />
             </svg>
             Collection
           </button>
 
           <button class="btn-reset tab__btn tab__btn-collection" @click="activeTab = 2" :class="{ activeBtn: activeTab === 2 }">
-            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="19" height="19" class="tab__svg" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M0.71666 9.45628C0.71666 4.47387 4.75133 0.430176 9.74276 0.430176C14.7252 0.430176 18.7689 4.47387 18.7689 9.45628C18.7689 14.4477 14.7252 18.4824 9.74276 18.4824C4.75133 18.4824 0.71666 14.4477 0.71666 9.45628ZM11.7556 11.1078L13.2178 6.48648C13.3171 6.17056 13.0283 5.8727 12.7123 5.97199L8.09099 7.41617C7.90144 7.47935 7.74799 7.62377 7.69384 7.81331L6.24966 12.4437C6.15037 12.7506 6.44824 13.0485 6.75512 12.9492L11.3584 11.505C11.548 11.4508 11.7014 11.2974 11.7556 11.1078Z" fill="currentColor" />
             </svg>
             Activity
@@ -166,43 +168,68 @@ watch(route, async (newRoute) => {
   .author-detail{
     //margin: 388px 0 180px 0;
     margin: 180px 0;
+    @media (max-width: 1200px) {
+      margin: 100px 0;
+    }
     &__container{
+      max-width: 1300px;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: 10px;
     }
     &__left{
       display: flex;
       flex-direction: column;
-      grid-column: 4 span;
+      grid-column: 5 span;
+      margin-right: 93px;
       .author-detail__author-info:nth-child(2) {
         margin-top: 30px;
         padding-bottom: 40px;
         border-bottom: 1.06px solid #d0d0d0;
+        @media (max-width: 1200px) {
+          padding-bottom: 20px;
+        }
       }
       .author-detail__author-info:nth-child(3) {
         margin-top: 43px;
+        @media (max-width: 1200px) {
+          margin-top: 22px;
+        }
       }
       .author-detail__author-info:nth-child(4) {
         margin-top: 116px;
         padding-bottom: 85px;
         border-bottom: 1.06px solid #d0d0d0;
+        @media (max-width: 1200px) {
+          margin-top: 83px;
+          padding-bottom: 60px;
+        }
       }
     }
     &__img-container{
       max-width: 165px;
       position: relative;
+      @media (max-width: 1200px) {
+        max-width: 118px;
+      }
     }
     &__img{
       display: block;
       border-radius: 100%;
       border: 5px solid white;
       z-index: 1;
+      @media (max-width: 1200px) {
+        width: 118px;
+        height: 118px;
+      }
     }
     &__img-mark{
       position: absolute;
       bottom: 10px;
       right: 10px;
+      @media (max-width: 1200px) {
+        bottom: 0;
+        right: 0;
+      }
     }
     &__author-info{
       &:not(:nth-child(4)){
@@ -211,10 +238,27 @@ watch(route, async (newRoute) => {
         justify-content: space-between;
       }
     }
+    &__row{
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
     &__content{
       display: flex;
       flex-direction: column;
       gap: 4px;
+    }
+    &__nickname{
+      font-family: var(--font3);
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 130%;
+      letter-spacing: 0.01em;
+      color: #93989a;
+      @media (max-width: 1200px) {
+        font-size: 12px;
+      }
     }
     &__name{
       margin: 0;
@@ -224,20 +268,20 @@ watch(route, async (newRoute) => {
       line-height: 130%;
       letter-spacing: 0.01em;
       color: #010101;
-    }
-    &__nickname{
-      font-family: var(--font3);
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 130%;
-      letter-spacing: 0.01em;
-      color: #93989a;
+      @media (max-width: 1200px) {
+        font-size: 24px;
+      }
     }
     &__btn{
       //height: auto;
-      padding: 12px 23px;
+      padding: 10px 20px;
+      text-align: center;
       border-radius: 11px;
       font-size: 14px;
+      @media (max-width: 1200px) {
+        font-size: 10px;
+        border-radius: 8px;
+      }
     }
     &__count{
       margin: 0;
@@ -247,6 +291,9 @@ watch(route, async (newRoute) => {
       line-height: 125%;
       text-align: center;
       color: #141416;
+      @media (max-width: 1200px) {
+        font-size: 22px;
+      }
     }
     &__what{
       font-family: var(--second-family);
@@ -254,6 +301,9 @@ watch(route, async (newRoute) => {
       font-size: 10px;
       line-height: 150%;
       color: #848586;
+      @media (max-width: 1200px) {
+        font-size: 7px;
+      }
     }
     &__bio-title{
       margin: 0;
@@ -262,6 +312,9 @@ watch(route, async (newRoute) => {
       font-size: 25px;
       line-height: 161%;
       color: #c5c5c5;
+      @media (max-width: 1200px) {
+        font-size: 17px;
+      }
     }
     &__bio-text{
       margin: 0;
@@ -271,11 +324,18 @@ watch(route, async (newRoute) => {
       line-height: 177%;
       text-transform: capitalize;
       color: #949494;
+      @media (max-width: 1200px) {
+        font-size: 9px;
+      }
     }
     &__list{
       margin-top: 33px;
       display: flex;
       gap: 66px;
+      @media (max-width: 1200px) {
+        margin-top: 23px;
+        gap: 47px;
+      }
     }
     &__link{
       padding: 5px;
@@ -284,6 +344,10 @@ watch(route, async (newRoute) => {
       color: black;
       transition: color .3s ease;
       position: relative;
+      @media (max-width: 1200px) {
+        width: 12px;
+        height: 12px;
+      }
       @media (hover:hover) {
         &:hover{
           color: #b3b2b2;
@@ -308,6 +372,9 @@ watch(route, async (newRoute) => {
       margin: 0 auto;
       :not(:first-child){
         margin: 100px auto;
+        @media (max-width: 1200px) {
+          margin: 50px auto;
+        }
       }
     }
   }
@@ -322,11 +389,24 @@ watch(route, async (newRoute) => {
       width: 100%;
       font-family: var(--font-family);
       font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 16px;
       line-height: 153%;
       text-align: center;
       color: #d2d2d2;
-
+      gap: 5px;
+      @media (max-width: 1200px) {
+        padding-bottom: 10px;
+        font-size: 11px;
+      }
+    }
+    &__svg{
+      @media (max-width: 1200px) {
+        width: 17px;
+        height: 16px;
+      }
     }
     .activeBtn{
       font-family: var(--font-family);
@@ -335,18 +415,34 @@ watch(route, async (newRoute) => {
       line-height: 153%;
       color: #000;
       border-bottom: 4px solid #141416;
+      @media (max-width: 1200px) {
+        font-size: 11px;
+      }
     }
     &__container{
       margin-top: 85px;
+      @media (max-width: 1200px) {
+        margin-top: 60px;
+      }
     }
     &__content{
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       column-gap: 10px;
       row-gap: 45px;
+      @media (max-width: 1200px) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 20px;
+        row-gap: 29px;
+      }
     }
     &__card{
       grid-column: 2 span;
+      @media (max-width: 1200px) {
+
+      }
     }
   }
 
@@ -360,6 +456,10 @@ watch(route, async (newRoute) => {
     border-radius: 17px;
     box-shadow: 28px 9px 43px 0 rgba(199, 199, 199, 0.6);
     position: relative;
+    @media (max-width: 1200px) {
+      max-width: 145px;
+      padding: 7px 7px 10px 7px;
+    }
     &__time{
       position: absolute;
       top: 20px;
@@ -370,21 +470,40 @@ watch(route, async (newRoute) => {
       padding: 6px 10px;
       backdrop-filter: blur(3.420224905014038px);
       box-shadow: 0 3px 10px 0 rgba(28, 29, 32, 0.08);
+      @media (max-width: 1200px) {
+        top: 14px;
+        right: 12px;
+        font-size: 7px;
+      }
     }
     &__img{
       //max-width: 183px;
       border-radius: 14px;
+      @media (max-width: 1200px) {
+        width: 130px;
+        height: 130px;
+      }
     }
     &__content{
       margin-top: 13px;
       gap: 10px;
+      @media (max-width: 1200px) {
+        margin-top: 9px;
+      }
     }
     &__title{
       font-size: 15px;
+      @media (max-width: 1200px) {
+        font-size: 10px;
+      }
     }
     &__current-bid{
       span{
         font-size: 10px;
+        font-weight: 600;
+        @media (max-width: 1200px) {
+          font-size: 7px;
+        }
       }
     }
     &__price{
@@ -392,15 +511,28 @@ watch(route, async (newRoute) => {
       padding-left: 10px;
       font-size: 11px;
       position: relative;
+      @media (max-width: 1200px) {
+        padding-left: 5px;
+        font-size: 8px;
+      }
       &::before{
         width: 15px;
         height: 15px;
+        @media (max-width: 1200px) {
+          width: 10px;
+          height: 10px;
+        }
       }
     }
     &__btn{
       padding: 11px 18px;
       border-radius: 9px;
       font-size: 10px;
+      @media (max-width: 1200px) {
+        padding: 4px 9px;
+        font-size: 7px;
+        border-radius: 6px;
+      }
     }
   }
 

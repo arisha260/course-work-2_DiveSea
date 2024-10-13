@@ -32,16 +32,25 @@
 <style scoped lang="scss">
   .inner-collector{
     margin-top: 103px;
+    @media (max-width: 1200px) {
+      margin-top: 53px;
+    }
     &__container{
       padding-top: 116px;
       border-top: 0.71px solid #cbcbcb;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       align-items: center;
+      @media (max-width: 1200px) {
+        padding-top: 53px;
+      }
     }
     &__title{
       margin-bottom: 45px;
       text-transform: capitalize;
+      @media (max-width: 1200px) {
+        margin-bottom: 31px;
+      }
       span{
         color: #c5c5c5
       }
@@ -55,6 +64,10 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 12px;
+      @media (max-width: 1200px) {
+        gap: 8px;
+        margin-bottom: 50px;
+      }
     }
     &__item{
       padding-left: 32px;
@@ -64,6 +77,11 @@
       line-height: 200%;
       color: #12141d;
       position: relative;
+      @media (max-width: 1200px) {
+        padding-left: 16px;
+        font-size: 11px;
+        border-radius: 9px;
+      }
       &::before{
         content: "";
         position: absolute;
@@ -75,6 +93,11 @@
         background-size: cover;
         width: 20px;
         height: 20px;
+        @media (max-width: 1200px) {
+          transform: translateY(40%);
+          width: 10px;
+          height: 10px;
+        }
       }
     }
     &__btn{
@@ -91,9 +114,20 @@
       color: #fff;
       background: #000;
       border-radius: 12px;
+      @media (max-width: 1200px) {
+        max-width: 115px;
+        padding: 12px 10px 13px 14px;
+        font-size: 10px;
+        border-radius: 9px;
+      }
       svg{
         margin-left: 11px;
         transition: all .2s ease;
+        @media (max-width: 1200px) {
+          margin-left: 7px;
+          width: 15px;
+          height: 15px;
+        }
       }
       @media(hover:hover){
         &:hover svg{

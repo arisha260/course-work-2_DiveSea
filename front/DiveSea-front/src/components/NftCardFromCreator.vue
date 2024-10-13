@@ -48,6 +48,11 @@ defineProps({
   background: #fff;
   position: relative;
   transition: all .3s ease;
+  @media (max-width: 1200px) {
+    max-width: 153px;
+    padding: 10px;
+    border-radius: 12px;
+  }
   //@media (hover: hover) {
   //  &:hover{
   //    transform: scale(1.05);
@@ -59,6 +64,10 @@ defineProps({
     pointer-events: none;
     -webkit-user-drag: none;
     user-drag: none;
+    @media (max-width: 1200px) {
+      width: 133px;
+      height: 116px;
+    }
   }
   &__content{
     margin-top: 7px;
@@ -66,6 +75,10 @@ defineProps({
     flex-direction: column;
     flex-grow: 1;
     gap: 14px;
+    @media (max-width: 1200px) {
+      margin-top: 5px;
+      gap: 4px;
+    }
   }
   &__author{
     margin: 0;
@@ -75,8 +88,15 @@ defineProps({
     font-size: 14px;
     line-height: 157%;
     color: #141416;
+    @media (max-width: 1200px) {
+      font-size: 9px;
+    }
     svg{
       transform: translateY(20%);
+      @media (max-width: 1200px) {
+        width: 12px;
+        height: 12px;
+      }
     }
   }
   &__title{
@@ -87,6 +107,9 @@ defineProps({
     font-size: 17px;
     line-height: 157%;
     color: #141416;
+    @media (max-width: 1200px) {
+      font-size: 12px;
+    }
   }
   &__content-bottom{
     margin-top: auto;
@@ -104,6 +127,10 @@ defineProps({
     text-align: center;
     color: #141416;
     position: relative;
+    @media (max-width: 1200px) {
+      padding-left: 12px;
+      font-size: 12px;
+    }
     &::before{
       content: '';
       position: absolute;
@@ -114,6 +141,13 @@ defineProps({
       background-size: cover;
       width: 22px;
       height: 22px;
+      @media (max-width: 1200px) {
+        background-image: url("/rate-png-1200.png");
+        top: 2px;
+        left: 0;
+        width: 9px;
+        height: 13px;
+      }
     }
   }
   &__btn{
@@ -124,9 +158,17 @@ defineProps({
     text-align: center;
     color: #888;
     transition: all .4s ease;
+    @media (max-width: 1200px) {
+      font-size: 9px;
+    }
     svg{
       margin-right: 5px;
       transform: translateY(15%);
+      @media (max-width: 1200px) {
+        margin-right: 3px;
+        width: 10px;
+        height: 9px;
+      }
     }
     @media (hover: hover) {
       &:hover{

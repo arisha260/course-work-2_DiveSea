@@ -93,6 +93,10 @@
   .discover{
     margin-top: 155px;
     margin-bottom: 200px;
+    @media (max-width: 1200px) {
+      margin-top: 110px;
+      margin-bottom: 160px;
+    }
     &__container{
       display: flex;
       flex-direction: column;
@@ -101,9 +105,15 @@
     }
     &__title{
       margin-bottom: 44px;
+      @media (max-width: 1200px) {
+        margin-bottom: 31px;
+      }
     }
     &__category{
       margin-bottom: 100px;
+      @media (max-width: 1200px) {
+        margin-bottom: 70px;
+      }
     }
     &__content{
       display: grid;
@@ -111,6 +121,10 @@
       align-items: center;
       column-gap: 40px;
       row-gap: 67px;
+      @media (max-width: 1200px) {
+        column-gap: 28px;
+        row-gap: 48px;
+      }
     }
     &__card{
       grid-column: 3 span;
@@ -119,6 +133,9 @@
     &__btn{
       margin-top: 100px;
       padding: 10px 20px;
+      @media (max-width: 1200px) {
+        margin-top: 50px;
+      }
     }
   }
 </style>

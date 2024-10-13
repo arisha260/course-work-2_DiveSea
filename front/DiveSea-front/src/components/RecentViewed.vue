@@ -34,11 +34,18 @@
   .cards-resent__img{
     border: 1.92px solid #fff;
     border-radius: 50%;
+    @media (max-width: 1200px) {
+      width: 32px;
+      height: 32px;
+    }
   }
   .cards-resent__author{
     margin-left: 21px;
     display: flex;
     flex-direction: column;
+    @media (max-width: 1200px) {
+      margin-left: 10px;
+    }
   }
   .cards-resent__name{
     margin: 0;
@@ -48,6 +55,10 @@
     font-size: 15px;
     line-height: 140%;
     color: #141416;
+    @media (max-width: 1200px) {
+      font-size: 10px;
+      margin-bottom: 5px;
+    }
   }
   .cards-resent__nickname{
     font-family: var(--font-family);
@@ -55,6 +66,9 @@
     font-size: 12px;
     line-height: 150%;
     color: #64748b;
+    @media (max-width: 1200px) {
+      font-size: 8px;
+    }
   }
   .cards-resent__info{
     margin-left: auto;
@@ -70,6 +84,10 @@
     line-height: 150%;
     color: #141416;
     position: relative;
+    @media (max-width: 1200px) {
+      padding-left: 5px;
+      font-size: 10px;
+    }
     &::before{
     content: '';
       position: absolute;
@@ -80,6 +98,11 @@
       background-size: cover;
       width: 22px;
       height: 22px;
+      @media (max-width: 1200px) {
+        left: -8px;
+        width: 12px;
+        height: 12px;
+      }
     }
   }
   .cards-resent__percents{
@@ -88,5 +111,8 @@
     font-size: 13px;
     line-height: 150%;
     color: #10c352;
+    @media (max-width: 1200px) {
+      font-size: 9px;
+    }
   }
 </style>
