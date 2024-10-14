@@ -67,9 +67,21 @@
         column-gap: 28px;
         row-gap: 48px;
       }
+      @media (max-width: 480px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     }
     &__card{
       grid-column: 3 span;
+      @media (max-width: 800px) {
+        grid-column: 4 span;
+      }
+      @media (max-width: 690px) {
+        grid-column: 6 span;
+      }
     }
     &__explore-all{
       margin-top: 103px;

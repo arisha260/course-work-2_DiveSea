@@ -44,6 +44,10 @@
     @media (max-width: 1200px) {
       gap: 15px;
     }
+    @media (max-width: 650px) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     &__category{
       height: auto;
       padding: 17px;

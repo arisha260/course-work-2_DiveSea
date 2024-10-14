@@ -17,7 +17,7 @@ class IndexController extends Controller
 //        Gate::authorize('viewAny', Nft::class);
 //        Log::info('After authorization in IndexController');
 
-        $nft = Nft::paginate(20);
+        $nft = Nft::paginate(10);
         $totalCount = Nft::count();
 
         return response()->json([

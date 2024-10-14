@@ -171,6 +171,9 @@ watch(route, async (newRoute) => {
     @media (max-width: 1200px) {
       margin: 100px 0;
     }
+    @media (max-width: 900px) {
+      margin: 50px 0;
+    }
     &__container{
       max-width: 1300px;
       display: grid;
@@ -181,6 +184,9 @@ watch(route, async (newRoute) => {
       flex-direction: column;
       grid-column: 5 span;
       margin-right: 93px;
+      @media (max-width: 900px) {
+        grid-column: 12 span;
+      }
       .author-detail__author-info:nth-child(2) {
         margin-top: 30px;
         padding-bottom: 40px;
@@ -202,6 +208,10 @@ watch(route, async (newRoute) => {
         @media (max-width: 1200px) {
           margin-top: 83px;
           padding-bottom: 60px;
+        }
+        @media (max-width: 900px) {
+          margin-top: 60px;
+          padding-bottom: 40px;
         }
       }
     }
@@ -236,6 +246,13 @@ watch(route, async (newRoute) => {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        @media (max-width: 900px) {
+          justify-content: flex-start;
+          gap: 30px;
+        }
+        @media (max-width: 400px) {
+          flex-wrap: wrap;
+        }
       }
     }
     &__row{
@@ -243,6 +260,10 @@ watch(route, async (newRoute) => {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+      @media (max-width: 400px) {
+        gap: 30px;
+        flex-wrap: wrap;
+      }
     }
     &__content{
       display: flex;
@@ -258,6 +279,9 @@ watch(route, async (newRoute) => {
       color: #93989a;
       @media (max-width: 1200px) {
         font-size: 12px;
+      }
+      @media (max-width: 900px) {
+        font-size: 14px;
       }
     }
     &__name{
@@ -304,6 +328,9 @@ watch(route, async (newRoute) => {
       @media (max-width: 1200px) {
         font-size: 7px;
       }
+      @media (max-width: 900px) {
+        font-size: 11px;
+      }
     }
     &__bio-title{
       margin: 0;
@@ -314,6 +341,9 @@ watch(route, async (newRoute) => {
       color: #c5c5c5;
       @media (max-width: 1200px) {
         font-size: 17px;
+      }
+      @media (max-width: 900px) {
+        font-size: 20px;
       }
     }
     &__bio-text{
@@ -326,6 +356,9 @@ watch(route, async (newRoute) => {
       color: #949494;
       @media (max-width: 1200px) {
         font-size: 9px;
+      }
+      @media (max-width: 900px) {
+        font-size: 12px;
       }
     }
     &__list{
@@ -348,6 +381,10 @@ watch(route, async (newRoute) => {
         width: 12px;
         height: 12px;
       }
+      @media (max-width: 900px) {
+        width: 15px;
+        height: 15px;
+      }
       @media (hover:hover) {
         &:hover{
           color: #b3b2b2;
@@ -367,6 +404,9 @@ watch(route, async (newRoute) => {
       grid-column: 6/6 span;
       display: flex;
       flex-direction: column;
+      @media (max-width: 900px) {
+        grid-column: 12 span;
+      }
     }
     &__loader{
       margin: 0 auto;
@@ -400,6 +440,9 @@ watch(route, async (newRoute) => {
       @media (max-width: 1200px) {
         padding-bottom: 10px;
         font-size: 11px;
+      }
+      @media (max-width: 900px) {
+        font-size: 14px;
       }
     }
     &__svg{
@@ -440,9 +483,6 @@ watch(route, async (newRoute) => {
     }
     &__card{
       grid-column: 2 span;
-      @media (max-width: 1200px) {
-
-      }
     }
   }
 
@@ -473,7 +513,7 @@ watch(route, async (newRoute) => {
       @media (max-width: 1200px) {
         top: 14px;
         right: 12px;
-        font-size: 7px;
+        font-size: 8px;
       }
     }
     &__img{
@@ -502,7 +542,7 @@ watch(route, async (newRoute) => {
         font-size: 10px;
         font-weight: 600;
         @media (max-width: 1200px) {
-          font-size: 7px;
+          font-size: 8px;
         }
       }
     }
@@ -513,7 +553,7 @@ watch(route, async (newRoute) => {
       position: relative;
       @media (max-width: 1200px) {
         padding-left: 5px;
-        font-size: 8px;
+        font-size: 9px;
       }
       &::before{
         width: 15px;
@@ -530,7 +570,7 @@ watch(route, async (newRoute) => {
       font-size: 10px;
       @media (max-width: 1200px) {
         padding: 4px 9px;
-        font-size: 7px;
+        font-size: 9px;
         border-radius: 6px;
       }
     }

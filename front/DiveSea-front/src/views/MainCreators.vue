@@ -24,7 +24,6 @@
           <MainAuthorCard :img="card.img" :alt="card.name" :name="card.name" :nickname="card.nickname" :followers="card.followers"/>
         </router-link>
       </div>
-
     </div>
   </section>
 </template>
@@ -33,6 +32,10 @@
   .creators{
     margin-top: 155px;
     margin-bottom: 200px;
+    @media (max-width: 900px) {
+      margin-top: 70px;
+      margin-bottom: 100px
+    }
     &__container{
       display: flex;
       flex-direction: column;
@@ -50,6 +53,15 @@
     }
     &__card{
       grid-column: 3 span;
+      @media (max-width: 1200px) {
+        grid-column: 4 span;
+      }
+      @media (max-width: 900px) {
+        grid-column: 6 span;
+      }
+      @media (max-width: 580px) {
+        grid-column: 12 span;
+      }
     }
     &__loader{
       margin-top: 100px;

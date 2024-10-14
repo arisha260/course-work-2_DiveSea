@@ -27,6 +27,10 @@ import MainTable from '@/components/table/MainTable.vue'
       margin-top: 168px;
       margin-bottom: 70px;
     }
+    @media (max-width: 800px) {
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
     &__container {
       display: flex;
       flex-direction: column;

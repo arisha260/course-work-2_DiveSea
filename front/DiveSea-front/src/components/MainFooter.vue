@@ -78,6 +78,11 @@
       @media (max-width: 1200px) {
         padding-bottom: 17px;
       }
+      @media (max-width: 800px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
     }
     &__bottom{
       margin-top: 57px;
@@ -85,6 +90,10 @@
       align-items: center;
       @media (max-width: 1200px) {
         margin-top: 40px;
+      }
+      @media (max-width: 450px) {
+        flex-direction: column;
+        gap: 20px;
       }
     }
     &__copy{
@@ -96,6 +105,9 @@
       @media (max-width: 1200px) {
         font-size: 12px;
       }
+      @media (max-width: 450px) {
+        order: 2;
+      }
     }
     &__social{
       margin-left: auto;
@@ -105,6 +117,10 @@
       @media (max-width: 1200px) {
         gap: 38px;
       }
+      @media (max-width: 450px) {
+        margin-left: 0;
+        order: 1;
+      }
     }
     &__svg{
       color: #535353;
@@ -112,6 +128,10 @@
       @media (max-width: 1200px) {
         width: 15px;
         height: 15px;
+      }
+      @media (max-width: 800px) {
+        width: 20px;
+        height: 20px;
       }
       &:focus{
         outline: none;
@@ -127,10 +147,19 @@
 
   .nav{
     margin-left: auto;
+    @media (max-width: 800px) {
+      margin-left: 0;
+    }
     &__list{
       gap: 70px;
       @media (max-width: 1200px) {
         gap: 49px;
+      }
+      @media (max-width: 800px) {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
       }
     }
     &__link{
@@ -143,6 +172,9 @@
       transition: color .2s ease;
       @media (max-width: 1200px) {
         font-size: 12px;
+      }
+      @media (max-width: 800px) {
+        font-size: 16px;
       }
       &:focus{
         outline: none;

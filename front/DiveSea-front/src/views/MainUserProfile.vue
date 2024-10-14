@@ -63,16 +63,15 @@
       <div class="user-profile__bottom">
         <p class="user-profile__text user-profile__border">Balance: {{ user.balance ? user.balance:0 }}</p>
 
-
         <div class="user-profile__owner user-profile__border" v-if="!isLoading && userNfts.length === 0">
           <p class="user-profile__text">NFTs that you own ({{ userNfts.length }}):</p>
         </div>
         <div class="user-profile__owner user-profile__border" v-else-if="!isLoading && userNfts.length !== 0">
           <p class="user-profile__text">NFTs that you own ({{ userNfts.length }}):</p>
-          <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in userNfts" :key="index">
-            <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
-            </NftCard>
-          </router-link>
+            <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in userNfts" :key="index">
+              <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
+              </NftCard>
+            </router-link>
         </div>
 
 
@@ -81,10 +80,10 @@
         </div>
         <div class="user-profile__owner user-profile__border" v-else-if="!isLoading && nftsBid !== 0">
           <p class="user-profile__text">NFT with your bid ({{ nftsBid.length }}):</p>
-          <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in nftsBid" :key="index">
-            <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
-            </NftCard>
-          </router-link>
+            <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in nftsBid" :key="index">
+              <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
+              </NftCard>
+            </router-link>
         </div>
 
         <div class="user-profile__owner user-profile__border" v-if="!isLoading && nftsBidWin.length === 0">
@@ -92,10 +91,9 @@
         </div>
         <div class="user-profile__owner user-profile__border" v-else-if="!isLoading && nftsBidWin !== 0">
           <p class="user-profile__text">Auctions won (require payment) ({{ nftsBidWin.length }}):</p>
-          <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in nftsBidWin" :key="index">
-            <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner">
-            </NftCard>
-          </router-link>
+            <router-link :to="{ name: 'discover.show', params: {id: card.id} }" class="user-profile__card" v-for="(card, index) in nftsBidWin" :key="index">
+              <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner"></NftCard>
+            </router-link>
         </div>
 
 
@@ -111,6 +109,9 @@
 <style scoped lang="scss">
   .user-profile{
     margin: 100px 0;
+    @media (max-width: 1200px) {
+      margin: 50px 0;
+    }
     &__container{
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -128,9 +129,11 @@
     }
     &__img{
       border-radius: 50%;
+      border: 2px solid #000;
     }
     &__bg{
       grid-column: 12 span;
+      max-height: 210px;
     }
     &__bg-img{
       width: 100%;
@@ -147,6 +150,10 @@
     &__header-left{
       display: flex;
       gap: 20px;
+      @media (max-width: 540px) {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
     &__name{
       margin: 0;
@@ -197,6 +204,7 @@
     }
     &__bottom{
       grid-column: 12 span;
+      width: 100%;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       align-items: center;
@@ -205,12 +213,22 @@
       grid-column: 12 span;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: 30px;
+      gap: 20px;
     }
     &__card{
       grid-column: 3 span;
+      @media (max-width: 1200px) {
+        grid-column: 3 span;
+      }
+      @media (max-width: 690px) {
+        grid-column: 6 span;
+      }
+      @media (max-width: 480px) {
+        grid-column: 12 span;
+      }
     }
     &__border{
+      width: 100%;
       padding-bottom: 20px;
       border-bottom: 1px solid #d0d0d0;
     }

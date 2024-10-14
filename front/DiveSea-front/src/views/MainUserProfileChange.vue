@@ -173,6 +173,10 @@
       display: flex;
       gap: 20px;
       padding-top: 20px;
+      @media (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+      }
     }
     &__content{
       -webkit-box-flex: 1;
@@ -188,7 +192,10 @@
   }
 
   .uploader{
-
+    @media (max-width: 600px) {
+      height: auto;
+      width: 100%;
+    }
     &-trigger{
       width: 120px;
       height: 120px;

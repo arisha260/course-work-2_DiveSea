@@ -247,9 +247,9 @@
  .sell{
    margin-top: 155px;
    margin-bottom: 210px;
-   @media (max-width: 1200px) {
-     margin-top: 110px;
-     margin-bottom: 149px;
+   @media (max-width: 1201px) {
+     margin-top: 50px;
+     margin-bottom: 50px;
    }
    &__container{
      display: flex;
@@ -258,8 +258,8 @@
    }
    &__title{
      margin-bottom: 153px;
-     @media (max-width: 1200px) {
-       margin-bottom: 108px;
+     @media (max-width: 1201px) {
+       margin-bottom: 30px;
      }
    }
    &__content{
@@ -278,7 +278,6 @@
      font-size: 20px;
      line-height: 125%;
      color: #000000;
-
    }
    &__btn{
       padding: 20px;
@@ -295,7 +294,9 @@
      flex-direction: column;
      grid-column: 7 span;
      row-gap: 35px;
-     @media (max-width: 1200px) {
+     @media (max-width: 1201px) {
+       order: 2;
+       grid-column: 12 span;
        gap: 24px
      }
    }
@@ -304,8 +305,11 @@
      flex-direction: row;
      align-items: center;
      gap: 35px;
-     @media (max-width: 1200px) {
+     @media (max-width: 1201px) {
        gap: 14px
+     }
+     @media (max-width: 440px) {
+       flex-wrap: wrap;
      }
    }
    &__row-sec{
@@ -319,7 +323,7 @@
      position: relative;
      .form__error{
        position: absolute;
-       bottom: 0;
+       bottom: -10px;
        left: 0;
        font-family: var(--font-family);
        font-weight: 400;
@@ -370,7 +374,8 @@
      color: #000;
      outline: none;
      border: 1px solid #efefef;
-     @media (max-width: 1200px) {
+     @media (max-width: 1201px) {
+       max-width: 100%;
        padding: 16px 19px;
        font-size: 9px;
        border-radius: 8px;
@@ -436,6 +441,10 @@
      height: 39px;
      background-color: #dadada;
      z-index: 11;
+     @media (max-width: 1201px) {
+       top: 45px;
+       height: 30px;
+     }
    }
    &__svg{
      position: absolute;
@@ -448,6 +457,11 @@
      top: 73px;
      right: 26px;
      z-index: 10;
+     @media (max-width: 1201px) {
+       top: 57px;
+       right: 26px;
+       z-index: 10;
+     }
    }
    &__arrow-2{
      left: 60px;
@@ -474,9 +488,12 @@
      grid-column: 5 span;
      display: flex;
      flex-direction: column;
-     @media (max-width: 1200px) {
+     @media (max-width: 1201px) {
+       order: 1;
        margin-top: 38px;
+       grid-column: 12 span;
      }
+
    }
    &__upload{
      padding: 148px 144px;
@@ -489,10 +506,16 @@
      background: #fcfcfd;
      position: relative;
      cursor: pointer;
+     border-radius: 22px;
      z-index: 10;
-     @media (max-width: 1200px) {
+     @media (max-width: 1201px) {
+       max-width: 600px;
+       align-self: center;
        padding: 105px 103px;
        gap: 9px;
+     }
+     @media (max-width: 380px) {
+       max-width: 400px;
      }
    }
    &__field-upload{

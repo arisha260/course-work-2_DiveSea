@@ -58,11 +58,15 @@ const handleClose = () => {
 
 <style scoped lang="scss">
 .admin-info {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
   position: relative;
+  @media (max-width: 690px) {
+    max-width: 300px;
+  }
 
   &__title {
     margin: 0;
@@ -71,6 +75,9 @@ const handleClose = () => {
     font-size: 20px;
     line-height: 125%;
     color: #000;
+    @media (max-width: 690px) {
+      font-size: 16px;
+    }
   }
 
   &__text {
@@ -80,6 +87,13 @@ const handleClose = () => {
     font-size: 18px;
     line-height: 156%;
     color: #676767;
+    //white-space: normal;
+    //overflow-wrap: break-word;
+    //word-wrap: break-word;
+    word-break: break-word;
+    @media (max-width: 690px) {
+      font-size: 14px;
+    }
   }
 
   &__btns {

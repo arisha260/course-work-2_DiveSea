@@ -174,6 +174,7 @@
 }
 
 .form{
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 30px;
@@ -197,8 +198,7 @@
   }
   &__field{
     padding: 23px 26px;
-    max-width: 600px;
-    min-width: 600px;
+    min-width: 100%;
     min-height: 200px;
     border-radius: 12px;
     background: #efefef;
@@ -209,6 +209,7 @@
     color: #000;
     outline: none;
     border: 1px solid #efefef;
+
     &::-webkit-input-placeholder{
       font-family: var(--font-family);
       font-weight: 400;

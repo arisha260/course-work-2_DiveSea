@@ -86,23 +86,40 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: center;
   }
+  &__card {
+    grid-column: 3 span;
+    @media (max-width: 920px) {
+      grid-column: 4 span;
+    }
+    @media (max-width: 690px) {
+      grid-column: 6 span;
+    }
+    @media (max-width: 540px) {
+      grid-column: 12 span;
+    }
+  }
+
   &__content{
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     align-items: center;
     justify-content: center;
     gap: 30px;
-  }
-
-  &__card {
-    grid-column: 3 span;
+    @media (max-width: 690px) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
   }
 
   &__info {
+    max-width: 500px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 10%;
+    left: 10%;
+    right: 30%;
     background-color: #fff;
     padding: 20px;
     border-radius: 23px;

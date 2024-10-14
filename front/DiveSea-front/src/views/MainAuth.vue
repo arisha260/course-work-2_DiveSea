@@ -77,7 +77,7 @@ const handleRegistration = handleRegisterSubmit(async () => {
         </svg>
         To Home
       </RouterLink>
-      <h1 class="main-title auth__title">Authorization</h1>
+      <h1 class="main-title auth__title">Authentication</h1>
       <div class="auth__nav">
         <button class="btn-reset auth__btn" @click="activeTab = 1" :class="{ activeBtn: activeTab === 1 }">
           Login

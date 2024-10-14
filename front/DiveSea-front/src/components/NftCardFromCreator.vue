@@ -53,6 +53,9 @@ defineProps({
     padding: 10px;
     border-radius: 12px;
   }
+  @media (max-width: 960px) {
+    max-width: 153px;
+  }
   //@media (hover: hover) {
   //  &:hover{
   //    transform: scale(1.05);
@@ -68,6 +71,11 @@ defineProps({
       width: 133px;
       height: 116px;
     }
+    @media (max-width: 960px) {
+      width: 131px;
+      height: 131px;
+    }
+
   }
   &__content{
     margin-top: 7px;
@@ -91,6 +99,12 @@ defineProps({
     @media (max-width: 1200px) {
       font-size: 9px;
     }
+    @media (max-width: 960px) {
+      font-size: 11px;
+    }
+    @media (max-width: 590px) {
+      font-size: 13px;
+    }
     svg{
       transform: translateY(20%);
       @media (max-width: 1200px) {
@@ -109,6 +123,12 @@ defineProps({
     color: #141416;
     @media (max-width: 1200px) {
       font-size: 12px;
+    }
+    @media (max-width: 960px) {
+      font-size: 14px;
+    }
+    @media (max-width: 590px) {
+      font-size: 16px;
     }
   }
   &__content-bottom{
@@ -161,6 +181,12 @@ defineProps({
     @media (max-width: 1200px) {
       font-size: 9px;
     }
+    @media (max-width: 960px) {
+      font-size: 11px;
+    }
+    @media (max-width: 590px) {
+      font-size: 13px;
+    }
     svg{
       margin-right: 5px;
       transform: translateY(15%);
@@ -168,6 +194,16 @@ defineProps({
         margin-right: 3px;
         width: 10px;
         height: 9px;
+      }
+      @media (max-width: 960px) {
+        margin-right: 3px;
+        width: 12px;
+        height: 11px;
+      }
+      @media (max-width: 590px) {
+        margin-right: 3px;
+        width: 14px;
+        height: 13px;
       }
     }
     @media (hover: hover) {

@@ -42,6 +42,14 @@
       max-width: 200px;
       padding: 10px 10px 14px 10px;
     }
+    @media (max-width: 690px) {
+      max-width: 230px;
+    }
+    @media (max-width: 480px) {
+      max-width: 283px;
+      padding: 14px 14px 18px 14px;
+      border-radius: 24px;
+    }
     &__time{
       position: absolute;
       top: 35px;
@@ -65,6 +73,18 @@
         font-size: 10px;
         padding: 6px 10px;
       }
+      @media (max-width: 690px) {
+        top: 28px;
+        right: 23px;
+        font-size: 12px;
+        padding: 8px 14px;
+      }
+      @media (max-width: 480px) {
+        top: 28px;
+        right: 23px;
+        font-size: 14px;
+        padding: 8px 14px;
+      }
     }
     &__img{
       max-height: 240px;
@@ -76,6 +96,12 @@
       @media (max-width: 1200px) {
         max-height: 179px;
       }
+      @media (max-width: 690px) {
+        max-height: 210px;
+      }
+      @media (max-width: 480px) {
+        max-height: 254px;
+      }
     }
     &__content{
       margin-top: 19px;
@@ -85,6 +111,9 @@
       gap: 14px;
       @media (max-width: 1200px) {
         margin-top: 13px;
+      }
+      @media (max-width: 480px) {
+        margin-top: 18px;
       }
     }
     &__title{
@@ -98,6 +127,12 @@
       overflow-wrap: break-word !important;
       @media (max-width: 1200px) {
         font-size: 10px;
+      }
+      @media (max-width: 690px) {
+        font-size: 16px;
+      }
+      @media (max-width: 480px) {
+        font-size: 21px;
       }
     }
     &__content-bottom{
@@ -117,6 +152,12 @@
         @media (max-width: 1200px) {
           font-size: 10px;
         }
+        @media (max-width: 690px) {
+          font-size: 12px;
+        }
+        @media (max-width: 480px) {
+          font-size: 14px;
+        }
       }
     }
     &__price{
@@ -132,6 +173,12 @@
         padding-left: 13px;
         font-size: 11px;
       }
+      @media (max-width: 690px) {
+        font-size: 14px;
+      }
+      @media (max-width: 480px) {
+        font-size: 16px;
+      }
       &::before{
         content: '';
         position: absolute;
@@ -146,6 +193,10 @@
           width: 16px;
           height: 16px;
         }
+        @media (max-width: 480px) {
+          width: 21px;
+          height: 21px;
+        }
     }
     &__rate{
 
@@ -158,6 +209,16 @@
         padding: 10px 17px;
         font-size: 10px;
         border-radius: 8px;
+      }
+      @media (max-width: 690px) {
+        padding: 9px 15px;
+        font-size: 14px;
+        border-radius: 12px;
+      }
+      @media (max-width: 480px) {
+        padding: 9px 18px;
+        font-size: 14px;
+        border-radius: 12px;
       }
       &::after{
         content: "";

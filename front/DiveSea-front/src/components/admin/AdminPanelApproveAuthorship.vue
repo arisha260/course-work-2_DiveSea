@@ -60,9 +60,19 @@
       align-items: center;
       justify-content: center;
       gap: 30px;
+      @media (max-width: 540px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
     }
     &__card{
-      grid-column: 5 span;
+      grid-column: 6 span;
+      @media (max-width: 900px) {
+        grid-column: 12 span;
+      }
     }
     &__loader{
       margin: 300px auto;

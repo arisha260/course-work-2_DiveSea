@@ -216,16 +216,6 @@ export const useNftStore = defineStore('nft', () => {
     }
   };
 
-  const cheackAuth = async () => {
-    try {
-      await getCsrfToken();
-      const res = await axios.post(`/api/home/test`);
-      console.log('Данные аутентификации', res.data);
-    } catch (error) {
-        console.log('Ошибка:', error.message);
-      }
-  };
-
   const getOwnerWorks = async () => {
     isLoading.value = true;
     try{
@@ -310,5 +300,5 @@ export const useNftStore = defineStore('nft', () => {
 
 
   return { nft, nfts, isLoading, currentPage, hasMore, totalNfts, authorWorks, authors, stringSearch, authorSearch, nftsSearch, isLoadingSearch, author, loaderMain, errors, hasAuthor, error, success, nftsBid, userNfts, nftsBidWin,
-    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, cheackAuth, loadAllNftsIfEmpty, buyNft, getOwnerWorks, makeAuctionBit, getAuctionBit, getAuctionBitWin };
+    getNft, loadMore, showNft, loadAuthorWorks, getAuthors, search, clearSearchResults, showAuthor, createNft, loadAllNftsIfEmpty, buyNft, getOwnerWorks, makeAuctionBit, getAuctionBit, getAuctionBitWin };
 });

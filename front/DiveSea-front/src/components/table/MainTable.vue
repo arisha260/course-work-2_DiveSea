@@ -31,7 +31,11 @@
 .table {
   width: 100%;
   max-width: 1247px;
-  border-collapse: collapse; /* Убираем промежутки между ячейками, чтобы границы были сплошными */
+  border-collapse: collapse;
+  /* Убираем промежутки между ячейками, чтобы границы были сплошными */
+  @media (max-width: 650px) {
+    padding: 0 20px;
+  }
   &__col {
     text-align: left;
     font-family: var(--font-family);
@@ -43,6 +47,11 @@
     @media (max-width: 1200px) {
       font-size: 15px;
     }
+    @media (max-width: 650px) {
+      &:not(:nth-child(1)):not(:nth-child(2)) {
+        display: none;
+      }
+    }
   }
 
   &__item {
@@ -50,6 +59,11 @@
     text-align: left;
     @media (max-width: 1200px) {
       padding: 34px 0 27px 0 !important;
+    }
+    @media (max-width: 650px) {
+      &:not(:nth-child(1)):not(:nth-child(2)) {
+        display: none;
+      }
     }
   }
 

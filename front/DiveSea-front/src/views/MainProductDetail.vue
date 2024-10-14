@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from 'vue-router';
-import { onMounted, watch, ref } from 'vue';
+import { onMounted, watch, ref, onBeforeUnmount } from 'vue'
 import { useNftStore } from '@/stores/Nft';
 import { useAuthStore } from '@/stores/authStore.js';
 import { storeToRefs } from 'pinia';
@@ -45,6 +45,13 @@ const makeAuctionBit = async (id, bidAmount) => {
 const closeAuctionBit = async () => {
   AuctionModalModal.value = false;
 }
+
+// const handleClickOutside = (event) => {
+//   const popup = document.querySelector('.popup');
+//   if (!popup && !popup.contains(event.target)) {
+//     closeAuctionBit;
+//   }
+// };
 
 onMounted(async () => {
   const nftId = route.params.id;
@@ -207,7 +214,7 @@ watch(route, async (newRoute) => {
         <p class="sending-status__text popup__text">
           Purchase error: {{ error }}
         </p>
-        <button @click="openModalErr = false" class="btn-reset main-button sending-status__btn popup__btn">Close</button>
+        <button @click="openModalErr = false; AuctionModalModal = false" class="btn-reset main-button sending-status__btn popup__btn">Close</button>
       </div>
 
       <!-- Modal on success -->
@@ -216,7 +223,7 @@ watch(route, async (newRoute) => {
         <p class="sending-status__text popup__text">
           NFT has been successfully acquired! The purchased NFT will appear in your profile.
         </p>
-        <router-link :to="{ name: 'home' }">
+        <router-link :to="{ name: 'discover' }" @click.prevent="store.loadMore">
           <button class="btn-reset main-button sending-status__btn popup__btn">Accept and close</button>
         </router-link>
       </div>
@@ -235,6 +242,9 @@ watch(route, async (newRoute) => {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      @media (max-width: 960px) {
+        align-items: flex-start;
+      }
     }
     &__header{
       margin-bottom: 60px;
@@ -316,6 +326,15 @@ watch(route, async (newRoute) => {
         font-size: 13px;
         border-radius: 14px;
       }
+      @media (max-width: 490px) {
+        font-size: 10px;
+      }
+      svg{
+        @media (max-width: 490px) {
+          width: 13px;
+          height: 13px;
+        }
+      }
       &:focus{
         outline: none;
       }
@@ -343,8 +362,18 @@ watch(route, async (newRoute) => {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     align-items: center;
+    align-self: center;
+    @media (max-width: 960px) {
+      max-width: 450px;
+    }
+    @media (max-width: 490px) {
+      max-width: 310px;
+    }
     &__left{
       grid-column: 6 span;
+      @media (max-width: 960px) {
+        grid-column: 12 span;
+      }
     }
     &__img{
       border-radius: 24px;
@@ -353,11 +382,23 @@ watch(route, async (newRoute) => {
         height: 398px;
         border-radius: 17px;
       }
+      @media (max-width: 490px) {
+        width: 279px;
+        height: 245px;
+      }
+      //@media (max-width: 960px) {
+      //  width: 279px;
+      //  height: 245px;
+      //}
     }
     &__right{
       grid-column: 8/5 span;
       @media (max-width: 1200px) {
         grid-column: 7/6 span;
+      }
+      @media (max-width: 960px) {
+        margin-top: 30px;
+        grid-column: 12 span;
       }
     }
     &__title{
@@ -371,6 +412,9 @@ watch(route, async (newRoute) => {
       @media (max-width: 1200px) {
         font-size: 36px;
       }
+      @media (max-width: 490px) {
+        font-size: 15px;
+      }
     }
     &__descr{
       margin: 0;
@@ -380,9 +424,13 @@ watch(route, async (newRoute) => {
       font-size: 19px;
       line-height: 153%;
       color: rgba(136, 136, 136, 0.7);
+      word-break: break-word;
       @media (max-width: 1200px) {
         font-size: 13px;
         margin-bottom: 50px;
+      }
+      @media (max-width: 490px) {
+        font-size: 13px;
       }
     }
     &__from-whom{
@@ -393,6 +441,10 @@ watch(route, async (newRoute) => {
       @media (max-width: 1200px) {
         margin-bottom: 45px;
       }
+      @media (max-width: 960px) {
+        justify-content: flex-start;
+        gap: 30px;
+      }
     }
     &__author, &__owner{
       display: flex;
@@ -400,6 +452,10 @@ watch(route, async (newRoute) => {
       gap: 17px;
       @media (max-width: 1200px) {
         gap: 10px;
+      }
+      @media (max-width: 490px) {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
     &__text{
@@ -411,6 +467,9 @@ watch(route, async (newRoute) => {
       color: #000;
       @media (max-width: 1200px) {
         font-size: 18px;
+      }
+      @media (max-width: 490px) {
+        font-size: 13px;
       }
     }
     &__current-end{
@@ -440,20 +499,30 @@ watch(route, async (newRoute) => {
         padding-left: 23px;
         font-size: 23px;
       }
+      @media (max-width: 490px) {
+        font-size: 19px;
+      }
       &::before{
         content: "";
         position: absolute;
         top: 3px;
         left: -5px;
-        background-image: url("/rate-png-1200.png");
+        background-image: url("/rate-png.png");
         background-repeat: no-repeat;
         background-size: cover;
         width: 24px;
         height: 27px;
         @media (max-width: 1200px) {
+          background-image: url("/rate-png-1200.png");
           top: 0;
           width: 18px;
           height: 25px;
+        }
+        @media (max-width: 490px) {
+          background-image: url("/rate-png-490.png");
+          left: 0;
+          width: 13px;
+          height: 21px;
         }
       }
     }
@@ -474,6 +543,9 @@ watch(route, async (newRoute) => {
       @media (max-width: 1200px) {
         font-size: 13px;
       }
+      @media (max-width: 490px) {
+        font-size: 11px;
+      }
     }
     &__user-avatar{
       border-radius: 50%;
@@ -488,9 +560,15 @@ watch(route, async (newRoute) => {
     @media (max-width: 1200px) {
       font-size: 12px;
     }
+    @media (max-width: 490px) {
+      font-size: 10px;
+    }
   }
 
   .from-creator{
+    @media (max-width: 960px) {
+      align-self: center;
+    }
     &__title{
       margin: 0;
       margin-bottom: 44px;
@@ -508,9 +586,22 @@ watch(route, async (newRoute) => {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
       gap: 40px;
+      @media (max-width: 960px) {
+        gap: 20px;
+      }
+
     }
     &__card{
       grid-column: 2 span;
+      @media (max-width: 960px) {
+        grid-column: 3 span;
+      }
+      @media (max-width: 590px) {
+        grid-column: 5 span;
+      }
+      //@media (max-width: 440px) {
+      //  grid-column: 10 span;
+      //}
     }
   }
 

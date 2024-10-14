@@ -52,9 +52,6 @@ const route = useRoute();
     text-transform: uppercase;
     color: #606060;
     position: relative;
-    @media (max-width: 1200px) {
-      font-size: 14px;
-    }
     &::after{
       content: "";
       position: absolute;

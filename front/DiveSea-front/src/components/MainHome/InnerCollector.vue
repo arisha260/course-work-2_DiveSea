@@ -57,6 +57,9 @@
     }
     &__left{
       grid-column: 5 span;
+      @media (max-width: 800px) {
+        grid-column: 12 span;
+      }
     }
     &__list{
       margin-bottom: 90px;
@@ -82,6 +85,9 @@
         font-size: 11px;
         border-radius: 9px;
       }
+      @media (max-width: 800px) {
+        font-size: 14px;
+      }
       &::before{
         content: "";
         position: absolute;
@@ -95,6 +101,11 @@
         height: 20px;
         @media (max-width: 1200px) {
           transform: translateY(40%);
+          width: 10px;
+          height: 10px;
+        }
+        @media (max-width: 800px) {
+          top: 5px;
           width: 10px;
           height: 10px;
         }
@@ -120,6 +131,10 @@
         font-size: 10px;
         border-radius: 9px;
       }
+      @media (max-width: 800px) {
+        max-width: 150px;
+        font-size: 14px;
+      }
       svg{
         margin-left: 11px;
         transition: all .2s ease;
@@ -141,6 +156,9 @@
       pointer-events: none;
       -webkit-user-drag: none;
       user-drag: none;
+      @media (max-width: 800px) {
+        display: none;
+      }
     }
   }
 </style>

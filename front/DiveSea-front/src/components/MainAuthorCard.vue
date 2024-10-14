@@ -31,8 +31,14 @@
     box-shadow: 39px 12px 59px 0 rgba(199, 199, 199, 0.6);
     position: relative;
     transition: all .3s ease;
-    @media (max-width: 1200px) {
-      padding: 10px 11px;
+    @media (max-width: 580px) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    @media (max-width: 450px) {
+      flex-direction: column;
+      gap: 20px;
     }
     @media (hover: hover) {
       &:hover{
@@ -44,9 +50,8 @@
       border-radius: 100%;
       border: 2px solid #fff;
       grid-column: 2 span;
-      @media (max-width: 1200px) {
-        width: 50px;
-        height: 50px;
+      @media (max-width: 580px) {
+        margin-right: 10px;
       }
     }
     &__author-info{
@@ -55,6 +60,9 @@
       align-items: flex-start;
       grid-column: 4 span;
       justify-self: end;
+      @media (max-width: 580px) {
+        align-items: flex-start;
+      }
     }
     &__name{
       margin: 0;
@@ -63,9 +71,7 @@
       font-size: 21px;
       line-height: 140%;
       color: #141416;
-      @media (max-width: 1200px) {
-        font-size: 16px;
-      }
+
     }
     &__nickname{
       font-family: var(--font-family);
@@ -74,18 +80,19 @@
       line-height: 150%;
       letter-spacing: 0.01em;
       color: #94a3b8;
-      @media (max-width: 1200px) {
-        font-size: 12px;
-      }
+
     }
     &__btn{
       margin-top: 10px;
       padding: 10px;
       white-space: nowrap;
       grid-column: 4/3 span;
-      @media (max-width: 1200px) {
-        margin-top: 5px;
-        padding: 10px 0;
+      @media (max-width: 580px) {
+        margin-left: auto;
+      }
+      @media (max-width: 450px) {
+        margin: 0;
+        width: 100%;
       }
     }
   }

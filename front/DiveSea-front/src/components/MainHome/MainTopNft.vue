@@ -31,8 +31,8 @@
          }"
         :loop="false"
         :navigation="{
-        nextEl: '.cards__pagination-btn_next',
-        prevEl: '.cards__pagination-btn_prev',
+          nextEl: '.cards__pagination-btn_next',
+          prevEl: '.cards__pagination-btn_prev',
         }"
         :pagination="{ clickable: true }"
         class="swiper"
@@ -83,6 +83,9 @@
   padding-bottom: 90px;
   background: #f1f1f1;
   position: relative;
+  @media (max-width: 800px) {
+    padding-bottom: 55px;
+  }
   &__container{
     max-width: 1500px;
     display: flex;
@@ -183,6 +186,12 @@
   @media (max-width: 1200px) {
     padding: 18px 17px 15px 19px;
     bottom: -15%;
+  }
+  @media (max-width: 800px) {
+    right: 50px;
+  }
+  @media (max-width: 500px) {
+    display: none;
   }
   &__top{
     margin-bottom: 28px;

@@ -125,10 +125,22 @@
         column-gap: 28px;
         row-gap: 48px;
       }
+      @media (max-width: 480px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     }
     &__card{
       grid-column: 3 span;
       height: 100%;
+      @media (max-width: 920px) {
+        grid-column: 4 span;
+      }
+      @media (max-width: 690px) {
+        grid-column: 6 span;
+      }
     }
     &__btn{
       margin-top: 100px;

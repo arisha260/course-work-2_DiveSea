@@ -10,7 +10,7 @@
       <p class="hero__descr">Discover, Create and Sell NFTs On Our NFT Marketplace With Over Thousands Of NFTs And Get a <b>$20 bonus.</b></p>
       <div class="hero__btns">
         <a href="#" class="main-button hero__btn hero__btn-black">Explore More</a>
-        <a href="#" class="main-button hero__btn hero__btn-white">create NFT</a>
+        <router-link :to="{ name: 'sell' }" href="#" class="main-button hero__btn hero__btn-white">create NFT</router-link>
       </div>
       <div class="hero__counts">
         <div class="hero__counts-column">
@@ -41,10 +41,21 @@
 .hero{
   margin-top: 100px;
   margin-bottom: 147px;
+  @media (max-width: 800px) {
+    margin-top: 74px;
+    margin-bottom: 113px;
+  }
   &__container{
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     align-items: center;
+    @media (max-width: 800px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+    }
   }
   &__left{
     display: flex;
@@ -53,6 +64,10 @@
     grid-column: 5 span;
     @media (max-width: 1200px) {
       grid-column: 4 span;
+    }
+    @media (max-width: 800px) {
+      align-items: center;
+      justify-content: center;
     }
   }
   &__title{
@@ -68,6 +83,9 @@
       font-size: 53px;
       margin-bottom: 11px;
     }
+    @media (max-width: 800px) {
+      text-align: center;
+    }
   }
   &__descr{
     margin: 0;
@@ -81,6 +99,9 @@
     @media (max-width: 1200px) {
       font-size: 12px;
       margin-bottom: 31px;
+    }
+    @media (max-width: 800px) {
+      text-align: center;
     }
   }
   &__btns{
@@ -111,6 +132,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 800px) {
+      gap: 50px;
+      justify-content: center;
+    }
   }
   &__counts-column{
     display: flex;
@@ -144,6 +169,9 @@
     grid-column: 7/6 span;
     @media (max-width: 1200px) {
       grid-column: 6/7 span;
+    }
+    @media (max-width: 800px) {
+      display: none;
     }
     img{
       user-select: none;
