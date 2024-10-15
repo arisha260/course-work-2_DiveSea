@@ -238,6 +238,7 @@ export const useNftStore = defineStore('nft', () => {
       const res = await axios.post(`/api/buy/nft/${id}`);
       console.log('Данные покупки', res.data);
       await authStore.getUser(); // обновляем данные пользователя после покупки
+      await loadMore();
       success.value = true; // Успешная покупка
     } catch (err) {
       error.value = err.response?.data?.message || err.response?.data?.error; // Логируем ошибку

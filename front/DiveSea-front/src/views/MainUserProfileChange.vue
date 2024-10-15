@@ -183,6 +183,9 @@
       -ms-flex-positive: 1;
       flex-grow: 1;
     }
+    &__img{
+      max-height: 120px;
+    }
   }
 
   .settings-upload{

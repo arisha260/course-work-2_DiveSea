@@ -10,6 +10,9 @@ export const useAuthorshipStore = defineStore('authorship', () => {
   const authorships = ref([])
   const currentAuthorship = ref(null)
   const isChecked = ref(false); // Флаг проверки авторства
+  const error = ref(null);
+
+
 
   const hasSubmittedAuthorship = computed(() => !!currentAuthorship.value && currentAuthorship.value.length > 0);
 
@@ -63,10 +66,12 @@ export const useAuthorshipStore = defineStore('authorship', () => {
     try {
       await getCsrfToken();
       const res = await axios.post(`/api/authorship/create/`, formData);
-      console.log('Авторство успешно одобрено', res.data);
+      console.log('Заявка успешно отправлена', res.data);
       // await getNftApprove();
-    } catch (error) {
-      console.log('Ошибка при одобрении Авторства: ', error);
+    } catch (err) {
+      error.value = err.response?.data?.message || err.response?.data?.error; // Логируем ошибку
+      console.log('Ошибка при отправке заявки: ', err);
+      throw err;
     }
   }
 
@@ -94,6 +99,6 @@ export const useAuthorshipStore = defineStore('authorship', () => {
   }
 
 
-  return { loader, authorships, currentAuthorship, hasSubmittedAuthorship, isChecked,
+  return { loader, authorships, currentAuthorship, hasSubmittedAuthorship, isChecked, error,
     getApprovedAuthorship, checkAuthorship, sendApprovedAuthorship, approveAuthorship, rejectNft, }
 })

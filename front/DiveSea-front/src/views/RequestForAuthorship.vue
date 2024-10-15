@@ -2,44 +2,43 @@
   import { ref } from 'vue';
   import { useAuthorshipStore } from '@/stores/Authorship/authorshipStore.js'
   import { useAuthStore } from '@/stores/authStore.js'
-  import { useValidStore } from '@/stores/Authorship/validStore.js'
   import { storeToRefs } from 'pinia'
 
   const store = useAuthorshipStore();
   const authStore = useAuthStore();
-  const validStore = useValidStore();
   const { user } = storeToRefs(authStore)
+  const { error } = storeToRefs(store)
 
   const reason = ref(null);
-  const reasonError = ref(null);
-  const error = ref(null);
   const isSubmitted = ref(false);
-  // Переменная, контролирующая состояние раскрытия списка
   const isListVisible = ref(false);
-  // Функция для переключения видимости списка
   const toggleListVisibility = () => {
     isListVisible.value = !isListVisible.value;
   };
 
   const sendApprovedAuthorship = async () => {
-    if (!validStore.validateForm(reason, reasonError)) {
-      return; // Если форма не прошла валидацию, не отправляем
-    }
     const formData = new FormData();
     formData.append('reason', reason.value);
     formData.append('user_id', user.value.id);
-    try{
+
+    try {
+      // Попытка отправки данных
       await store.sendApprovedAuthorship(formData);
-      console.log('Данные отправлены: ', formData)
-      reason.value = null;
-      error.value = null; // Очищаем ошибку, если все прошло успешно
+      console.log('Данные отправлены: ', formData);
+
+      // Если нет ошибок, очищаем поля и устанавливаем флаг успешной отправки
+      reason.value = null; // очищаем reason
+      error.value = null; // очищаем ошибку
       isSubmitted.value = true; // Устанавливаем флаг успешной отправки
-    } catch (error){
-      error.value = error.data || 'Ошибка при отправке данных';
-      console.log('При отправке подтверждения на авторство произошла ошибка: ', error)
+    } catch (err) {
+      // Обработка ошибок
+      error.value = err.response?.data?.message || err.response?.data?.error || 'Ошибка при отправке данных';
+      console.log('Ошибка при отправке подтверждения на авторство: ', error.value);
+
+      // Обязательно ставим флаг на false, если ошибка произошла
       isSubmitted.value = false;
     }
-  }
+  };
 
 </script>
 
@@ -67,7 +66,6 @@
         <form class="authorship__form form" @submit.prevent="sendApprovedAuthorship">
           <div class="form__content">
             <textarea type="textarea" class="form__field" id="authorshipLetter" v-model="reason" placeholder="Write why you want become authorship" required />
-            <span class="form__error" v-if="reasonError">{{ reasonError }}</span>
           </div>
           <span v-if="error" class="form__server-error">{{ error }}</span>
           <button type="submit" class="btn-reset main-button form__btn">Send</button>
@@ -77,7 +75,7 @@
     <div class="overlay" v-if="isSubmitted"></div>
 
     <div class="authorship__done" v-if="isSubmitted">
-      <h4 class="main-title authorship__title-sec">Data send!</h4>
+      <h4 class="main-title authorship__title-sec">Data sent!</h4>
       <p class="authorship__text">The data has been sent. The answer with the result will be sent to your email.</p>
       <router-link :to="{ name: 'home' }"><button class="btn-reset main-button authorship__btn-sec">Ok!</button></router-link>
     </div>
@@ -184,17 +182,6 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    .form__error{
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      font-family: var(--font-family);
-      font-weight: 400;
-      font-size: 13px;
-      line-height: 125%;
-      color: #ff0000;
-      z-index: 111111111;
-    }
   }
   &__field{
     padding: 23px 26px;

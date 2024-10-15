@@ -458,6 +458,13 @@ watch(route, async (newRoute) => {
         align-items: flex-start;
       }
     }
+    &__user-avatar{
+      max-height: 67px;
+      @media (max-width: 960px) {
+        width: 67px;
+        height: 67px;
+      }
+    }
     &__text{
       margin: 0;
       font-family: var(--font-family);

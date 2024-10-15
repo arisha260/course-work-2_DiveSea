@@ -130,6 +130,7 @@
     &__img{
       border-radius: 50%;
       border: 2px solid #000;
+      max-height: 70px;
     }
     &__bg{
       grid-column: 12 span;
