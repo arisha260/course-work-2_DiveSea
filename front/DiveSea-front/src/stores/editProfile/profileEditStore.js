@@ -8,6 +8,7 @@ axios.defaults.withXSRFToken = true;
 export const useEditProfileStore = defineStore('editProfile', () => {
   const loader = ref(false);
   const error = ref(null)
+  const avatarError = ref(null)
   const nickBioErr = ref(null)
 
 
@@ -29,8 +30,10 @@ export const useEditProfileStore = defineStore('editProfile', () => {
      await getCsrfToken();
      const res = await axios.post('/api/edit/user_avatar', formData);
      console.log(res.data);
-   } catch (error){
-     console.log('При попытку отправить аватар произошла ошибка: ', error)
+   } catch (err){
+     error.value = err.response?.data?.errors?.img;
+     console.log('При попытку отправить аватар произошла ошибка: ', err)
+     throw err;
    } finally {
      loader.value = false;
    }
@@ -74,6 +77,6 @@ export const useEditProfileStore = defineStore('editProfile', () => {
 
 
 
-  return { error, nickBioErr,
+  return { error, nickBioErr, avatarError,
     editProfileAvatar, editProfileBackground, editProfileNicknameBio }
 })

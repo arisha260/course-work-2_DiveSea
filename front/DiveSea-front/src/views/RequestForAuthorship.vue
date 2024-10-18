@@ -182,6 +182,17 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    .form__error{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-family: var(--font-family);
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 125%;
+      color: #ff0000;
+      z-index: 111111111;
+    }
   }
   &__field{
     padding: 23px 26px;

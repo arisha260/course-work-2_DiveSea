@@ -7,7 +7,7 @@
   const AuthStore = useAuthStore();
   const store = useEditProfileStore();
   const { user } = storeToRefs(AuthStore);
-  const { error, nickBioErr } = storeToRefs(store);
+  const { error, nickBioErr, avatarError } = storeToRefs(store);
 
   const avatarFileInput = ref(null);
   const bgFileInput = ref(null);
