@@ -1,10 +1,10 @@
 // базовые подключения
-@import "vars";
-@import "fonts";
-@import "settings";
+@use "vars";
+@use "fonts";
+@use "settings";
 
 // подключения компонентов страницы
-@import "components/header";
+@use "components/header";
 
 .no-scroll {
   overflow: hidden;
