@@ -32,14 +32,15 @@ class EditBgController extends Controller
         if (isset($data['background'])) {
             if ($user->background) {
                 // Извлекаем только имя файла с помощью basename()
-                $oldAvatarFilename = basename($user->background);
-                $oldAvatarPath = 'users/background/' . $oldAvatarFilename;
-                // Удаляем старый аватар, если он существует
+                $oldBgFilename = basename($user->background);
+                $oldBgPath = 'users/background/' . $oldBgFilename;
+
+                // Удаляем старый фон, если он существует и не является дефолтным
+                if (!in_array($oldBgFilename, ['default_user.png', 'basic.jpg']) && Storage::disk('public')->exists($oldBgPath)) {
+                    Storage::disk('public')->delete($oldBgPath);
+                }
             }
-            if (Storage::disk('public')->exists($oldAvatarPath)) {
-                Storage::disk('public')->delete($oldAvatarPath);
-            }
-            // Сохраняем новый аватар
+            // Сохраняем новый фон
             $path = $request->file('background')->store('users/background', 'public');
             $filename = $path;  // Сохраняем только имя файла
             // Обновляем имя файла в базе данных

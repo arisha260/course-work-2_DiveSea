@@ -34,11 +34,12 @@ class EditAvatarController extends Controller
                 // Извлекаем только имя файла с помощью basename()
                 $oldAvatarFilename = basename($user->img);
                 $oldAvatarPath = 'users/avatars/' . $oldAvatarFilename;
-                // Удаляем старый аватар, если он существует
-                }
-                if (Storage::disk('public')->exists($oldAvatarPath)) {
+
+                // Удаляем старый аватар, если он существует и не является дефолтным
+                if (!in_array($oldAvatarFilename, ['default_user.png', 'basic.jpg']) && Storage::disk('public')->exists($oldAvatarPath)) {
                     Storage::disk('public')->delete($oldAvatarPath);
                 }
+            }
             // Сохраняем новый аватар
             $path = $request->file('img')->store('users/avatars', 'public');
             $filename = $path;  // Сохраняем только имя файла
