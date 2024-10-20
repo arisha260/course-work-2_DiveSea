@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\AuctionBid;
 use App\Models\ApproveAuthorship;
-use App\Models\approveNft;
+use App\Models\ApproveNft;
 use App\Models\Nft;
 use App\Models\User;
 use App\Policies\ActionBidPolicy;
@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(Nft::class, NftPolicy::class);
-        Gate::policy(approveNft::class, ApproveNftPolicy::class);
+        Gate::policy(ApproveNft::class, ApproveNftPolicy::class);
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(ApproveAuthorship::class, ApproveAuthorshipPolicy::class);
         Gate::policy(AuctionBid::class, ActionBidPolicy::class);

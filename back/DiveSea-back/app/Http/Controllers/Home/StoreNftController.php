@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Nft\StoreRequest;
-use App\Models\approveNft;
+use App\Models\ApproveNft;
 use App\Models\Nft;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;

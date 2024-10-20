@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class approveNft extends Model
+class ApproveNft extends Model
 {
     use HasFactory;
     protected $guarded = false;
