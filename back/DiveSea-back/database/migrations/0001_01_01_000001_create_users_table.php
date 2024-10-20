@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('img')->default('users/avatars/default_user.png');
             $table->string('background')->default('users/background/basic.jpg');
             $table->string('name');
-            $table->string('nickname')->nullable()->unique();
+            $table->string('nickname')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

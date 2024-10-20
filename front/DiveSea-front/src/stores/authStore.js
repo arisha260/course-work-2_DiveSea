@@ -3,8 +3,6 @@ import { defineStore, storeToRefs } from 'pinia'
 import axios from 'axios';
 import { useAuthorshipStore } from '@/stores/Authorship/authorshipStore.js'
 
-
-
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
