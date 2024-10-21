@@ -55,7 +55,6 @@ Route::middleware(['web'])->group(function () {
 
         return response()->json($user);
     });
-//    Route::middleware('auth:sanctum')->get('/user',\App\Http\Controllers\Auth\GetUserController::class);
 
 
 });

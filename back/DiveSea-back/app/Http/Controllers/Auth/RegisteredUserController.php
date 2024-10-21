@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'img' => $request->img ?? 'users/default_user.png',
+            'img' => $request->img ?? 'users/avatars/default_user.png',
             'nickname' => $request->nickname ?? '',
         ]);
 
