@@ -63,12 +63,20 @@
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
+
+    // Проверяем тип файла
     if (file && ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'].includes(file.type)) {
-      image.value = event.target;
-      imageError.value = ''; // Сбрасываем ошибку, если файл корректен
+      // Проверяем размер файла (2 МБ)
+      if (file.size > 2 * 1024 * 1024) {
+        image.value = null; // Сбрасываем файл, если он слишком большой
+        imageError.value = 'File size exceeds 2 MB. Please select a smaller image.'; // Сообщение об ошибке
+      } else {
+        image.value = event.target; // Сохраняем файл, если он корректный и не слишком большой
+        imageError.value = ''; // Сбрасываем ошибку
+      }
     } else {
       image.value = null; // Сбрасываем файл, если он не поддерживается
-      imageError.value = 'Unsupported file format. Please select an image in jpeg, png, jpg, gif, or svg format.';
+      imageError.value = 'Unsupported file format. Please select an image in jpeg, png, jpg, gif, or svg format.'; // Сообщение об ошибке
     }
   };
 

@@ -21,8 +21,9 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'title' => 'required|string|max:255|unique:nfts,title', // Заголовок уникален в таблице nfts
             'description' => 'required|string', // Описание должно быть строкой
             'royalty' => 'required|numeric|between:0,99999999.99', // Royalty только десятичные числа от 0 до 50
