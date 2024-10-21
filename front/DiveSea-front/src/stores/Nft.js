@@ -238,8 +238,15 @@ export const useNftStore = defineStore('nft', () => {
       await getCsrfToken();
       const res = await axios.post(`/api/buy/nft/${id}`);
       console.log('Данные покупки', res.data);
+
+      // Ищем и обновляем купленный NFT в массиве nfts
+      const purchasedNft = nfts.value.find(nft => nft.id === id);
+      if (purchasedNft) {
+        purchasedNft.status = 'sold';
+        purchasedNft.owner_id = authStore.user.id; // Обновляем владельца на текущего пользователя
+      }
       await authStore.getUser(); // обновляем данные пользователя после покупки
-      await loadMore();
+
       success.value = true; // Успешная покупка
     } catch (err) {
       error.value = err.response?.data?.message || err.response?.data?.error; // Логируем ошибку

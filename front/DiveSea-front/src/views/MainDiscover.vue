@@ -81,10 +81,10 @@
           </NftCard>
         </router-link>
       </div>
-      <button v-if="hasMore" @click="store.loadMore" :disabled="isLoading" class="btn-reset main-button discover__btn">
+      <button v-if="hasMore && nfts < 10 && !loaderMain" @click="store.loadMore" :disabled="isLoading" class="btn-reset main-button discover__btn">
         Еще
       </button>
-      <div class="loader discover__loader" v-if="isLoading"></div>
+      <div class="loader discover__loader" v-if="isLoading && !loaderMain"></div>
     </div>
   </section>
 </template>
