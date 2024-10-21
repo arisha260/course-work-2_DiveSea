@@ -198,22 +198,23 @@ export const useNftStore = defineStore('nft', () => {
   }
 
   const createNft = async (formData, errors) => {
+    error.value = null;
     try {
       await getCsrfToken();
       const res = await axios.post(`/api/home/store`, formData);
       console.log('Данные отправлены', res.data);
-    } catch (error) {
-        if (error.response.status === 422) {
-          console.clear(); // Очищает консоль
-          console.log('Ошибка при отправке данных:', error.response.data);
-          const validationErrors = error.response.data.errors;
-
+    } catch (err) {
+        error.value = err.response?.data?.message || err.response?.data?.error; // Логируем ошибку
+        if (err.response.status === 422) {
+          console.log('Ошибка при отправке данных:', err.response.data);
+          const validationErrors = err.response.data.errors;
           // Обработка ошибки для заголовка
           if (validationErrors.title) {
             errors.value = 'This is title already used. Use another title!';
           }
+          throw err;
         } else {
-        console.log('Ошибка:', error.response.data.message);
+        console.log('Ошибка:', err.response.data.message);
       }
     }
   };

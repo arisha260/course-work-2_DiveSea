@@ -306,6 +306,7 @@
   color: #FF0000FF;
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+  z-index: 1000000;
 }
 
 .error{

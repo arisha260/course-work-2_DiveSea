@@ -1,18 +1,16 @@
 <script setup>
-  import {ref, computed, nextTick, onMounted } from "vue";
-  import { useRoute } from 'vue-router';
+  import {ref, computed, onMounted, watch } from "vue";
   import { useNftStore } from '@/stores/Nft';
   import { storeToRefs } from 'pinia';
   import { useAuthStore } from '@/stores/authStore';
   import { useValidStore } from '@/stores/validationStore/validStore.js'
   import { useAuthorshipStore } from '@/stores/Authorship/authorshipStore.js'
 
-
   const store = useNftStore();
   const authorStore = useAuthStore();
   const validStore = useValidStore();
   const authorshipStore = useAuthorshipStore();
-  const { user, isAuthor, isAdmin, loading, isAuthenticated } = storeToRefs(authorStore);
+  const { user, isAuthor, isAdmin, loading, isAuthenticated, error } = storeToRefs(authorStore);
   const { hasSubmittedAuthorship, loader } = storeToRefs(authorshipStore);
 
   const title = ref('');
@@ -33,6 +31,17 @@
   const priceError = ref('');
   const inStockError = ref('');
 
+  const showError = ref(false);
+
+  watch(error, (newValue) => {
+    if (newValue && newValue.length > 0) {
+      showError.value = true;
+      setTimeout(() => {
+        showError.value = false;
+      }, 3500);
+    }
+  });
+
 
   const clearForm = () => {
     title.value = null;
@@ -50,8 +59,17 @@
     return title.value && description.value && royalty.value && price.value && in_stock.value
   });
 
+  const imageError = ref('');
+
   const handleFileUpload = (event) => {
-    image.value = event.target; // Сохраняем ссылку на элемент input
+    const file = event.target.files[0];
+    if (file && ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'].includes(file.type)) {
+      image.value = event.target;
+      imageError.value = ''; // Сбрасываем ошибку, если файл корректен
+    } else {
+      image.value = null; // Сбрасываем файл, если он не поддерживается
+      imageError.value = 'Unsupported file format. Please select an image in jpeg, png, jpg, gif, or svg format.';
+    }
   };
 
   const createNft = async () => {
@@ -66,19 +84,17 @@
       formData.append('title', title.value);
       formData.append('description', description.value);
       formData.append('royalty', royalty.value);
-      // formData.append('put_on_sale', put_on_sale.value ? '1' : '0'); // Преобразуем в '1' или '0'
-      // formData.append('direct_sale', direct_sale.value ? '1' : '0'); // Преобразуем в '1' или '0'
       formData.append('sale_type', sale_type.value);
       formData.append('currentBid', price.value);
       formData.append('price', price.value);
       formData.append('in_stock', in_stock.value);
       formData.append('author_id', user.value.id);
-      // formData.append('end_time', sale_type.value === 'put_on_sale' ? );
 
-      const file = image.value.files[0]; // Используем ref для получения файла
+      const file = image.value ? image.value.files[0] : null; // Проверяем, есть ли файл
       if (file) {
-        formData.append('img', file); // Добавляем файл в FormData
+        formData.append('img', file); // Добавляем файл в FormData, если он существует
       }
+
       const formDataObject = {};
       formData.forEach((value, key) => {
         formDataObject[key] = value;
@@ -90,8 +106,21 @@
     } catch (error) {
       console.error('Ошибка при отправке данных:', error);
       console.log('Ошибка при отправке данных:', error.response.data);
+    } finally {
+      if (image.value) {
+        image.value.value = ''; // Сбрасываем значение input только если image не null
+      }
     }
   };
+
+  watch(imageError, (newValue) => {
+    if (newValue && newValue.length > 0) {
+      showError.value = true;
+      setTimeout(() => {
+        showError.value = false;
+      }, 3500);
+    }
+  });
 
   onMounted(() => {
     if (!user.value){
@@ -106,6 +135,11 @@
 
 <template>
   <section class="sell">
+    <transition name="fade" mode="out-in">
+      <div v-if="showError && imageError" class="modal">
+        <p>{{ error || imageError}}</p>
+      </div>
+    </transition>
     <div class="container sell__container">
       <h1 class="main-title sell__title">Create Your NFT</h1>
 
@@ -221,7 +255,7 @@
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M6.78491 11.1497C6.78491 6.43315 10.6084 2.60962 15.325 2.60962H33.1378C35.4028 2.60962 37.575 3.50938 39.1765 5.11095L42.714 8.64837C44.3155 10.2499 45.2153 12.4222 45.2153 14.6871V41.04C45.2153 45.7566 41.3918 49.5801 36.6752 49.5801H15.325C10.6084 49.5801 6.78491 45.7566 6.78491 41.04V11.1497ZM40.9452 17.5548V41.04C40.9452 43.3983 39.0335 45.31 36.6752 45.31H15.325C12.9667 45.31 11.055 43.3983 11.055 41.04V11.1497C11.055 8.79142 12.9667 6.87966 15.325 6.87966H30.2701V11.1497C30.2701 14.6871 33.1378 17.5548 36.6752 17.5548H40.9452ZM40.7084 13.2847C40.4987 12.6818 40.1545 12.1277 39.6946 11.6677L36.1572 8.13033C35.6972 7.67037 35.1431 7.32618 34.5402 7.11652V11.1497C34.5402 12.3288 35.4961 13.2847 36.6752 13.2847H40.7084Z" fill="currentColor" />
                 <path d="M25.183 19.8517C24.9312 19.9559 24.6953 20.1103 24.4906 20.315L18.0855 26.7201C17.2518 27.5539 17.2518 28.9057 18.0855 29.7395C18.9193 30.5732 20.2711 30.5732 21.1049 29.7395L23.8653 26.9791V36.7699C23.8653 37.949 24.8212 38.9049 26.0003 38.9049C27.1794 38.9049 28.1353 37.949 28.1353 36.7699V26.9791L30.8957 29.7395C31.7294 30.5732 33.0813 30.5732 33.915 29.7395C34.7488 28.9057 34.7488 27.5539 33.915 26.7201L27.51 20.315C26.8809 19.686 25.9569 19.5315 25.183 19.8517Z" fill="currentColor" />
               </svg>
-              <span class="form__type">PNG, GIF, WEBP, MP4 or MP3. Max 1Gb.</span>
+              <span class="form__type">jpeg, png, jpg, gif, svg Max 1Gb.</span>
               <input type="file" ref="image" class="input-reset form__field-upload" accept="image/*" required @change="handleFileUpload">
             </div>
           </div>
@@ -553,5 +587,11 @@
      margin: 0;
      margin-top: 78px;
    }
+ }
+ .fade-enter-active, .fade-leave-active {
+   transition: opacity 0.5s ease-in-out;
+ }
+ .fade-enter-from, .fade-leave-to {
+   opacity: 0;
  }
 </style>
