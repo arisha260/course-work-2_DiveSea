@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Buy;
 
 use App\Http\Requests\Buy\BuyRequest;
 use App\Http\Requests\Nft\StoreRequest;
+use App\Http\Resources\Nft\NftResource;
 use App\Models\Nft;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,7 @@ class BuyNftController
             $nft->owner_id = $user->id;
             $nft->save();
         });
-
-        return response()->json(['message' => 'Purchase successful', 'balance' => $user->balance]);
+        $nfts = Nft::all();
+        return response()->json(['message' => 'Purchase successful', 'balance' => $user->balance, 'nfts' => NftResource::collection($nfts)]);
     }
 }

@@ -67,7 +67,8 @@ export const useNftStore = defineStore('nft', () => {
       const response = await axios.get(`/api/home/load-more?page=${currentPage.value}`);
       const { data, nextPage } = response.data;
       // Добавляем новые данные к уже загруженным
-      nfts.value = [...nfts.value, ...data];
+      const newNfts = data.filter(newNft => !nfts.value.some(existingNft => existingNft.id === newNft.id));
+      nfts.value = [...nfts.value, ...newNfts];
       // Если больше страниц нет, отключаем кнопку
       if (!nextPage) {
         hasMore.value = false;
@@ -238,15 +239,8 @@ export const useNftStore = defineStore('nft', () => {
       await getCsrfToken();
       const res = await axios.post(`/api/buy/nft/${id}`);
       console.log('Данные покупки', res.data);
-
-      // Ищем и обновляем купленный NFT в массиве nfts
-      const purchasedNft = nfts.value.find(nft => nft.id === id);
-      if (purchasedNft) {
-        purchasedNft.status = 'sold';
-        purchasedNft.owner_id = authStore.user.id; // Обновляем владельца на текущего пользователя
-      }
+      nfts.value = res.data.nfts;
       await authStore.getUser(); // обновляем данные пользователя после покупки
-
       success.value = true; // Успешная покупка
     } catch (err) {
       error.value = err.response?.data?.message || err.response?.data?.error; // Логируем ошибку

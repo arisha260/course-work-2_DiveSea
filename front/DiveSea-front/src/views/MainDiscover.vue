@@ -53,7 +53,7 @@
           <NftCard :img="card.img" alt="card1" :title="card.title" :sold="card.owner || card.status === 'sold' || card.status === 'inactive' || card.status === 'pending_payment'">
             <template v-slot:nft-card__time v-if="card.end_time && card.sale_type === 'put_on_sale' && !card.owner">
               <!-- Отображаем оставшееся время для каждого NFT -->
-              <span class="nft-card__time">{{ timeLeft[card.id] || card.end_time }}</span>
+              <span class="nft-card__time">{{ timeLeft[card.id] || 'loading'}}</span>
             </template>
             <template v-slot:nft-card__content-bottom>
 
@@ -84,7 +84,6 @@
       <button v-if="hasMore && nfts < 10 && !loaderMain" @click="store.loadMore" :disabled="isLoading" class="btn-reset main-button discover__btn">
         Еще
       </button>
-      <div class="loader discover__loader" v-if="isLoading && !loaderMain"></div>
     </div>
   </section>
 </template>

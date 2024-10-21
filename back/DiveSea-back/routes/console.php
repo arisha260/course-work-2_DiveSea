@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\AuctionStatusUpdated;
 use App\Models\Nft;
 use Carbon\Carbon;
 use Illuminate\Foundation\Inspiring;

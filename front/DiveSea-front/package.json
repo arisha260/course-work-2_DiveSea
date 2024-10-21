@@ -12,14 +12,17 @@
   },
   "dependencies": {
     "cropperjs": "^1.6.2",
+    "laravel-echo": "^1.16.1",
     "pinia": "^2.1.7",
+    "pusher-js": "^8.4.0-rc2",
     "swiper": "^11.1.9",
-    "vue": "^3.4.29",
+    "vue": "^3.5.12",
+    "vue-loader": "^17.4.2",
     "vue-router": "^4.3.3"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
-    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "eslint": "^8.57.0",

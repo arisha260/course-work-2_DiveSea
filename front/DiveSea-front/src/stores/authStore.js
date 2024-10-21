@@ -13,10 +13,29 @@ export const useAuthStore = defineStore('auth', () => {
   const authorshipStore = useAuthorshipStore();
   const { isChecked } = storeToRefs(authorshipStore);
 
+  const saveUserToLocalStorage = (user) => {
+    const expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 дней в миллисекундах
+    localStorage.setItem('user', JSON.stringify({ user, expirationTime }));
+  };
+
+  const getUserFromLocalStorage = () => {
+    const cachedData = localStorage.getItem('user');
+    if (cachedData) {
+      const { user, expirationTime } = JSON.parse(cachedData);
+      if (Date.now() < expirationTime) {
+        return user;
+      } else {
+        // Данные истекли, удаляем из localStorage
+        localStorage.removeItem('user');
+      }
+    }
+    return null;
+  };
+
   const getUserFromCache = () => {
-    const cachedUser = localStorage.getItem('user');
+    const cachedUser = getUserFromLocalStorage();
     if (cachedUser) {
-      user.value = JSON.parse(cachedUser);
+      user.value = cachedUser;
     }
   };
 
@@ -35,7 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
       await getCsrfToken(); // получаем CSRF токен
       await axios.post('/api/login', { email, password });
       await getUser(); // получаем информацию о пользователе
-      localStorage.setItem('user', JSON.stringify(user.value));
+      saveUserToLocalStorage(user.value);
     } catch (error) {
       console.error('Ошибка авторизации', error);
       throw error;
@@ -72,7 +91,7 @@ export const useAuthStore = defineStore('auth', () => {
       // Делаем запрос только если пользователь аутентифицирован
       const response = await axios.get('/api/user');
       user.value = response.data;
-      localStorage.setItem('user', JSON.stringify(user.value)); // Кэшируем данные
+      saveUserToLocalStorage(user.value);
     } catch (error) {
       console.log('Пользователь не авторизован или сессия недействительна');
     } finally {
